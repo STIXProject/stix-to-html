@@ -57,6 +57,7 @@ mdunn@mitre.org
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="icons.xsl"/>
   <xsl:include href="normalize.xsl"/>
+  <xsl:include href="custom.xsl" />
 
   <!-- <xsl:include href="cybox_common.xsl"/> -->
   <xsl:key name="observableID" match="cybox:Observable" use="@id"/>
