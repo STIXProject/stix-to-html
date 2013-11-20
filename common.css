@@ -589,3 +589,19 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 {
   display: inline;
 }
+
+.stixSectionTitle,
+.stixCommonValue
+{
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.stixCommonDescription
+{
+  font-style: italic;
+}
+
+.stixSectionContents
+{
+}

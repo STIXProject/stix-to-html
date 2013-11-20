@@ -166,6 +166,12 @@
       <xsl:if test="campaign:Status">
         <xsl:copy-of select="stix:printNameValueTable('Status', campaign:Status)" />
       </xsl:if>              
+      <xsl:if test="campaign:Intended_Effect">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Intended_Effect" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Intended Effect', $contents)" />
+      </xsl:if>
       <xsl:if test="campaign:Related_Incidents/campaign:Related_Incident">
         <xsl:variable name="contents">
           <xsl:apply-templates select="campaign:Related_Incidents/campaign:Related_Incident" />
@@ -183,6 +189,18 @@
           <xsl:apply-templates select="campaign:Related_Indicators/campaign:Related_Indicator" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Related Indicators', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Attribution/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Attribution" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Attribution', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Associated_Campaigns">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Associated_Campaigns" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Associated Campaigns', $contents)" />
       </xsl:if>
       
     </div>
@@ -206,6 +224,41 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="campaign:Intended_Effect">
+    <div class="stixCommonValue">
+      <xsl:apply-templates select="stixCommon:Value" />
+    </div>
+    <div class="stixCommonDescription">
+      <xsl:apply-templates select="stixCommon:Description" />
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="campaign:Attribution">
+    <xsl:variable name="threatActorCount" select="count(campaign:Attributed_Threat_Actor/stixCommon:Threat_Actor)" />
+    <xsl:if test="$threatActorCount gt 0">
+      <div class="stixSectionTitle">Attributed Threat Actor<xsl:if test="$threatActorCount ge 2">s</xsl:if></div>
+    </xsl:if>
+    <xsl:apply-templates select="campaign:Attributed_Threat_Actor/stixCommon:Threat_Actor"/>
+  </xsl:template>
+  
+  <xsl:template match="stixCommon:Threat_Actor[@idref]">
+    <div>Threat Actor</div>
+    
+    
+    <div class="">
+      <xsl:variable name="targetId" select="string(@idref)"/>
+      <xsl:variable name="relationshipOrAssociationType" select="''" />
+      
+      <!-- (indicator within composition - - idref: <xsl:value-of select="fn:data(@idref)"/>) -->
+      <xsl:call-template name="headerAndExpandableContent">
+        <xsl:with-param name="targetId" select="$targetId"/>
+        <xsl:with-param name="isComposition" select="fn:false()"/>
+        <xsl:with-param name="relationshipOrAssociationType" select="''" />
+      </xsl:call-template>
+    </div>
+    
+  </xsl:template>
+  
   <!--
     The process*Contents templates are used to convert the top level catgory "items" into html.
     
