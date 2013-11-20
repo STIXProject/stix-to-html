@@ -241,10 +241,15 @@
     <xsl:apply-templates select="campaign:Attributed_Threat_Actor/stixCommon:Threat_Actor"/>
   </xsl:template>
   
-  <xsl:template match="stixCommon:Threat_Actor[@idref]">
-    <div>Threat Actor</div>
-    
-    
+  <xsl:template match="campaign:Associated_Campaigns">
+    <xsl:variable name="associatedCampaignCount" select="count(campaign:Associated_Campaign/stixCommon:Campaign)" />
+    <xsl:if test="$associatedCampaignCount gt 0">
+      <div class="stixSectionTitle">Associated Campaign<xsl:if test="$associatedCampaignCount ge 2">s</xsl:if></div>
+    </xsl:if>
+    <xsl:apply-templates select="campaign:Associated_Campaign/stixCommon:Campaign"/>
+  </xsl:template>
+  
+  <xsl:template match="stixCommon:Threat_Actor[@idref]|stixCommon:Campaign[@idref]">
     <div class="">
       <xsl:variable name="targetId" select="string(@idref)"/>
       <xsl:variable name="relationshipOrAssociationType" select="''" />
@@ -256,7 +261,6 @@
         <xsl:with-param name="relationshipOrAssociationType" select="''" />
       </xsl:call-template>
     </div>
-    
   </xsl:template>
   
   <!--
