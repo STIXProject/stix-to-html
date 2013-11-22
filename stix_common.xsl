@@ -224,7 +224,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="campaign:Intended_Effect">
+  <xsl:template match="*:Intended_Effect">
     <div class="stixCommonValue">
       <xsl:apply-templates select="stixCommon:Value" />
     </div>
@@ -351,6 +351,12 @@
           <xsl:apply-templates select="ta:Motivation" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Motivations', $contents)" />
+      </xsl:if>
+      <xsl:if test="ta:Intended_Effect">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="ta:Intended_Effect" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Intended Effect', $contents)" />
       </xsl:if>
       <xsl:if test="ta:Observed_TTPs/ta:Observed_TTP">
         <xsl:variable name="contents">
