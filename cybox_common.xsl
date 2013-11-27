@@ -65,6 +65,7 @@ ikirillov@mitre.org
 
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
   
+  
 
     <!--
       Shared function to convert CamelCaseText to standard word formatting.
@@ -1138,8 +1139,13 @@ ikirillov@mitre.org
     <!--
       Output URI & Link value without unnecessary nested schema tree structure
     -->
-    <xsl:template match="cybox:Properties[contains(@xsi:type,'URIObjectType')]|cybox:Properties[contains(@xsi:type,'LinkObjectType')]">
-        <fieldset>
+  <!-- //cybox:Observable//cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName("http://cybox.mitre.org/objects#URIObject-2", "URIObjectType")]  -->
+  <!-- <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"> -->
+  <!-- fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .)) -->
+  <!-- <xsl:template match="cybox:Properties[some $currentXsiType in ('URIObjectType', 'LinkObjectType') satisfies $currentXsiType = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
+  <!-- <xsl:template match="cybox:Properties['URIObjectType' = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
+ 
+    <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"><fieldset>
             <legend>URI</legend>
             <div class="container cyboxPropertiesContainer cyboxProperties">
                 <div class="heading cyboxPropertiesHeading cyboxProperties">
