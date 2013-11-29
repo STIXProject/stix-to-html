@@ -65,7 +65,7 @@ ikirillov@mitre.org
 
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
   
-    <xsl:include href="cybox_util.xsl" />
+    <!-- <xsl:include href="cybox_util.xsl" /> -->
     <xsl:include href="cybox_objects.xsl" />
   
 

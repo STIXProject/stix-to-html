@@ -12,9 +12,13 @@
   xmlns:AddressObject='http://cybox.mitre.org/objects#AddressObject-2'
   xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
-  exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject xs"
+  xmlns:registry='http://cybox.mitre.org/objects#WinRegistryKeyObject-2'
+  
+  exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject xs registry"
   
   version="2.0">
+  
+  <xsl:include href="cybox_util.xsl" />
   
   <!--
     ····························································
@@ -51,5 +55,52 @@
     ····························································
   -->
   
+  <!--
+    <cybox:Properties xsi:type="WinRegistryKeyObject:WindowsRegistryKeyObjectType">
+			<WinRegistryKeyObject:Key condition="Equals">SOFTWARE\Microsoft\Windows\CurrentVersion\Run</WinRegistryKeyObject:Key>
+			<WinRegistryKeyObject:Hive condition="Equals">HKLM</WinRegistryKeyObject:Hive>
+			<WinRegistryKeyObject:Values>
+				<WinRegistryKeyObject:Value>
+					<WinRegistryKeyObject:Data condition="FitsPattern">rundll32\.exe C:\\DOCUME~1\\USER\\LOCALS~1\\Temp\\[^.]+\.dll&comma;XMLResFunc [^ ]+ 0</WinRegistryKeyObject:Data>
+				</WinRegistryKeyObject:Value>
+			</WinRegistryKeyObject:Values>
+		</cybox:Properties>    
+  -->
+  <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#WinRegistryKeyObject-2', 'WindowsRegistryKeyObjectType')]">
+    <xsl:variable name="hive" as="xs:string?" select="registry:Hive" />
+    <xsl:variable name="key" as="xs:string?" select="registry:Key" />
+    <xsl:variable name="valueDataSequence" as="element()*" select="registry:Values/registry:Value/registry:Data" />
+    
+    <table class="windowsRegistryTable">
+      <thead>
+        <tr>
+          <th rowspan="2"> </th>
+          <th>Hive:</th>
+          <td><xsl:value-of select="$hive" /></td>
+        </tr>
+        <tr>
+          <th>Key:</th>
+          <td><xsl:value-of select="$key" /></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th colspan="3">Value<xsl:value-of select="if (count($valueDataSequence) > 1) then 's' else ''" /></th>
+        </tr>
+        <xsl:for-each select="$valueDataSequence">
+          <tr>
+            <td colspan="3">
+              <xsl:value-of select="text()" />
+            </td>
+          </tr>
+        </xsl:for-each>
+        
+      </tbody>
+    </table>
+    
+  </xsl:template>  
+  <!--
+    ····························································
+  -->
   
 </xsl:stylesheet>
