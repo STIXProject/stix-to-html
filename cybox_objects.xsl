@@ -74,7 +74,7 @@
     <table class="windowsRegistryTable">
       <thead>
         <tr>
-          <th rowspan="2"> </th>
+          <th rowspan="2">Location</th>
           <th>Hive:</th>
           <td><xsl:value-of select="$hive" /></td>
         </tr>
