@@ -65,6 +65,8 @@ ikirillov@mitre.org
 
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
   
+    <xsl:include href="cybox_util.xsl" />
+    <xsl:include href="cybox_objects.xsl" />
   
 
     <!--
@@ -1137,33 +1139,6 @@ ikirillov@mitre.org
     </xsl:template>
 
     <!--
-      Output URI & Link value without unnecessary nested schema tree structure
-    -->
-  <!-- //cybox:Observable//cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName("http://cybox.mitre.org/objects#URIObject-2", "URIObjectType")]  -->
-  <!-- <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"> -->
-  <!-- fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .)) -->
-  <!-- <xsl:template match="cybox:Properties[some $currentXsiType in ('URIObjectType', 'LinkObjectType') satisfies $currentXsiType = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
-  <!-- <xsl:template match="cybox:Properties['URIObjectType' = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
- 
-    <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"><fieldset>
-            <legend>URI</legend>
-            <div class="container cyboxPropertiesContainer cyboxProperties">
-                <div class="heading cyboxPropertiesHeading cyboxProperties">
-                    <xsl:apply-templates select="URIObject:Value" mode="cyboxProperties" />
-                </div>
-            </div>
-        </fieldset>
-    </xsl:template>
-    <xsl:template match="URIObject:Value" mode="cyboxProperties">
-        Value <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
-        <xsl:choose>
-            <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-            <xsl:otherwise> = </xsl:otherwise>
-        </xsl:choose>
-        <xsl:value-of select="." />
-    </xsl:template>
-
-    <!--
       Output Port value without unnecessary nested schema tree structure
     -->
     <xsl:template match="*:Port[contains(@xsi:type,'PortObjectType')]|*:Port[./*:Port_Value]" mode="cyboxProperties">
@@ -1224,27 +1199,6 @@ ikirillov@mitre.org
         </xsl:choose>
         <xsl:value-of select="." />
     </xsl:template>
-    <xsl:function name="Common:ConditionType">
-        <xsl:param name="condition" />
-        <xsl:choose>
-            <xsl:when test="$condition='Equals'"> = </xsl:when>
-            <xsl:when test="$condition='DoesNotEqual'"> != </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$condition" />: 
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:function>
-    <xsl:function name="Common:Defanged">
-        <xsl:param name="is_defanged" />
-        <xsl:param name="defanging_algorithm_ref" />
-        <xsl:if test="$is_defanged='true'">
-            (defanged 
-            <xsl:if test="$defanging_algorithm_ref!=''">
-                with <xsl:value-of select="$defanging_algorithm_ref" />
-            </xsl:if>
-            )
-        </xsl:if>
-    </xsl:function>
     
     <!--
       default template for outputting hierarchical cybox:Properties names/values/constraints
