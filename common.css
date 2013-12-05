@@ -646,7 +646,31 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
   border-bottom-width: 1px;
 */
   border-style: solid;
-  border-color: hsl(0, 0%, 80%);
+  /*border-color: hsl(0, 0%, 80%); */
+  border-color: black;
   border-width: 1px;
 }
 
+.httpRequestResponseTable
+{
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-collapse: collapse;
+}
+
+.httpRequestResponseTable > thead > tr> th,
+.httpRequestResponseTable > thead > tr> td,
+.httpRequestResponseTable > tbody > tr> th,
+.httpRequestResponseTable > tbody > tr> td
+{
+  border-style: solid;
+  /*border-color: hsl(0, 0%, 80%); */
+  border-color: red;
+  border-width: 1px;
+}
+.requestResponseHeaderRow
+{
+  background-color: black;
+  color: white;
+}

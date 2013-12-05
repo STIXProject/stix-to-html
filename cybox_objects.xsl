@@ -14,6 +14,8 @@
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   xmlns:registry='http://cybox.mitre.org/objects#WinRegistryKeyObject-2'
   
+  xmlns:http='http://cybox.mitre.org/objects#HTTPSessionObject-2'
+  
   exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject xs registry"
   
   version="2.0">
@@ -102,5 +104,55 @@
   <!--
     ····························································
   -->
+  <xsl:template match="http:HTTP_Request_Response|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#HTTPSessionObject-2', 'HTTP_Request_Response')]" mode="cyboxProperties">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template match="http:HTTP_Request_Response|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#HTTPSessionObject-2', 'HTTP_Request_Response')]">
+    <xsl:variable name="mainRequestResponse" as="element()*" select="." />
+    <xsl:variable name="mainRequest" as="element()?" select="$mainRequestResponse/http:HTTP_Client_Request" />
+    <xsl:variable name="mainResponse" as="element()?" select="$mainRequestResponse/http:HTTP_Client_Response" />
+    
+    <xsl:variable name="requestLine" select="$mainRequest/http:HTTP_Request_Line" />
+    <xsl:variable name="method" select="$requestLine/http:HTTP_Method" />
+    <xsl:variable name="value" select="$requestLine/http:Value" />
+    
+    <table class="httpRequestResponseTable">
+      <thead>
+        <tr>
+          <th>what?</th>
+          <th>header/field name</th>
+          <th>value</th>
+        </tr>
+        <xsl:if test="$mainRequest">
+          
+          <tbody class="requestResponseHeaderRow">
+            <tr>
+              <th colspan="3">request</th>
+            </tr>
+          </tbody>            
+          <tbody class="httpRequestDetails">
+            <tr>
+              <th>method</th>
+              <td colspan="2"><xsl:value-of select="$method/text()" /></td>          
+            </tr>
+          
+            <xsl:for-each select="$mainRequest/http:HTTP_Request_Header">
+              <xsl:for-each select="http:Parsed_Header">'
+                <xsl:variable name="parsedHeader" select="." />
+                <xsl:variable name="parsedHeaderChild" select="$parsedHeader/*" />
+                <tr>
+                  <th>header</th>
+                  <td><xsl:value-of select="local-name($parsedHeaderChild)" /></td>
+                  <td><xsl:value-of select="$parsedHeaderChild/text()" /></td>
+                </tr>
+              </xsl:for-each>
+            </xsl:for-each>
+            
+          </tbody> <!-- end of tbody.httpRequestDetails -->
+        </xsl:if> <!-- end of if($mainRequest) -->
+      </thead>
+    </table>
+  </xsl:template>
   
 </xsl:stylesheet>
