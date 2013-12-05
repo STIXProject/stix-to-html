@@ -111,7 +111,7 @@
   <xsl:template match="http:HTTP_Request_Response|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#HTTPSessionObject-2', 'HTTP_Request_Response')]">
     <xsl:variable name="mainRequestResponse" as="element()*" select="." />
     <xsl:variable name="mainRequest" as="element()?" select="$mainRequestResponse/http:HTTP_Client_Request" />
-    <xsl:variable name="mainResponse" as="element()?" select="$mainRequestResponse/http:HTTP_Client_Response" />
+    <xsl:variable name="mainResponse" as="element()?" select="$mainRequestResponse/http:HTTP_Server_Response" />
     
     <xsl:variable name="requestLine" select="$mainRequest/http:HTTP_Request_Line" />
     <xsl:variable name="method" select="$requestLine/http:HTTP_Method" />
@@ -151,6 +151,23 @@
             
           </tbody> <!-- end of tbody.httpRequestDetails -->
         </xsl:if> <!-- end of if($mainRequest) -->
+        
+        <xsl:if test="$mainResponse">
+          <xsl:variable name="httpResponseMessageBody" select="$mainResponse/http:HTTP_Message_Body" />
+          <xsl:variable name="responseMessageBody" select="$httpResponseMessageBody/http:Message_Body" />
+          
+          <tbody class="requestResponseHeaderRow">
+            <tr>
+              <th colspan="3">response</th>
+            </tr>
+          </tbody>            
+          <tbody class="httpResponseDetails">
+            <tr>
+              <th>message body</th>
+              <td colspan="2"><xsl:value-of select="$responseMessageBody/text()" /></td>          
+            </tr>
+          </tbody>
+        </xsl:if>
       </thead>
     </table>
   </xsl:template>

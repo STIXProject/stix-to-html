@@ -666,7 +666,7 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 {
   border-style: solid;
   /*border-color: hsl(0, 0%, 80%); */
-  border-color: red;
+  border-color: gray;
   border-width: 1px;
 }
 .requestResponseHeaderRow
