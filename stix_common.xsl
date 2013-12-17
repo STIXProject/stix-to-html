@@ -40,6 +40,7 @@
   
     <!-- this depends on some of the templates in the cybox-to-html transform -->
     <xsl:include href="cybox_common.xsl"/>
+    <xsl:include href="stix_objects.xsl" />
 
     <!--
       Print the "stix header" table (this shows up in the output below the
@@ -475,6 +476,12 @@
           <xsl:apply-templates select="indicator:Confidence" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Confidence', $contents)" />
+      </xsl:if> 
+      <xsl:if test="indicator:Sightings/indicator:Sighting">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="indicator:Sightings" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Sightings', $contents)" />
       </xsl:if> 
       </div>
     </xsl:template>
