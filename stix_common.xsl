@@ -41,6 +41,7 @@
     <!-- this depends on some of the templates in the cybox-to-html transform -->
     <xsl:include href="cybox_common.xsl"/>
     <xsl:include href="stix_objects.xsl" />
+    <xsl:include href="stix_objects__customized.xsl" />
 
     <!--
       Print the "stix header" table (this shows up in the output below the

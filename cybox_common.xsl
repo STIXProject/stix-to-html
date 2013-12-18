@@ -67,6 +67,7 @@ ikirillov@mitre.org
   
     <!-- <xsl:include href="cybox_util.xsl" /> -->
     <xsl:include href="cybox_objects.xsl" />
+    <xsl:include href="cybox_objects__customized.xsl" />
   
 
     <!--
