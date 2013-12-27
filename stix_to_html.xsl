@@ -444,7 +444,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target"
+    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -634,7 +634,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processIndicatorContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:TTP">
+              <xsl:when test="self::stix:TTP|self::stixCommon:TTP">
                 <div class="containerTtp">
                   <xsl:call-template name="processTTPContents"/>
                 </div>
