@@ -392,6 +392,12 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Observed TTPs', $contents)" />
       </xsl:if>
+      <xsl:if test="ta:Associated_Actors/ta:Associated_Actor/stixCommon:Threat_Actor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="ta:Associated_Actors/ta:Associated_Actor/stixCommon:Threat_Actor" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Associated Actors', $contents)" />
+      </xsl:if>
     </div>
   </xsl:template>
   <xsl:template match="ta:Observed_TTP">
