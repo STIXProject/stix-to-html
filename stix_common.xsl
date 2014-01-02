@@ -321,6 +321,12 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Leveraged TTPs', $contents)" />
       </xsl:if>
+      <xsl:if test="incident:Attributed_Threat_Actors/incident:Threat_Actor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:Attributed_Threat_Actors/incident:Threat_Actor" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Attributed Threat Actors', $contents)" />
+      </xsl:if>
     </div>
   </xsl:template>
   <xsl:template match="cybox:Observable[not(@id) and not(@idref)]|stixCommon:Observable[not(@id) and not(@idref)]">
