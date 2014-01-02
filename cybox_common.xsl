@@ -42,6 +42,7 @@ ikirillov@mitre.org
     
     xmlns:indicator="http://stix.mitre.org/Indicator-2"
     xmlns:incident="http://stix.mitre.org/Incident-1"
+    xmlns:threat-actor='http://stix.mitre.org/ThreatActor-1'
     
     xmlns:coa="http://stix.mitre.org/CourseOfAction-1"
     
@@ -125,7 +126,7 @@ ikirillov@mitre.org
                 <xsl:value-of select="$output" />
             </xsl:when>
             <xsl:when test="$actualItem[contains(@xsi:type,'ThreatActorType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/indicator:Title) then $actualItem/indicator:Title/text() else ('[ThreatActor, no Title]')" />
+                <xsl:variable name="output" select="if ($actualItem/threat-actor:Title) then $actualItem/threat-actor:Title/text() else ('[ThreatActor, no Title]')" />
                 <xsl:value-of select="$output" />
             </xsl:when>
             <xsl:when test="$actualItem[contains(@xsi:type,'TTPType')]"  xml:space="preserve">
