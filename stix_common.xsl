@@ -280,12 +280,30 @@
       </xsl:attribute>
       -->
       
+      <xsl:if test="incident:Time">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:Time/incident:Incident_Reported" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Time', $contents)" />
+      </xsl:if>
       <xsl:if test="incident:Description">
         <xsl:variable name="contents">
           <xsl:apply-templates select="incident:Description" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
       </xsl:if>              
+      <xsl:if test="incident:Categories/incident:Category">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:Categories/incident:Category" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Category', $contents)" />
+      </xsl:if>
+      <xsl:if test="incident:Victim/stixCommon:Name">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:Victim/stixCommon:Name" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Victim', $contents)" />
+      </xsl:if>
       <xsl:if test="incident:Status">
         <xsl:copy-of select="stix:printNameValueTable('Status', incident:Status)" />
       </xsl:if>              
@@ -299,7 +317,7 @@
         <xsl:variable name="contents">
           <xsl:apply-templates select="incident:Leveraged_TTPs/incident:Leveraged_TTP" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Related TTPs', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Leveraged TTPs', $contents)" />
       </xsl:if>
     </div>
   </xsl:template>
@@ -820,4 +838,34 @@
   <xsl:template match="indicator:Suggested_COA">
     <xsl:apply-templates />
   </xsl:template>
+
+  <!--
+    purpose: format incident reported times
+    this shows up mostly as incident:Time/incident:Incident_Reported
+  -->
+  <xsl:template match="incident:Incident_Reported">
+    <xsl:variable name="incidentReportedTime" select="text()" />
+    <div class="incidentReportedTime">
+      reported <xsl:value-of select="$incidentReportedTime" />
+    </div>
+  </xsl:template>
+  
+  
+  <xsl:template match="incident:Category">
+    <xsl:variable name="categoryName" select="text()" />
+    
+    <div class="incidentCategory">
+      <xsl:value-of select="$categoryName" />
+    </div>
+  </xsl:template>
+
+  <xsl:template match="stixCommon:Name">
+    <xsl:variable name="name" select="text()" />
+    
+    <div class="stixCommonName">
+      <xsl:value-of select="$name" />
+    </div>
+  </xsl:template>
+  
 </xsl:stylesheet>
+
