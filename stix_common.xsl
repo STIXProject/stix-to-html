@@ -293,16 +293,18 @@
         <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
       </xsl:if>              
       <xsl:if test="incident:Categories/incident:Category">
+        <xsl:variable name="label" select="if (count(incident:Categories/incident:Category) ge 2) then ('Categories') else ('Category')" />
         <xsl:variable name="contents">
           <xsl:apply-templates select="incident:Categories/incident:Category" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Category', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable($label, $contents)" />
       </xsl:if>
-      <xsl:if test="incident:Victim/stixCommon:Name">
+      <xsl:if test="incident:Victim/*">
+        <xsl:variable name="label" select="if (count(incident:Victim/*) ge 2) then ('Victims') else ('Victim')" />
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Victim/stixCommon:Name" />
+          <xsl:apply-templates select="incident:Victim/*" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Victim', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable($label, $contents)" />
       </xsl:if>
       <xsl:if test="incident:Status">
         <xsl:copy-of select="stix:printNameValueTable('Status', incident:Status)" />
