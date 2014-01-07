@@ -749,6 +749,7 @@
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Related TTPs', $contents)" />
           </xsl:if> 
+          
           <xsl:if test="ttp:Kill_Chain_Phases/stixCommon:Kill_Chain_Phase">
             <xsl:variable name="contents">
               <xsl:apply-templates select="ttp:Kill_Chain_Phases" />
@@ -756,6 +757,19 @@
             <xsl:copy-of select="stix:printNameValueTable('Kill Chain Phases', $contents)" />
           </xsl:if> 
           
+          <xsl:if test="ttp:Information_Source">
+            <xsl:variable name="contents">
+              <xsl:apply-templates select="ttp:Information_Source" mode="cyboxProperties" />
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('Information Source', $contents)" />
+          </xsl:if>  
+
+          <xsl:if test="ttp:Handling">
+            <xsl:variable name="contents">
+              <xsl:apply-templates select="ttp:Handling" mode="cyboxProperties" />
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
+          </xsl:if>  
         </div>
       </div>
     </xsl:template>
