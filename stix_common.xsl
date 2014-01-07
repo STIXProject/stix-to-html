@@ -479,7 +479,15 @@
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Suggested COAs', $coaContents)" />
         </xsl:if>
-        <xsl:if test="not(indicator:Composite_Indicator_Expression)">
+        
+        <xsl:if test="indicator:Alternative_ID">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Alternative_ID" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Alternative ID', $contents)" />
+        </xsl:if>
+        
+        <xsl:if test="indicator:Observable">
           <xsl:variable name="contents">
             <xsl:apply-templates select="indicator:Observable" mode="cyboxProperties" />
           </xsl:variable>
@@ -522,6 +530,43 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Sightings', $contents)" />
       </xsl:if> 
+
+        <xsl:if test="indicator:Test_Mechanisms">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="Test_Mechanisms" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Test Mechanisms', $contents)" />
+        </xsl:if> 
+        <xsl:if test="indicator:Likely_Impact">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Likely_Impact" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Likely Impact', $contents)" />
+        </xsl:if> 
+        <xsl:if test="indicator:Suggested_COAs">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Suggested_COAs" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Suggested COAs', $contents)" />
+        </xsl:if> 
+        <xsl:if test="indicator:Handling">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Handling" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
+        </xsl:if> 
+        <xsl:if test="indicator:Related_Indicators">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Related_Indicators" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Related Indicators', $contents)" />
+        </xsl:if> 
+        <xsl:if test="indicator:Producer">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Producer" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Producer', $contents)" />
+        </xsl:if> 
       </div>
     </xsl:template>
     
