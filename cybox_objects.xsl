@@ -172,4 +172,38 @@
     </table>
   </xsl:template>
   
+  <!--
+    purpose: for cybox:Properties descendant text nodes that are delimited by
+      ##comma##, tokenize the item. For items that have a InclusiveBetween or
+      ExclusiveBetween, they are ranges and should be labeled as such.
+  -->
+  <xsl:template match="cybox:Properties//text()[fn:contains(., '##comma##')]" mode="cyboxProperties">
+    <xsl:variable name="text" select="fn:data(.)" />
+    <xsl:variable name="tokens" select="fn:tokenize($text, '##comma##')" />
+    
+    <xsl:choose>
+      <!-- when this is a range -->
+      <xsl:when test="../@condition='InclusiveBetween' or ../@condition='ExclusiveBetween'">
+        <xsl:variable name="from" select="$tokens[1]" />
+        <xsl:variable name="to" select="$tokens[2]" />
+        <span class="cyboxPropertiesRange">
+          <xsl:value-of select="concat($from, ' - ', $to)" />
+          <xsl:if test="../@condition='InclusiveBetween'"> (inclusive)</xsl:if>
+          <xsl:if test="../@condition='ExclusiveBetween'"> (exclusive)</xsl:if>
+        </span>
+      </xsl:when>
+      
+      <!-- otherwise, this is just a tokenized list, not a range -->
+      <xsl:otherwise>
+        <ul class="cyboxPropertiesTokenizedList">
+         <xsl:for-each select="$tokens">
+           <li>
+             <xsl:value-of select="." />
+           </li>
+         </xsl:for-each>
+        </ul>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>
