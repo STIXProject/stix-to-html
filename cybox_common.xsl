@@ -451,59 +451,31 @@ ikirillov@mitre.org
   
   <xsl:template name="processObservableContents">
     <xsl:if test="cybox:Title">
-        <div id="section">
-            <table class="one-column-emphasis">
-                <colgroup>
-                    <col class="oce-first-obs" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td>Title</td>
-                        <td>
-                            <xsl:for-each select="cybox:Title">
-                                <xsl:value-of select="."/>
-                            </xsl:for-each>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> 
-        </div>
-    </xsl:if>              
-    <xsl:if test="not(cybox:Observable_Composition)">
-        <div id="section">
-            <table class="one-column-emphasis">
-                <colgroup>
-                    <col class="oce-first-obs" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td>
-                            <xsl:apply-templates select="cybox:Object|cybox:Event"></xsl:apply-templates>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> 
-        </div>
-    </xsl:if>
+      <xsl:variable name="contents">
+        <xsl:apply-templates select="cybox:Title" />
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Title', $contents)" />
+    </xsl:if>  
+    <xsl:if test="cybox:Description">
+      <xsl:variable name="contents">
+        <xsl:apply-templates select="cybox:Description" />
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+    </xsl:if>  
+    <xsl:if test="cybox:Object|cybox:Event">
+      <xsl:variable name="contents">
+        <xsl:apply-templates select="cybox:Object|cybox:Event" />
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('', $contents)" />
+    </xsl:if>  
     <xsl:if test="cybox:Observable_Composition">
-        <div id="section">
-            <table class="one-column-emphasis">
-                <colgroup>
-                    <col class="oce-first-obs" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td>Observable Composition</td>
-                        <td>
-                            <xsl:for-each select="cybox:Observable_Composition">
-                                <xsl:call-template name="processObservableCompositionSimple" />
-                            </xsl:for-each>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> 
-        </div>
-    </xsl:if>
+      <xsl:variable name="contents">
+        <xsl:for-each select="cybox:Observable_Composition">
+          <xsl:call-template name="processObservableCompositionSimple" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Observable Composition', $contents)" />
+    </xsl:if>  
   </xsl:template>
     
     <!--
@@ -1299,12 +1271,16 @@ ikirillov@mitre.org
     <div class="nameValueTable">
       <table class="one-column-emphasis indicator-sub-table">
         <colgroup>
-          <col class="oce-first-obs heading-column" />
+          <xsl:if test="$title">
+            <col class="oce-first-obs heading-column" />
+          </xsl:if>
           <col class="details-column" />
         </colgroup>
         <tbody>
           <tr>
-            <td><xsl:value-of select="$title" /></td>
+            <xsl:if test="$title">
+              <td><xsl:value-of select="$title" /></td>
+            </xsl:if>
             <td>
               <xsl:copy-of select="$value"/>
             </td>
