@@ -165,6 +165,12 @@
       <xsl:if test="campaign:Title">
         <xsl:copy-of select="stix:printNameValueTable('Title', campaign:Title)" />
       </xsl:if>              
+      <xsl:if test="campaign:Names">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Names" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Names', $contents)" />
+      </xsl:if>
       <xsl:if test="campaign:Status">
         <xsl:copy-of select="stix:printNameValueTable('Status', campaign:Status)" />
       </xsl:if>              
@@ -204,7 +210,36 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Associated Campaigns', $contents)" />
       </xsl:if>
-      
+      <xsl:if test="campaign:Confidence">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Confidence" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Confidence', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Activity">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Activity" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Activity', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Confidence">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Confidence" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Confidence', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Information_Source">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Information_Source" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Information Source', $contents)" />
+      </xsl:if>
+      <xsl:if test="campaign:Handling">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Handling" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
+      </xsl:if>
     </div>
   </xsl:template>
 
