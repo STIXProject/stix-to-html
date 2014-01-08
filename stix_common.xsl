@@ -597,6 +597,36 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Vulnerabilities', $contents)" />
       </xsl:if>
+      <xsl:if test="et:Weakness">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Weakness" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Weakness', $contents)" />
+      </xsl:if>
+      <xsl:if test="et:Configuration">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Configuration" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Configuration', $contents)" />
+      </xsl:if>
+      <xsl:if test="et:Potential_COAs">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Potential_COAs" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Potential COAs', $contents)" />
+      </xsl:if>
+      <xsl:if test="et:Information_Source">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Information_Source" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Information_Source', $contents)" />
+      </xsl:if>
+      <xsl:if test="et:Handling">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Handling" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
+      </xsl:if>
     </div>
   </xsl:template>
   
