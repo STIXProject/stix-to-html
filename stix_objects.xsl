@@ -56,5 +56,11 @@
   <!--
   ····························································
   -->
+  
+  <xsl:template match="*:Description">
+    <div class="description">
+      <xsl:value-of select="text()" />
+    </div>
+  </xsl:template>
     
 </xsl:stylesheet>

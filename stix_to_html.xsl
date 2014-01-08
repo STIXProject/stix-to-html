@@ -47,6 +47,7 @@ mdunn@mitre.org
     version="4.0"/>
   <xsl:param name="includeFileMetadataHeader" select="true()"/>
   <xsl:param name="includeStixHeader" select="true()"/>
+  <xsl:param name="enablePreformattedDescriptions" select="false()" />
 
   <!--
     do you want to display the constrains in cyboxProperties-style displays?
@@ -131,7 +132,18 @@ mdunn@mitre.org
       <xsl:if test="not($displayConstraints)">
         display: none;
       </xsl:if>
-      }</style>
+      }
+      
+      .description
+      {
+      /* if the descriptions are "preformatted text" use "pre-line" or "pre" */
+      <xsl:if test="$enablePreformattedDescriptions">
+      white-space: pre-line;
+      </xsl:if>
+      }
+      
+    
+    </style>
   </xsl:template>
 
   <!--

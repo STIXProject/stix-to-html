@@ -3,6 +3,14 @@ body
   font-family: Arial,Helvetica,sans-serif;
 }
 
+.description
+{
+  /* if the descriptions are "preformatted text" use "pre-line" or "pre" */
+  /* the better thing to do is to pass in the stylesheet parameter "enablePreformattedDescriptions" and set it to true */
+  
+  /* white-space: pre-line; */
+}
+
 td, th
 {
   vertical-align: top;
