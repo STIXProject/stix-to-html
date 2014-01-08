@@ -934,6 +934,73 @@
         </div>
       </div>
     </xsl:template>
+  
+  <xsl:template name="processCOAContents">
+    <div>
+      <div>
+        <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+        
+        <!-- set empty class for non-composition observables -->
+        
+        <!-- <span style="color: red; background-color: yellow;">INDICATOR CONTENTS HERE</span> -->
+        
+        <xsl:if test="COA:Stage">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Stage" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Stage', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Type">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Type" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Type', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Description">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Description" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Objective">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Objective" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Objective', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Structured_COA">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Structured_COA" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Structured_COA', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Impact">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Impact" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Impact', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Cost">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Cost" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Cost', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Efficacy">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Efficacy" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Efficacy', $contents)" />
+        </xsl:if>
+        <xsl:if test="COA:Handling">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Handling" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
+        </xsl:if>
+      </div>
+    </div>
+  </xsl:template>
     
   <!--
     Print out the root kill chain and its child kill chain phases.
