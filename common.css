@@ -682,3 +682,9 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
   background-color: black;
   color: white;
 }
+
+.conditionClause
+{
+  margin-top: 1em;
+  margin-left: 1em;
+}

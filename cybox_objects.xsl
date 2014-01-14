@@ -195,6 +195,10 @@
       
       <!-- otherwise, this is just a tokenized list, not a range -->
       <xsl:otherwise>
+        <xsl:variable name="condition" select="if (@condition) then (fn:data(@condition)) else ('Equals')" />
+        <xsl:variable name="applyCondition" select="if (@apply_condition) then (fn:data(@apply_condition)) else ('Any')" />
+        
+        <div class="conditionClause"><xsl:value-of select="concat($condition, ' ', $applyCondition, ':')"/></div>
         <ul class="cyboxPropertiesTokenizedList">
          <xsl:for-each select="$tokens">
            <li>
