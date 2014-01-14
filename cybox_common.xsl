@@ -1290,15 +1290,5 @@ ikirillov@mitre.org
     </div>
   </xsl:function>
     
-  <!--
-   match="cybox:Properties[contains(@xsi:type,'URIObjectType')]
-   <xsl:template match="cybox:Properties[@xsi:type='cyboxEmail:EmailMessageObjectType']" priority="1000">
-  -->
-  <xsl:template match="cybox:Properties[contains(@xsi:type,'EmailMessageObjectType')]" priority="1000">
-    <div class="emailCustomTemplate">
-      EMAIL HERE BBB
-    </div>
-  </xsl:template>
-    
   
 </xsl:stylesheet>
