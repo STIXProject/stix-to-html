@@ -27,11 +27,15 @@ mdunn@mitre.org
   
 -->
 
-<xsl:stylesheet version="2.0" xmlns:stix="http://stix.mitre.org/stix-1"
-  xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet version="2.0"
+  xmlns:stix="http://stix.mitre.org/stix-1"
+  xmlns:cybox="http://cybox.mitre.org/cybox-2"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:indicator="http://stix.mitre.org/Indicator-2" xmlns:TTP="http://stix.mitre.org/TTP-1"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:indicator="http://stix.mitre.org/Indicator-2"
+  xmlns:TTP="http://stix.mitre.org/TTP-1"
   xmlns:COA="http://stix.mitre.org/CourseOfAction-1"
   xmlns:capec="http://stix.mitre.org/extensions/AP#CAPEC2.5-1"
   xmlns:marking="http://data-marking.mitre.org/Marking-1"
@@ -456,7 +460,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action"
+    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -649,6 +653,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:when test="self::stix:TTP|self::stixCommon:TTP">
                 <div class="containerTtp">
                   <xsl:call-template name="processTTPContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::TTP:Identity">
+                <div class="containerIdentity">
+                  <xsl:apply-templates select="*" mode="cyboxProperties"/>
                 </div>
               </xsl:when>
               <xsl:when test="self::stixCommon:Kill_Chain_Phase">
