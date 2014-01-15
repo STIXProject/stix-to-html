@@ -1,7 +1,7 @@
 # STIX XML -> HTML Transform v1
 
 ~~~
-Copyright (c) 2013 - The MITRE Corporation
+Copyright (c) 2014 - The MITRE Corporation
 All rights reserved. See LICENSE.txt for complete terms.
 ~~~
 
@@ -13,7 +13,7 @@ THE STIX XML to HTML TRANSFORM.
 For more information, please refer to the terms.txt file.
 ~~~
 
-## STIX XML to HTML transform v1.0beta2
+## STIX XML to HTML transform v1.0beta3
 Compatible with STIX v1.0.1
 
 This is an xslt to transform a stix 1.0/1.0.1 document containing metadata and
@@ -96,11 +96,14 @@ requirements:
 
 ## Releases
 ### current release
+ * v1.0beta3
+   2014-01-15  
+   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=1&page=1&sort=updated&state=closed
+
+### previous releases
  * v1.0beta2  
    2013-10-24  
    https://github.com/STIXProject/Tools/issues?milestone=1&state=open
-
-### previous releases
  * v1.0beta1  
    2013-08-28
 
