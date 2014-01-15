@@ -1,4 +1,5 @@
-== Purpose of "examples-custom-stylesheet-parameters"
+Purpose of "examples-custom-stylesheet-parameters"
+===
 
 The script bin/run_stix_to_html__with_custom_parameters.sh demonstrates how to call the stix-to-html xslt transform with stylesheet parameters.
 
