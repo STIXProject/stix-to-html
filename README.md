@@ -63,26 +63,73 @@ Currently we support the following top level entities and sub-entities:
 - **Exploit Targets**
   - Title
   - Vulnerability
+  - Weakness
+  - Configuration
+  - Potential_COAs
+  - Information_Source
+  - Handling
 - **Incidents**
+  - Time
   - Description
+  - Categories
+  - Reporter
+  - Responder
+  - Coordinator
+  - Victim
+  - Affected_Assets
+  - Impact_Assessment
   - Status
+  - Related_Indicators
   - Related_Observables
   - Leveraged_TTPs
-  - Observable
+  - Attributed_Threat_Actors
+  - Intended_Effect
+  - Security_Compromise
+  - Discovery_Method
+  - Related_Incidents
+  - COA_Requested
+  - COA_Taken
+  - Confidence
+  - Contact
+  - History
+  - Handling
 - **Courses of Action**
-  - All
+  - Stage
+  - Type
+  - Description
+  - Objective
+  - Structured_COA
+  - Impact
+  - Cost
+  - Efficacy
+  - Handling
 - **Campaigns**
   - Title
+  - Names
   - Status
+  - Intended_Effect
   - Related_Incidents
   - Related_TTPs
   - Related_Indicators
+  - Attribution
+  - Associated_Campaigns
+  - Confidence
+  - Activity
+  - Information_Source
+  - Handling
 - **Threat Actors**
   - Title
   - Identity
   - Type
   - Motivation
+  - Intended_Effect
+  - Planning_And_Operational_Support
   - Observed_TTPs
+  - Associated_Campaign
+  - Associated_Actors
+  - Handling
+  - Confidence
+  - Information_Source
 
 Each category of top level "items" is turned into a main table on the page.
 The item itself is expandable and other nested content pointing to other
