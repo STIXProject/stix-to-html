@@ -664,12 +664,6 @@
         <xsl:if test="indicator:Valid_Time_Position">
           <xsl:copy-of select="stix:printNameValueTable('Valid Time Position', fn:concat('(', indicator:Valid_Time_Position/indicator:Start_Time/text(), ' to ', indicator:Valid_Time_Position/indicator:End_Time/text(), ')'))" />
         </xsl:if>
-        <xsl:if test="indicator:Suggested_COAs/indicator:Suggested_COA">
-          <xsl:variable name="coaContents">
-            <xsl:apply-templates select="indicator:Suggested_COAs/indicator:Suggested_COA" />
-          </xsl:variable>
-          <xsl:copy-of select="stix:printNameValueTable('Suggested COAs', $coaContents)" />
-        </xsl:if>
         
         <xsl:if test="indicator:Alternative_ID">
           <xsl:variable name="contents">
@@ -683,13 +677,6 @@
             <xsl:apply-templates select="indicator:Observable" mode="cyboxProperties" />
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Observable', $contents)" />
-
-          <!--
-          <xsl:variable name="observableContents">
-            <xsl:apply-templates select="indicator:Observable" />
-          </xsl:variable>
-          <xsl:copy-of select="stix:printNameValueTable('Observable', $observableContents)" />
-          -->
         </xsl:if>
         <xsl:if test="indicator:Composite_Indicator_Expression">
           <xsl:variable name="contents">
