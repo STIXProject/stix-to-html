@@ -49,12 +49,33 @@ mdunn@mitre.org
 
   <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html"
     version="4.0"/>
+  
+  <!--
+    how to set parameters: xslt stylesheet parameters should be passed in via
+    whatever mechanism the xslt engine has.  saxon allows you to set parameters
+    via the command-line or via the java api.  oxygen and xml spy allow you to
+    set parameters via the xslt configuration.
+  -->  
+  
+  <!--
+    include the file metadata header that shows stix version, filename, and html generation timestamp
+  -->  
   <xsl:param name="includeFileMetadataHeader" select="true()"/>
+  
+  <!--
+    include the stix header -- the header table that shows the title, package
+    intent, description, handling, information source, etc.
+  -->
   <xsl:param name="includeStixHeader" select="true()"/>
+  
+  <!--
+    set to true if you want to preserve line breaks in the description text,
+    fields, otherwise text descriptions will be flowed like normal html text
+  -->
   <xsl:param name="enablePreformattedDescriptions" select="false()" />
 
   <!--
-    do you want to display the constrains in cyboxProperties-style displays?
+    do you want to display the constraints in cyboxProperties-style displays?
     usually the answer is true(), but if you want a more concise display, set to false().
   -->
   <xsl:param name="displayConstraints" select="true()"/>

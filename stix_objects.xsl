@@ -20,23 +20,12 @@
   -->
   
   <!--
-    ····························································
-    MAJOR OBJECTS
-    ····························································
+    sample template for displaying sightings and sighting elements
   -->
-  
-  
-  <!--
-    ····························································
-    MINOR OBJECTS
-    ····························································
-  -->
-  
-  
   <xsl:template match="indicator:Sightings">
     <div class="sightings">
-    <!-- <div>SITINGS (<xsl:value-of select="count(indicator:Sighting)" />)</div> -->
-    <div>
+    
+      <div>
       <xsl:apply-templates select="indicator:Sighting" />
     </div>
     </div>
@@ -57,6 +46,14 @@
   ····························································
   -->
   
+  <!--
+    purpose: template for displayin descriptions from any namespace.  very
+    simple, but useful for adding a css class so that they can be styled
+    across any content type.
+    
+    hint: this is used to enable the option to turn on css styles to preserve
+    line breaks for preformatted description that show up in some documents.
+  -->
   <xsl:template match="*:Description">
     <div class="description">
       <xsl:value-of select="text()" />

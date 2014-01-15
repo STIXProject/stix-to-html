@@ -29,12 +29,6 @@
   <!--
       Output URI & Link value without unnecessary nested schema tree structure
     -->
-  <!-- //cybox:Observable//cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName("http://cybox.mitre.org/objects#URIObject-2", "URIObjectType")]  -->
-  <!-- <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"> -->
-  <!-- fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .)) -->
-  <!-- <xsl:template match="cybox:Properties[some $currentXsiType in ('URIObjectType', 'LinkObjectType') satisfies $currentXsiType = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
-  <!-- <xsl:template match="cybox:Properties['URIObjectType' = fn:local-name(fn:resolve-QName(fn:data(@xsi:type), .))]"> -->
-  
   <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"><fieldset>
     <legend>URI</legend>
     <div class="container cyboxPropertiesContainer cyboxProperties">
@@ -57,6 +51,11 @@
     ····························································
   -->
   
+  
+  <!--
+    purpose: template for processing windows registry entry with more common
+    sense output formatting [making use of hive, key, and value(s)].
+  -->
   <!--
     <cybox:Properties xsi:type="WinRegistryKeyObject:WindowsRegistryKeyObjectType">
 			<WinRegistryKeyObject:Key condition="Equals">SOFTWARE\Microsoft\Windows\CurrentVersion\Run</WinRegistryKeyObject:Key>
@@ -103,6 +102,10 @@
   </xsl:template>  
   <!--
     ····························································
+  -->
+  
+  <!--
+    purpose: templates for process http request-response objects
   -->
   <xsl:template match="http:HTTP_Request_Response|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#HTTPSessionObject-2', 'HTTP_Request_Response')]" mode="cyboxProperties">
     <xsl:apply-templates select="." />
