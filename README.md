@@ -36,11 +36,19 @@ Currently we support the following top level entities and sub-entities:
   - Description
   - Valid_Time_Position
   - Suggested_COAs
+  - Alternative_ID
   - Observable
   - Composite_Indicator_Expression
   - Indicated_TTP
   - Kill_Chain_Phases
   - Confidence
+  - Sighting
+  - Test_Mechanisms
+  - Likely_Impact
+  - Suggested_COAs
+  - Handling
+  - Related_Indicators
+  - Producer
 - **TTPs**
   - Description
   - Intended_Effect
@@ -50,6 +58,8 @@ Currently we support the following top level entities and sub-entities:
   - Exploit_Targets
   - Related_TTPs
   - Kill_Chain_Phases
+  - Information_Source
+  - Handling
 - **Exploit Targets**
   - Title
   - Vulnerability
