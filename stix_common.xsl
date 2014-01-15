@@ -222,12 +222,6 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Activity', $contents)" />
       </xsl:if>
-      <xsl:if test="campaign:Confidence">
-        <xsl:variable name="contents">
-          <xsl:apply-templates select="campaign:Confidence" />
-        </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Confidence', $contents)" />
-      </xsl:if>
       <xsl:if test="campaign:Information_Source">
         <xsl:variable name="contents">
           <xsl:apply-templates select="campaign:Information_Source" />
