@@ -253,10 +253,14 @@ ikirillov@mitre.org
                 <td>
                     <div class="expandableToggle objectReference" onclick="embedObject()toggle(this.parentNode.parentNode.parentNode)">
                         <xsl:attribute name="onclick">embedObject(this.parentNode.parentNode.parentNode, '<xsl:value-of select="$id"/>','<xsl:value-of select="$expandedContentId"/>');</xsl:attribute>
-                        <xsl:call-template name="calculateColumn1Content">
-                            <xsl:with-param name="reference" select="$reference" />
-                            <xsl:with-param name="actualItem" select="$actualItem" />
-                        </xsl:call-template>
+                        <xsl:variable name="column1Content">
+                          <xsl:call-template name="calculateColumn1Content">
+                              <xsl:with-param name="reference" select="$reference" />
+                              <xsl:with-param name="actualItem" select="$actualItem" />
+                          </xsl:call-template>
+                        </xsl:variable>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="fn:normalize-space($column1Content)" />
                     </div>
                 </td>
                     <xsl:call-template name="calculateColumn2Content">
