@@ -264,52 +264,71 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <a name="docContents">Document Contents</a>
             </h2>
             <div class="documentContentsList">
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Campaigns">
-                  <xsl:call-template name="iconCampaigns"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Courses_Of_Action">
-                  <xsl:call-template name="iconCOAs"/>
-                </xsl:if>
-              </div>
+              <a href="#observablesTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Observables">
+                    <xsl:call-template name="iconObservables"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#indicatorsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Indicators">
+                    <xsl:call-template name="iconIndicators"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#ttpsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:TTPs">
+                    <xsl:call-template name="iconTTPs"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#exploitTargetsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Exploit_Targets">
+                    <xsl:call-template name="iconExploitTargets"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#incidentsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Incidents">
+                    <xsl:call-template name="iconIncidents"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#coursesOfActionTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Courses_Of_Action">
+                    <xsl:call-template name="iconCOAs"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#campaignsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Campaigns">
+                    <xsl:call-template name="iconCampaigns"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#threatActorsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//stix:Threat_Actors">
+                    <xsl:call-template name="iconThreatActors"/>
+                  </xsl:if>
+                </div>
+              </a>
+              
+              <!-- no links to "marking" yet -->
               <div class="documentContentsItem">
                 <xsl:if test="//marking:Marking">
                   <xsl:call-template name="iconDataMarkings"/>
                 </xsl:if>
               </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Exploit_Targets">
-                  <xsl:call-template name="iconExploitTargets"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Incidents">
-                  <xsl:call-template name="iconIncidents"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Indicators">
-                  <xsl:call-template name="iconIndicators"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Observables">
-                  <xsl:call-template name="iconObservables"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:Threat_Actors">
-                  <xsl:call-template name="iconThreatActors"/>
-                </xsl:if>
-              </div>
-              <div class="documentContentsItem">
-                <xsl:if test="//stix:TTPs">
-                  <xsl:call-template name="iconTTPs"/>
-                </xsl:if>
-              </div>
-            </div>
+              
+            </div> <!-- end of div class="documentContentsList" -->
 
           </xsl:if>
           <xsl:if test="$includeStixHeader">
@@ -513,7 +532,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
 
     <xsl:if test="$categoryGroupingElement/*">
       <div class="topLevelCategoryContainer {$categoryIdentifier}"
-        id="{categoryIdentifier}TopLevelCategoryContainer">
+        id="{$categoryIdentifier}TopLevelCategoryContainer">
         <h2>
           <a name="{$categoryIdentifier}TopLevelCategoryHeadingAnchor">
             <xsl:value-of select="$categoryLabel"/>

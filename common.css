@@ -693,3 +693,8 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
   margin-top: 1em;
   margin-left: 1em;
 }
+
+.documentContentsList > a
+{
+  text-decoration: none;
+}
