@@ -104,7 +104,7 @@ mdunn@mitre.org
   <xsl:template name="customFooter">
     <div class="customFooter">
       <xsl:comment>no custom footer provided</xsl:comment>
-      &#xA9; Generic Company
+      <!-- &#xA9; Generic Company -->
     </div>
   </xsl:template>
 
