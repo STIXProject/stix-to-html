@@ -11,17 +11,19 @@
 #    project was checked out (or where the zip file was extracted)
 #
 
+# sets DIR to directory where this script resides
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 cd $DIR/..
 
+rm -r temp
 mkdir temp
 cp -r ../../*.xsl ../../*.css ../../*.js ../../images temp
 cp resources/*.xsl temp
 
 java \
   -jar $SAXON_HOME/saxon9he.jar \
-  -xsl:temp/stix_to_html.xsl \
+  -xsl:temp/stix_to_html__customized.xsl \
   -s:input/stix_sample.xml \
   -o:output/stix_sample.output_with_custom_title_header_footer_css.html
 
