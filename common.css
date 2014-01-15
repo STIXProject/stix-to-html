@@ -338,6 +338,11 @@ td.compositionTableOperand
   padding: 0.7em;
 }
 
+.containerIndicator .compositionTableOperand > tbody > tr > td > div
+{
+  background-color: tan;
+}
+
 /* make DL look like a table */
 dl.table-display
 {
