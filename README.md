@@ -224,6 +224,9 @@ In particular look at these two wiki pages:
 
 The header, footer, title, and css can easily be customized.
 
+NOTE: There is an example of customizing these elements in the git repo at [stix-to-html/examples/examples-custom-title-header-footer-css](https://github.com/STIXProject/stix-to-html/tree/beta3/examples/examples-custom-title-header-footer-css).
+
+
 Inside stix_to_html.xsl there are three corresponding named templates:
  * customHeader
  * customFooter
@@ -247,11 +250,14 @@ There are also three stylesheet parameters that may be used to control the
 output.  Each one is a boolean and can be passed in on the command-line or
 programatically.
 
-Here are the three stylesheet parameters.  Each one defaults to true.
+_NOTE: There is an example of passing in custom parameters in the git repo at [stix-to-html/examples/examples-custom-stylesheet-parameters](https://github.com/STIXProject/stix-to-html/tree/beta3/examples/examples-custom-stylesheet-parameters)_
+
+Here are the three stylesheet parameters.  Each one defaults to true except enablePreformattedDescriptions which defaults to false.
 
  * includeFileMetadataHeader
  * includeStixHeader
  * displayConstraints
+ * enablePreformattedDescriptions
 
 "includeFileMetadataHeader" determines if the header with the stix version,
 filename, and html generation date is going to be displayed.
@@ -263,3 +269,4 @@ stix:STIX_Header contents) is dislayed.
 (and other similary formatted data elements) will be displayed.  This includes
 such information what type of matching is performed (equals or string match).
 
+"enablePreformattedDescriptions" should be used if the stix xml document has descriptions fields that are pre-formatted plain text where the line wrapping should be preserved.
