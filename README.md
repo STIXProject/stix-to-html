@@ -179,6 +179,12 @@ STIX - http://stix.mitre.org
  - **cybox_common.xsl**: common CybOX transformations used by stix_to_html.xsl.
  - **stix_common.xsl**: common stix transformations used by stix_to_html.xsl.
  - **normalize.xsl**: used by stix
+ - **custom.xsl**: sample custom templates
+ - **cybox_objects.xsl**: cybox object-specific templates (primarily provides templates for objects that show up in cybox:Properties)
+ - **cybox_objects__customized.xsl**: recommended place for end users to add custom cybox templates without modifying core css files.
+ - **cybox_util.xsl**: commonly used functions
+ - **stix_objects.xsl**: stix object-specific templates
+ - **stix_objects__customized.xsl**: recommended place for end users to add custom stix templates without modifying core css files.
  - **icons.xsl**: stylesheet code to read in the svg icons for the main item type logos
  - **common.js**: common javascript code
  - **wgxpath.install.js**: xpath support in javascript for browsers that don't
