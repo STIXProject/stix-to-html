@@ -212,6 +212,16 @@ Directory of files ("inputdir" and "outputdir" are directories):
 
 ## Customization
 
+### More Information on Customization
+
+In addition to the following summary, the wiki has more information and examples of how to customize stix-to-html at https://github.com/STIXProject/stix-to-html/wiki#customizing-the-stix-to-html-transform
+
+In particular look at these two wiki pages:
+ * [Customizing stix-to-html transform](https://github.com/STIXProject/stix-to-html/wiki/Customizing-stix-to-html-transform)
+ * [Supporting new stix and cybox elements](https://github.com/STIXProject/stix-to-html/wiki/Supporting-new-stix-and-cybox-elements)
+
+### Quick Summary of Customization
+
 The header, footer, title, and css can easily be customized.
 
 Inside stix_to_html.xsl there are three corresponding named templates:
