@@ -176,7 +176,6 @@ STIX - http://stix.mitre.org
  - **stix_to_hmtl__customized.xsl**: [not required] example of how to use the stix stylesheet and override the default title, header, footer, and css to customize the output.
  - **common.css**: common css styles
  - **common.js**: common javascript code
- - **custom.xsl**: sample custom templates
  - **cybox_common.xsl**: common CybOX transformations used by stix_to_html.xsl.
  - **cybox_objects.xsl**: cybox object-specific templates (primarily provides templates for objects that show up in cybox:Properties)
  - **cybox_objects__customized.xsl**: recommended place for end users to add custom cybox templates without modifying core css files.
@@ -277,6 +276,7 @@ such information what type of matching is performed (equals or string match).
    * URIObject (cybox_objects.xsl)
    * WindowsRegistryKeyObjectType (cybox_objects.xsl)
    * HTTP_Request_Response (cybox_objects.xsl)
+   * EmailMessageObjectType (cybox_object.xsl)
    * [not really object-specific] any cybox:Properties text node with ##comma## delimited range or list (cybox_objects.xsl)
  * indicator
    * sighting (stix_objects.xsl)
