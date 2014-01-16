@@ -237,24 +237,10 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="campaign:Related_Incident">
-    <div>
-      <xsl:apply-templates select="stixCommon:Incident" />
-    </div>
+  <xsl:template match="stixCommon:Relationship">
+    <div>Relationship: <xsl:apply-templates /></div>
   </xsl:template>
   
-  <xsl:template match="campaign:Related_TTP">
-    <div>
-      <xsl:apply-templates select="stixCommon:TTP" />
-    </div>
-  </xsl:template>
-  
-  <xsl:template match="campaign:Related_Indicator">
-    <div>
-      <xsl:apply-templates select="stixCommon:Indicator" />
-    </div>
-  </xsl:template>
-
   <xsl:template match="*:Intended_Effect">
     <div class="stixCommonValue">
       <xsl:apply-templates select="stixCommon:Value" />
@@ -1093,18 +1079,6 @@
         </div>
       </div> <!-- end of div contents -->
     </div> <!-- end of div container -->
-  </xsl:template>
-  
-  <!--
-    Display related TTP by showing the relationship and the underlying TTP.
-  -->
-  <xsl:template match="ttp:Related_TTP">
-    <div>
-      Related TTP Relationship: <xsl:value-of select="stixCommon:Relationship/text()" />
-    </div>
-    <div>
-      <xsl:apply-templates select="stixCommon:TTP" />
-    </div>
   </xsl:template>
   
   <!--
