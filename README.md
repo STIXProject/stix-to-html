@@ -270,3 +270,14 @@ stix:STIX_Header contents) is dislayed.
 such information what type of matching is performed (equals or string match).
 
 "enablePreformattedDescriptions" should be used if the stix xml document has descriptions fields that are pre-formatted plain text where the line wrapping should be preserved.
+
+### List of Objects With Object-specific Templates
+
+ * cybox
+   * URIObject (cybox_objects.xsl)
+   * WindowsRegistryKeyObjectType (cybox_objects.xsl)
+   * HTTP_Request_Response (cybox_objects.xsl)
+   * [not really object-specific] any cybox:Properties text node with ##comma## delimited range or list (cybox_objects.xsl)
+ * indicator
+   * sighting (stix_objects.xsl)
+   * any description element in any namespace (stix_objects.xsl)
