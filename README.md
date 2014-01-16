@@ -171,31 +171,24 @@ STIX - http://stix.mitre.org
 
 ## Included Files
 
- - **README**: this file.
+ - **README.md**: this file.
  - **stix_to_html.xsl**: the top-level STIX XML to HTML XSL Transform.
- - **stix_to_hmtl__customized.xsl**: [not required] example of how to use the stix
-   stylesheet and override the default title, header, footer, and css to
-   customize the output.
- - **cybox_common.xsl**: common CybOX transformations used by stix_to_html.xsl.
- - **stix_common.xsl**: common stix transformations used by stix_to_html.xsl.
- - **normalize.xsl**: used by stix
+ - **stix_to_hmtl__customized.xsl**: [not required] example of how to use the stix stylesheet and override the default title, header, footer, and css to customize the output.
+ - **common.css**: common css styles
+ - **common.js**: common javascript code
  - **custom.xsl**: sample custom templates
+ - **cybox_common.xsl**: common CybOX transformations used by stix_to_html.xsl.
  - **cybox_objects.xsl**: cybox object-specific templates (primarily provides templates for objects that show up in cybox:Properties)
  - **cybox_objects__customized.xsl**: recommended place for end users to add custom cybox templates without modifying core css files.
  - **cybox_util.xsl**: commonly used functions
+ - **icons.xsl**: stylesheet code to read in the svg icons for the main item type logos
+ - **images/*.svg and *.svgz**: svg vector images for the main item type logos (the *.svg files are used and pulled in via the xsl and included in the output html inline)
+ - **normalize.xsl**: used by stix
+ - **stix_common.xsl**: common stix transformations used by stix_to_html.xsl.
  - **stix_objects.xsl**: stix object-specific templates
  - **stix_objects__customized.xsl**: recommended place for end users to add custom stix templates without modifying core css files.
- - **icons.xsl**: stylesheet code to read in the svg icons for the main item type logos
- - **common.js**: common javascript code
- - **wgxpath.install.js**: xpath support in javascript for browsers that don't
-   support it (IE)  
-   [source: http://code.google.com/p/wicked-good-xpath/]
- - **common.css**: common css styles
- - **theme_default.css**: css styles used for main item type background colors
-   (observables, ttps, indicators, etc)
- - **images/*.svg and *.svgz**: svg vector images for the main item type logos
-   (the *.svg files are used and pulled in via the xsl and included in the
-   output html inline)
+ - **theme_default.css**: css styles used for main item type background colors (observables, ttps, indicators, etc)
+ - **wgxpath.install.js**: xpath support in javascript for browsers that don't support it (IE)  [source: http://code.google.com/p/wicked-good-xpath/]
 
 ## Usage Notes
 
