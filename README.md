@@ -273,8 +273,10 @@ such information what type of matching is performed (equals or string match).
 ### List of Objects With Object-specific Templates
 
  * cybox
-   * EmailMessageObjectType (cybox_object.xsl)
+   * EmailMessageObjectType (cybox_objects.xsl)
+   * Hash (cybox_objects.xsl)
    * HTTP_Request_Response (cybox_objects.xsl)
+   * Port (cybox_objects.xsl)
    * URIObject (cybox_objects.xsl)
    * WindowsRegistryKeyObjectType (cybox_objects.xsl)
    * [not really object-specific] any cybox:Properties text node with ##comma## delimited range or list (cybox_objects.xsl)
