@@ -1098,39 +1098,18 @@ ikirillov@mitre.org
         </div>
     </xsl:template>
   
+    <!--
+      template for formatting any Descriptions that contain HTML5 text
+      
+      the original html content is written to a data-* attribute on a div, and
+      then later on when the page is loaded the html content is parsed and
+      inserted into the page's dom.
+    -->
     <xsl:template match="text()[../self::*:Description[@structuring_format='HTML5']]" mode="cyboxProperties">
       <xsl:variable name="content" select="fn:data(.)" />
       <div class="htmlContainer" data-stix-content="{$content}" />
     </xsl:template>
   
-    <!--
-      Output hash value without unnecessary nested schema tree structure
-    -->
-    <xsl:template match="Common:Hash" mode="cyboxProperties">
-        <div class="container cyboxPropertiesContainer cyboxProperties">
-            <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/> </span>
-            <span class="cyboxPropertiesValue">
-                <xsl:value-of select="./Common:Type"/> = 
-                <xsl:value-of select="./Common:Simple_Hash_Value|./Common:Fuzzy_Hash_Value"/>
-            </span>            
-        </div>
-    </xsl:template>
-
-    <!--
-      Output Port value without unnecessary nested schema tree structure
-    -->
-    <xsl:template match="*:Port[contains(@xsi:type,'PortObjectType')]|*:Port[./*:Port_Value]" mode="cyboxProperties">
-        <div class="container cyboxPropertiesContainer cyboxProperties">
-            <div class="heading cyboxPropertiesHeading cyboxProperties">
-                Port <xsl:choose>
-                    <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-                    <xsl:otherwise> = </xsl:otherwise>
-                </xsl:choose>
-                <xsl:value-of select="." />
-            </div>
-        </div>
-    </xsl:template>
-    
     <!--
       Output Address value without unnecessary nested schema tree structure
     -->

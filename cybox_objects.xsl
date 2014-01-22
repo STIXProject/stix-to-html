@@ -214,7 +214,9 @@
   </xsl:template>
 
   <!--
-    purpose:
+    purpose: sample custom template for email messages.  This default template only shows raw headers and raw body.
+    
+    TODO: extend for parsed headers.
   -->
   <xsl:template match="cybox:Properties[contains(@xsi:type,'EmailMessageObjectType')]" priority="1000">
     <div class="emailCustomTemplate">
@@ -239,5 +241,36 @@
       </div>
     </div>
   </xsl:template>
+
+  <!--
+    Output hash value without unnecessary nested schema tree structure
+  -->
+  <xsl:template match="Common:Hash" mode="cyboxProperties">
+    <div class="container cyboxPropertiesContainer cyboxProperties">
+      <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/> </span>
+      <span class="cyboxPropertiesValue">
+        <xsl:value-of select="./Common:Type"/> = 
+        <xsl:value-of select="./Common:Simple_Hash_Value|./Common:Fuzzy_Hash_Value"/>
+      </span>            
+    </div>
+  </xsl:template>
+  
+  <!--
+    Output Port value without unnecessary nested schema tree structure.
+    
+    note: This only applies within cyboxProperties styled output.
+  -->
+  <xsl:template match="*:Port[contains(@xsi:type,'PortObjectType')]|*:Port[./*:Port_Value]" mode="cyboxProperties">
+    <div class="container cyboxPropertiesContainer cyboxProperties">
+      <div class="heading cyboxPropertiesHeading cyboxProperties">
+        Port <xsl:choose>
+          <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
+          <xsl:otherwise> = </xsl:otherwise>
+        </xsl:choose>
+        <xsl:value-of select="." />
+      </div>
+    </div>
+  </xsl:template>
+  
   
 </xsl:stylesheet>
