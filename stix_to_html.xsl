@@ -63,7 +63,7 @@ mdunn@mitre.org
   <xsl:param name="includeFileMetadataHeader" select="true()"/>
   
   <!--
-    include the stix header - - the header table that shows the title, package
+    include the stix header - the header table that shows the title, package
     intent, description, handling, information source, etc.
   -->
   <xsl:param name="includeStixHeader" select="true()"/>
