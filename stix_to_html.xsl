@@ -385,6 +385,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Observables"/>
+              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Observables'"/>
               <xsl:with-param name="categoryIdentifier" select="'observables'"/>
             </xsl:call-template>
@@ -394,6 +396,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Indicators"/>
               <xsl:with-param name="headingLabels" select="('Title', 'Observable Title', 'Type')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'observableTitleColumn', 'typeColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Indicators'"/>
               <xsl:with-param name="categoryIdentifier" select="'indicators'"/>
             </xsl:call-template>

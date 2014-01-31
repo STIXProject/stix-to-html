@@ -183,7 +183,8 @@ ikirillov@mitre.org
             <!-- /stix -->
             <xsl:otherwise>
                 <td colspan="2">
-                    <xsl:value-of select="./@idref"/>
+                  <!-- <xsl:value-of select="./@idref"/> -->
+                  <xsl:value-of select="$actualItem/@idref"/>
                 </td>
             </xsl:otherwise>
         </xsl:choose>
@@ -198,7 +199,8 @@ ikirillov@mitre.org
         <xsl:param name="reference" select="()" />
         <xsl:param name="actualItem" select="()" />
         
-        <xsl:variable name="currentItem" select="." />
+        <!-- <xsl:variable name="currentItem" select="." /> -->
+        <xsl:variable name="currentItem" select="$actualItem" />
         <xsl:variable name="actualItem2" select="$reference/*[@id = fn:data($currentItem/@idref)]" />
         
         <xsl:choose>
@@ -247,22 +249,41 @@ ikirillov@mitre.org
         <xsl:variable name="expandedContentId" select="generate-id(.)"/>
         
         <xsl:variable name="contentVar" select="concat(count(ancestor::node()), '00000000', count(preceding::node()))"/>
+      
+        <xsl:variable name="allColumnsSequence" select="cybox:calculateAllColumns($actualItem, $reference)"/>
+      
+        <xsl:variable name="column1" select="$allColumnsSequence[1]" />
+        <xsl:variable name="column2" select="$allColumnsSequence[2]" />
+        <xsl:variable name="column3" select="$allColumnsSequence[3]" />
         
         <tbody class="expandableContainer expandableSeparate collapsed" data-stix-content-id="{$id}">
             <tr>
                 <td>
                     <div class="expandableToggle objectReference" onclick="embedObject()toggle(this.parentNode.parentNode.parentNode)">
                         <xsl:attribute name="onclick">embedObject(this.parentNode.parentNode.parentNode, '<xsl:value-of select="$id"/>','<xsl:value-of select="$expandedContentId"/>');</xsl:attribute>
+                        <!--
                         <xsl:variable name="column1Content">
                           <xsl:call-template name="calculateColumn1Content">
                               <xsl:with-param name="reference" select="$reference" />
                               <xsl:with-param name="actualItem" select="$actualItem" />
                           </xsl:call-template>
                         </xsl:variable>
+                        -->
                         <xsl:text> </xsl:text>
-                        <xsl:value-of select="fn:normalize-space($column1Content)" />
+                        <xsl:value-of select="fn:normalize-space($column1)" />
                     </div>
                 </td>
+                <td>
+                  <xsl:if test="$column2">
+                    <xsl:copy-of select="$column2" />
+                  </xsl:if>
+                </td>
+                <td>
+                  <xsl:if test="$column3">
+                    <xsl:copy-of select="$column3" />
+                  </xsl:if>
+                </td>
+                    <!--
                     <xsl:call-template name="calculateColumn2Content">
                         <xsl:with-param name="reference" select="$reference" />
                         <xsl:with-param name="actualItem" select="$actualItem" />
@@ -271,6 +292,7 @@ ikirillov@mitre.org
                         <xsl:with-param name="reference" select="$reference" />
                         <xsl:with-param name="actualItem" select="$actualItem" />
                     </xsl:call-template>
+                    -->
             </tr>
             <tr>
                 <td colspan="{$colCount}">
@@ -281,6 +303,97 @@ ikirillov@mitre.org
             </tr>
         </tbody>
     </xsl:template>
+  
+    <xsl:function name="cybox:calculateAllColumns">
+      <xsl:param name="actualItem" />
+      <xsl:param name="reference" />
+      
+      <xsl:choose>
+        <xsl:when test="$actualItem/cybox:*">
+          <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
+        </xsl:otherwise>
+      </xsl:choose>
+      
+    </xsl:function>
+  
+    <xsl:function name="cybox:calculateAllColumnsOtherItems">
+      <xsl:param name="actualItem" />
+      <xsl:param name="reference" />
+      
+      <xsl:variable name="column1">
+        <xsl:call-template name="calculateColumn1Content">
+          <xsl:with-param name="reference" select="$reference" />
+          <xsl:with-param name="actualItem" select="$actualItem" />
+        </xsl:call-template>
+      </xsl:variable>
+      
+      <xsl:variable name="column2">
+        <xsl:if test="$actualItem">
+          <xsl:call-template name="calculateColumn2Content">
+            <xsl:with-param name="reference" select="$reference" />
+            <xsl:with-param name="actualItem" select="$actualItem" />
+          </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="not($actualItem)"><xsl:text> </xsl:text></xsl:if>
+      </xsl:variable>
+      
+      <xsl:variable name="column3">
+        <xsl:if test="$actualItem">
+          <xsl:call-template name="calculateColumn3Content">
+            <xsl:with-param name="reference" select="$reference" />
+            <xsl:with-param name="actualItem" select="$actualItem" />
+          </xsl:call-template>
+        </xsl:if>
+        <xsl:if test="not($actualItem)"><xsl:text> </xsl:text></xsl:if>
+      </xsl:variable>
+      
+      <xsl:sequence select="$column1,$column2,$column3" />
+      
+    </xsl:function>
+  
+    <xsl:function name="cybox:calculateAllColumnsObservable">
+      <xsl:param name="actualItem" />
+      <xsl:param name="reference" />
+      
+      <xsl:variable name="column1">
+        <xsl:if test="$actualItem/cybox:Title">
+          <xsl:value-of select="$actualItem/cybox:Title" />
+        </xsl:if>
+      </xsl:variable>
+      <xsl:variable name="column2">
+        <xsl:choose>
+          <xsl:when test="$actualItem/cybox:Observable_Composition">
+            Composition
+          </xsl:when>
+          <xsl:when test="$actualItem/cybox:Event">
+            Event
+          </xsl:when>
+          <xsl:when test="$actualItem/cybox:Object">
+            <xsl:variable name="objectItem" select="$reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
+            
+            <xsl:choose>
+              <xsl:when test="$objectItem/cybox:Properties/@xsi:type" xml:space="preserve">
+                        <xsl:value-of select="cybox:camelCase(fn:substring-before(fn:local-name-from-QName(fn:resolve-QName($objectItem/cybox:Properties/@xsi:type, $objectItem)),'ObjectType'))" />
+                    </xsl:when>
+              <xsl:when test="$objectItem/cybox:Properties/@xsi:type and not($objectItem/cybox:Properties/@xsi:type)">
+                Object (no properties set)
+              </xsl:when>
+              <xsl:otherwise>
+                [Object, no ID]
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="column3">
+        <xsl:value-of select="fn:data($actualItem/@id)" />
+      </xsl:variable>
+      
+      <xsl:sequence select="$column1,$column2,$column3" />
+    </xsl:function>
     
     <!-- REFERENCE: HELP_UPDATE_STEP_1E -->
     <xsl:template name="printObjectForReferenceList">
