@@ -395,8 +395,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Indicators"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'Observable Title', 'Type')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'observableTitleColumn', 'typeColumn')"/>
+              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'Id')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Indicators'"/>
               <xsl:with-param name="categoryIdentifier" select="'indicators'"/>
             </xsl:call-template>
@@ -405,7 +405,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:TTPs"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'ID')"/>
+              <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'TTPs'"/>
               <xsl:with-param name="categoryIdentifier" select="'ttps'"/>
             </xsl:call-template>
@@ -440,6 +441,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Campaigns"/>
+              <xsl:with-param name="headingLabels" select="('Title/Name', 'Intended Effect', 'Id')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Campaigns'"/>
               <xsl:with-param name="categoryIdentifier" select="'campaigns'"/>
             </xsl:call-template>
@@ -591,7 +594,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
           <xsl:for-each select="$categoryGroupingElement/stix:Kill_Chains">
             <thead>
               <tr>
-                <th colspan="2">Kill Chains</th>
+                <th colspan="3">Kill Chains</th>
               </tr>
             </thead>
             <xsl:for-each select="./stixCommon:Kill_Chain">

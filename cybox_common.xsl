@@ -169,23 +169,23 @@ ikirillov@mitre.org
         <xsl:choose>
             <!-- stix -->
             <xsl:when test="$actualItem[contains(@xsi:type,'IndicatorType')]/indicator:Composite_Indicator_Expression">
-                <td>
+                <!-- <td> -->
                     [Composition]
-                </td>
+                <!-- </td> -->
             </xsl:when>
             <xsl:when test="$actualItem[contains(@xsi:type,'IndicatorType')]/indicator:Observable">
-                <td>
+                <!-- <td> -->
                     <xsl:variable name="observableItem" select="$reference/*[@id = fn:data($actualItem/indicator:Observable/@idref)]" />
                     <xsl:variable name="output" select="if ($observableItem/cybox:Title) then $observableItem/cybox:Title/text()  else ('[Observable, no Title]')" />
                     <xsl:value-of select="$output" />
-                </td>
+                <!-- </td> -->
             </xsl:when>
             <!-- /stix -->
             <xsl:otherwise>
-                <td colspan="2">
+                <!-- <td colspan="2"> -->
                   <!-- <xsl:value-of select="./@idref"/> -->
                   <xsl:value-of select="$actualItem/@idref"/>
-                </td>
+                <!-- </td> -->
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -206,9 +206,9 @@ ikirillov@mitre.org
         <xsl:choose>
             <!-- stix -->
             <xsl:when test="$actualItem2[contains(@xsi:type,'IndicatorType')]">
-                <td>
+                <!-- <td> -->
                     <xsl:value-of select="$actualItem2/indicator:Type/text()" />
-                </td>
+                <!-- </td> -->
             </xsl:when>
             <!-- /stix -->
             <xsl:otherwise>
@@ -309,8 +309,17 @@ ikirillov@mitre.org
       <xsl:param name="reference" />
       
       <xsl:choose>
-        <xsl:when test="$actualItem/cybox:*">
+        <xsl:when test="$actualItem[self::cybox:Observable]">
           <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::stix:Indicator]">
+          <xsl:sequence select="cybox:calculateAllColumnsIndicator($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::stix:TTP]">
+          <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::stix:Campaign]">
+          <xsl:sequence select="cybox:calculateAllColumnsCampaign($actualItem, $reference)" />
         </xsl:when>
         <xsl:otherwise>
           <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
@@ -395,6 +404,76 @@ ikirillov@mitre.org
       <xsl:sequence select="$column1,$column2,$column3" />
     </xsl:function>
     
+    <xsl:function name="cybox:calculateAllColumnsIndicator">
+      <xsl:param name="actualItem" />
+      <xsl:param name="reference" />
+      
+      <xsl:variable name="column1">
+        <xsl:if test="$actualItem/indicator:Title">
+          <xsl:value-of select="$actualItem/indicator:Title" />
+        </xsl:if>
+      </xsl:variable>
+      <xsl:variable name="column2">
+        <xsl:if test="$actualItem/indicator:Type">
+          <xsl:value-of select="$actualItem/indicator:Type" />
+        </xsl:if>
+      </xsl:variable>
+      <xsl:variable name="column3">
+        <xsl:value-of select="fn:data($actualItem/@id)" />
+      </xsl:variable>
+      
+      <xsl:sequence select="$column1,$column2,$column3" />
+    </xsl:function>
+
+  <xsl:function name="cybox:calculateAllColumnsTTP">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:if test="$actualItem/ttp:Title">
+        <xsl:value-of select="$actualItem/ttp:Title" />
+      </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="column2">
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsCampaign">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:if test="$actualItem/campaign:Title or $actualItem/campaign:Names/campaign:Name">
+        <xsl:choose>
+          <xsl:when test="$actualItem/campaign:Title">
+            <xsl:value-of select="$actualItem/campaign:Title" />
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- <xsl:value-of select="fn:string-join($actualItem/campaign:Names/campaign:Name, '; ')" /> -->
+            <xsl:value-of select="$actualItem/campaign:Names/campaign:Name" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="column2">
+      <xsl:if test="$actualItem/campaign:Intended_Effect/stixCommon:Value">
+        <xsl:value-of select="$actualItem/campaign:Intended_Effect/stixCommon:Value" />
+      </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  
+  
     <!-- REFERENCE: HELP_UPDATE_STEP_1E -->
     <xsl:template name="printObjectForReferenceList">
         <xsl:param name="reference" select="()" />
