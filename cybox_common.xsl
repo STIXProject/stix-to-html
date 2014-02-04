@@ -438,6 +438,9 @@ ikirillov@mitre.org
       </xsl:if>
     </xsl:variable>
     <xsl:variable name="column2">
+      <xsl:if test="$actualItem/ttp:Intended_Effect/stixCommon:Value">
+        <xsl:value-of select="$actualItem/ttp:Intended_Effect/stixCommon:Value" />
+      </xsl:if>
     </xsl:variable>
     <xsl:variable name="column3">
       <xsl:value-of select="fn:data($actualItem/@id)" />

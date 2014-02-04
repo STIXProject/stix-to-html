@@ -405,8 +405,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:TTPs"/>
-              <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+              <xsl:with-param name="headingLabels" select="('Title', 'Intended Effect', 'ID')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'TTPs'"/>
               <xsl:with-param name="categoryIdentifier" select="'ttps'"/>
             </xsl:call-template>
