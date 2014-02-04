@@ -346,30 +346,17 @@ ikirillov@mitre.org
       <xsl:param name="reference" />
       
       <xsl:variable name="column1">
-        <xsl:call-template name="calculateColumn1Content">
-          <xsl:with-param name="reference" select="$reference" />
-          <xsl:with-param name="actualItem" select="$actualItem" />
-        </xsl:call-template>
+        <xsl:if test="$actualItem/*:Title">
+          <xsl:value-of select="$actualItem/*:Title" />
+        </xsl:if>
       </xsl:variable>
-      
       <xsl:variable name="column2">
-        <xsl:if test="$actualItem">
-          <xsl:call-template name="calculateColumn2Content">
-            <xsl:with-param name="reference" select="$reference" />
-            <xsl:with-param name="actualItem" select="$actualItem" />
-          </xsl:call-template>
+        <xsl:if test="$actualItem/*:Type">
+          <xsl:value-of select="$actualItem/*:Type" />
         </xsl:if>
-        <xsl:if test="not($actualItem)"><xsl:text> </xsl:text></xsl:if>
       </xsl:variable>
-      
       <xsl:variable name="column3">
-        <xsl:if test="$actualItem">
-          <xsl:call-template name="calculateColumn3Content">
-            <xsl:with-param name="reference" select="$reference" />
-            <xsl:with-param name="actualItem" select="$actualItem" />
-          </xsl:call-template>
-        </xsl:if>
-        <xsl:if test="not($actualItem)"><xsl:text> </xsl:text></xsl:if>
+        <xsl:value-of select="fn:data($actualItem/@id)" />
       </xsl:variable>
       
       <xsl:sequence select="$column1,$column2,$column3" />
