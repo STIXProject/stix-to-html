@@ -198,9 +198,7 @@ ikirillov@mitre.org
       <xsl:param name="reference" />
       
       <xsl:variable name="column1">
-        <xsl:if test="$actualItem/*:Title">
-          <xsl:value-of select="$actualItem/*:Title" />
-        </xsl:if>
+        <xsl:value-of select="if ($actualItem/*:Title) then ($actualItem/*:Title) else '[no title]'" />
       </xsl:variable>
       <xsl:variable name="column2">
         <xsl:if test="$actualItem/*:Type">
@@ -220,9 +218,7 @@ ikirillov@mitre.org
       <xsl:param name="reference" />
       
       <xsl:variable name="column1">
-        <xsl:if test="$actualItem/cybox:Title">
-          <xsl:value-of select="$actualItem/cybox:Title" />
-        </xsl:if>
+        <xsl:value-of select="if ($actualItem/cybox:Title) then ($actualItem/cybox:Title) else '[no title]'" />
       </xsl:variable>
       <xsl:variable name="column2">
         <xsl:choose>
@@ -261,9 +257,7 @@ ikirillov@mitre.org
       <xsl:param name="reference" />
       
       <xsl:variable name="column1">
-        <xsl:if test="$actualItem/indicator:Title">
-          <xsl:value-of select="$actualItem/indicator:Title" />
-        </xsl:if>
+        <xsl:value-of select="if ($actualItem/indicator:Title) then ($actualItem/indicator:Title) else '[no title]'" />
       </xsl:variable>
       <xsl:variable name="column2">
         <xsl:if test="$actualItem/indicator:Type">
@@ -282,9 +276,7 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:if test="$actualItem/ttp:Title">
-        <xsl:value-of select="$actualItem/ttp:Title" />
-      </xsl:if>
+      <xsl:value-of select="if ($actualItem/ttp:Title) then ($actualItem/ttp:Title) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
       <xsl:if test="$actualItem/ttp:Intended_Effect/stixCommon:Value">
@@ -303,14 +295,7 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:choose>
-        <xsl:when test="$actualItem/et:Title">
-          <xsl:value-of select="$actualItem/et:Title" />
-        </xsl:when>
-        <xsl:otherwise>
-          [No Title]
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:value-of select="if ($actualItem/et:Title) then ($actualItem/et:Title) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
     </xsl:variable>
@@ -326,9 +311,7 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:if test="$actualItem/incident:Title">
-        <xsl:value-of select="$actualItem/incident:Title" />
-      </xsl:if>
+      <xsl:value-of select="if ($actualItem/incident:Title) then ($actualItem/incident:Title) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
     </xsl:variable>
@@ -344,14 +327,7 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:choose>
-        <xsl:when test="$actualItem/coa:Title">
-          <xsl:value-of select="$actualItem/coa:Title" />
-        </xsl:when>
-        <xsl:otherwise>
-          [No Title]
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:value-of select="if ($actualItem/coa:Title) then ($actualItem/coa:Title) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
       <xsl:if test="$actualItem/coa:Type">
@@ -370,17 +346,22 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
+      <!-- <xsl:value-of select="fn:string-join($actualItem/campaign:Names/campaign:Name, '; ')" /> -->
+      <xsl:value-of select="if ($actualItem/campaign:Title) then ($actualItem/campaign:Title) else if ($actualItem/campaign:Names/campaign:Name) then $actualItem/campaign:Names/campaign:Name else '[no title or name]'" />
+      
+      <!--
       <xsl:if test="$actualItem/campaign:Title or $actualItem/campaign:Names/campaign:Name">
         <xsl:choose>
           <xsl:when test="$actualItem/campaign:Title">
             <xsl:value-of select="$actualItem/campaign:Title" />
           </xsl:when>
           <xsl:otherwise>
-            <!-- <xsl:value-of select="fn:string-join($actualItem/campaign:Names/campaign:Name, '; ')" /> -->
+            <!- - <xsl:value-of select="fn:string-join($actualItem/campaign:Names/campaign:Name, '; ')" /> - ->
             <xsl:value-of select="$actualItem/campaign:Names/campaign:Name" />
           </xsl:otherwise>
         </xsl:choose>
       </xsl:if>
+      -->
     </xsl:variable>
     <xsl:variable name="column2">
       <xsl:if test="$actualItem/campaign:Intended_Effect/stixCommon:Value">
@@ -399,9 +380,7 @@ ikirillov@mitre.org
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:if test="$actualItem/ta:Title">
-      <xsl:value-of select="$actualItem/ta:Title" />
-    </xsl:if>
+      <xsl:value-of select="if ($actualItem/ta:Title) then ($actualItem/ta:Title) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
     </xsl:variable>
