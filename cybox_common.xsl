@@ -88,136 +88,6 @@ ikirillov@mitre.org
     </xsl:function>
 
     <!--
-      Shared function that is used to calculate what type or title to show in
-      the top level category table, depending on the type of the generic
-      "item" element.
-    -->
-    <xsl:template name="calculateColumn1Content">
-        <xsl:param name="reference" select="()" />
-        <xsl:param name="actualItem" select="()" />
-        
-        <xsl:choose>
-            <xsl:when test="$actualItem/cybox:Observable_Composition">
-                Composition
-            </xsl:when>
-            <xsl:when test="$actualItem/cybox:Event">
-                Event
-            </xsl:when>
-            <xsl:when test="$actualItem/cybox:Object">
-                <xsl:variable name="objectItem" select="$reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
-               
-                <xsl:choose>
-                    <xsl:when test="$objectItem/cybox:Properties/@xsi:type" xml:space="preserve">
-                        <xsl:value-of select="cybox:camelCase(fn:substring-before(fn:local-name-from-QName(fn:resolve-QName($objectItem/cybox:Properties/@xsi:type, $objectItem)),'ObjectType'))" />
-                    </xsl:when>
-                    <xsl:when test="$objectItem/cybox:Properties/@xsi:type and not($objectItem/cybox:Properties/@xsi:type)">
-                        Object (no properties set)
-                    </xsl:when>
-                    <xsl:otherwise>
-                        [Object, no ID]
-                    </xsl:otherwise>
-                </xsl:choose>
-               
-            </xsl:when>
-            
-            <!-- stix -->
-            <xsl:when test="$actualItem[contains(@xsi:type,'IndicatorType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/indicator:Title) then $actualItem/indicator:Title/text() else ('[Indicator, no Title]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[contains(@xsi:type,'ThreatActorType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/threat-actor:Title) then $actualItem/threat-actor:Title/text() else ('[ThreatActor, no Title]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[contains(@xsi:type,'TTPType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/ttp:Title) then $actualItem/ttp:Title/text() else ('[TTP, no Title]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[contains(@xsi:type,'COAType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/coa:Type) then $actualItem/coa:Type/text() else ('[TTP, no Type]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[contains(@xsi:type,'IncidentType')]"  xml:space="preserve">
-                <xsl:variable name="output" select="if ($actualItem/coa:Type) then $actualItem/coa:Type/text() else ('[Incident, no Type]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[self::stix:Campaign]">
-                <xsl:variable name="output" select="if ($actualItem/campaign:Names/campaign:Name) then $actualItem[self::stix:Campaign]/campaign:Names/campaign:Name/text() else ('[Other Campaign]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <xsl:when test="$actualItem[self::stixCommon:Kill_Chain]">
-                <xsl:variable name="output" select="if ($actualItem/@name) then fn:data($actualItem/@name) else ('[Other Kill Chain]')" />
-                <xsl:value-of select="$output" />
-            </xsl:when>
-            <!-- /stix -->
-            <xsl:otherwise>
-                Other
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-
-    <!--
-      Shared function that is used to calculate what type or title to show in
-      the top level category table, depending on the type of the generic
-      "item" element.
-    -->
-    <xsl:template name="calculateColumn2Content">
-        <xsl:param name="reference" select="()" />
-        <xsl:param name="actualItem" select="()" />
-        
-        <xsl:choose>
-            <!-- stix -->
-            <xsl:when test="$actualItem[contains(@xsi:type,'IndicatorType')]/indicator:Composite_Indicator_Expression">
-                <!-- <td> -->
-                    [Composition]
-                <!-- </td> -->
-            </xsl:when>
-            <xsl:when test="$actualItem[contains(@xsi:type,'IndicatorType')]/indicator:Observable">
-                <!-- <td> -->
-                    <xsl:variable name="observableItem" select="$reference/*[@id = fn:data($actualItem/indicator:Observable/@idref)]" />
-                    <xsl:variable name="output" select="if ($observableItem/cybox:Title) then $observableItem/cybox:Title/text()  else ('[Observable, no Title]')" />
-                    <xsl:value-of select="$output" />
-                <!-- </td> -->
-            </xsl:when>
-            <!-- /stix -->
-            <xsl:otherwise>
-                <!-- <td colspan="2"> -->
-                  <!-- <xsl:value-of select="./@idref"/> -->
-                  <xsl:value-of select="$actualItem/@idref"/>
-                <!-- </td> -->
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <!--
-      Shared function that is used to calculate what type or title to show in
-      the top level category table, depending on the type of the generic
-      "item" element.
-    -->
-    <xsl:template name="calculateColumn3Content">
-        <xsl:param name="reference" select="()" />
-        <xsl:param name="actualItem" select="()" />
-        
-        <!-- <xsl:variable name="currentItem" select="." /> -->
-        <xsl:variable name="currentItem" select="$actualItem" />
-        <xsl:variable name="actualItem2" select="$reference/*[@id = fn:data($currentItem/@idref)]" />
-        
-        <xsl:choose>
-            <!-- stix -->
-            <xsl:when test="$actualItem2[contains(@xsi:type,'IndicatorType')]">
-                <!-- <td> -->
-                    <xsl:value-of select="$actualItem2/indicator:Type/text()" />
-                <!-- </td> -->
-            </xsl:when>
-            <!-- /stix -->
-            <xsl:otherwise>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    
-
-    <!--
       print one of the "items" (Obserbale, Indicator, TTP, etc) for the top
       level category table.
       
@@ -261,14 +131,6 @@ ikirillov@mitre.org
                 <td>
                     <div class="expandableToggle objectReference" onclick="embedObject()toggle(this.parentNode.parentNode.parentNode)">
                         <xsl:attribute name="onclick">embedObject(this.parentNode.parentNode.parentNode, '<xsl:value-of select="$id"/>','<xsl:value-of select="$expandedContentId"/>');</xsl:attribute>
-                        <!--
-                        <xsl:variable name="column1Content">
-                          <xsl:call-template name="calculateColumn1Content">
-                              <xsl:with-param name="reference" select="$reference" />
-                              <xsl:with-param name="actualItem" select="$actualItem" />
-                          </xsl:call-template>
-                        </xsl:variable>
-                        -->
                         <xsl:text> </xsl:text>
                         <xsl:value-of select="fn:normalize-space($column1)" />
                     </div>
@@ -283,16 +145,6 @@ ikirillov@mitre.org
                     <xsl:copy-of select="$column3" />
                   </xsl:if>
                 </td>
-                    <!--
-                    <xsl:call-template name="calculateColumn2Content">
-                        <xsl:with-param name="reference" select="$reference" />
-                        <xsl:with-param name="actualItem" select="$actualItem" />
-                    </xsl:call-template>
-                    <xsl:call-template name="calculateColumn3Content">
-                        <xsl:with-param name="reference" select="$reference" />
-                        <xsl:with-param name="actualItem" select="$actualItem" />
-                    </xsl:call-template>
-                    -->
             </tr>
             <tr>
                 <td colspan="{$colCount}">
