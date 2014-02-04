@@ -37,7 +37,7 @@ border-width:1px;
 
 table.topLevelCategory > colgroup > col.typeColumn
 {
-  width: 20em;
+  width: auto;
 }
 
 table.topLevelCategory > colgroup > col.idColumn
