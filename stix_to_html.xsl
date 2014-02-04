@@ -435,6 +435,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement"
                 select="$normalized/stix:Courses_Of_Action"/>
+              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Courses of Action'"/>
               <xsl:with-param name="categoryIdentifier" select="'coursesOfAction'"/>
             </xsl:call-template>

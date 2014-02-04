@@ -321,6 +321,9 @@ ikirillov@mitre.org
         <xsl:when test="$actualItem[self::stix:Incident]">
           <xsl:sequence select="cybox:calculateAllColumnsIncident($actualItem, $reference)" />
         </xsl:when>
+        <xsl:when test="$actualItem[self::stix:Course_Of_Action]">
+          <xsl:sequence select="cybox:calculateAllColumnsCourseOfAction($actualItem, $reference)" />
+        </xsl:when>
         <xsl:when test="$actualItem[self::stix:Campaign]">
           <xsl:sequence select="cybox:calculateAllColumnsCampaign($actualItem, $reference)" />
         </xsl:when>
@@ -462,6 +465,32 @@ ikirillov@mitre.org
       </xsl:if>
     </xsl:variable>
     <xsl:variable name="column2">
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsCourseOfAction">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:choose>
+        <xsl:when test="$actualItem/coa:Title">
+          <xsl:value-of select="$actualItem/coa:Title" />
+        </xsl:when>
+        <xsl:otherwise>
+          [No Title]
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="column2">
+      <xsl:if test="$actualItem/coa:Type">
+        <xsl:value-of select="$actualItem/coa:Type" />
+      </xsl:if>
     </xsl:variable>
     <xsl:variable name="column3">
       <xsl:value-of select="fn:data($actualItem/@id)" />
