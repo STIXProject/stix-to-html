@@ -416,6 +416,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement"
                 select="$normalized/stix:Exploit_Targets"/>
+              <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Exploit Targets'"/>
               <xsl:with-param name="categoryIdentifier" select="'exploitTargets'"/>
             </xsl:call-template>

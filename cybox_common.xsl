@@ -318,6 +318,10 @@ ikirillov@mitre.org
         <xsl:when test="$actualItem[self::stix:TTP]">
           <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
         </xsl:when>
+        <xsl:when test="$actualItem[self::stixCommon:Exploit_Target]">
+          <xsl:message>hit exploit target</xsl:message>
+          <xsl:sequence select="cybox:calculateAllColumnsExploitTarget($actualItem, $reference)" />
+        </xsl:when>
         <xsl:when test="$actualItem[self::stix:Incident]">
           <xsl:sequence select="cybox:calculateAllColumnsIncident($actualItem, $reference)" />
         </xsl:when>
@@ -447,6 +451,29 @@ ikirillov@mitre.org
       <xsl:if test="$actualItem/ttp:Intended_Effect/stixCommon:Value">
         <xsl:value-of select="$actualItem/ttp:Intended_Effect/stixCommon:Value" />
       </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsExploitTarget">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:choose>
+        <xsl:when test="$actualItem/et:Title">
+          <xsl:value-of select="$actualItem/et:Title" />
+        </xsl:when>
+        <xsl:otherwise>
+          [No Title]
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="column2">
     </xsl:variable>
     <xsl:variable name="column3">
       <xsl:value-of select="fn:data($actualItem/@id)" />
