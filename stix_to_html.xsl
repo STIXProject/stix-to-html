@@ -451,6 +451,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:with-param name="reference" select="$reference"/>
               <xsl:with-param name="normalized" select="$normalized"/>
               <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Threat_Actors"/>
+              <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
               <xsl:with-param name="categoryLabel" select="'Threat Actors'"/>
               <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
             </xsl:call-template>
