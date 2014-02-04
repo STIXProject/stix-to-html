@@ -176,6 +176,7 @@ STIX - http://stix.mitre.org
  - **stix_to_hmtl__customized.xsl**: [not required] example of how to use the stix stylesheet and override the default title, header, footer, and css to customize the output.
  - **common.css**: common css styles
  - **common.js**: common javascript code
+ - **common_top_level_tables.xsl**: the xslt that produces the top level item tables (observables, TTPs, etc)
  - **cybox_common.xsl**: common CybOX transformations used by stix_to_html.xsl.
  - **cybox_objects.xsl**: cybox object-specific templates (primarily provides templates for objects that show up in cybox:Properties)
  - **cybox_objects__customized.xsl**: recommended place for end users to add custom cybox templates without modifying core css files.

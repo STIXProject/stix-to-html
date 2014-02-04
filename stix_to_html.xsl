@@ -375,102 +375,20 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
             <xsl:with-param name="reference" select="$reference"/>
             <xsl:with-param name="normalized" select="$normalized"/>
           </xsl:call-template>
+          
+          <xsl:call-template name="processAllTopLevelTables">
+            <xsl:with-param name="reference" select="$reference"/>
+            <xsl:with-param name="normalized" select="$normalized"/>
+          </xsl:call-template>
 
-          <!--
-            MAIN TOP LEVEL CATEGORY TABLES
-          -->
-          <div class="topLevelCategoryTables">
 
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Observables"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Observables'"/>
-              <xsl:with-param name="categoryIdentifier" select="'observables'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Indicators"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'Id')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Indicators'"/>
-              <xsl:with-param name="categoryIdentifier" select="'indicators'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:TTPs"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'Intended Effect', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'TTPs'"/>
-              <xsl:with-param name="categoryIdentifier" select="'ttps'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement"
-                select="$normalized/stix:Exploit_Targets"/>
-              <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Exploit Targets'"/>
-              <xsl:with-param name="categoryIdentifier" select="'exploitTargets'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Incidents"/>
-              <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Incidents'"/>
-              <xsl:with-param name="categoryIdentifier" select="'incidents'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement"
-                select="$normalized/stix:Courses_Of_Action"/>
-              <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Courses of Action'"/>
-              <xsl:with-param name="categoryIdentifier" select="'coursesOfAction'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Campaigns"/>
-              <xsl:with-param name="headingLabels" select="('Title/Name', 'Intended Effect', 'Id')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Campaigns'"/>
-              <xsl:with-param name="categoryIdentifier" select="'campaigns'"/>
-            </xsl:call-template>
-
-            <xsl:call-template name="processTopLevelCategory">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Threat_Actors"/>
-              <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
-              <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
-              <xsl:with-param name="categoryLabel" select="'Threat Actors'"/>
-              <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
-            </xsl:call-template>
-
-          </div>
         </div>
 
         <xsl:call-template name="customFooter"/>
       </body>
     </html>
   </xsl:template>
-
+  
   <!--
     This template prints out the "reference" variable that comes of the the
     "normalization" transform.
@@ -542,83 +460,6 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
       <xsl:with-param name="reference" select="$reference"/>
       <xsl:with-param name="normalized" select="$normalized"/>
     </xsl:call-template>
-  </xsl:template>
-
-  <!--
-      draw the main table on the page that represents the list of Observables.
-      these are the elements that are directly below the root element of the page.
-      
-      each item will generate two rows in the table.  the first one is the
-      heading that's always visible and is clickable to expand/collapse the
-      second row.
-      
-      this template will be used to print the table for all top level content
-      (observables, indicators, TTPs, etc).
-    -->
-  <xsl:template name="processTopLevelCategory">
-    <xsl:param name="reference" select="()"/>
-    <xsl:param name="normalized" select="()"/>
-    <xsl:param name="categoryGroupingElement" select="()"/>
-    <xsl:param name="headingLabels" select="('Type', 'ID')"/>
-    <xsl:param name="headingColumnStyles" select="('typeColumn', 'idColumn')"/>
-    <xsl:param name="categoryLabel"/>
-    <xsl:param name="categoryIdentifier"/>
-
-    <xsl:if test="$categoryGroupingElement/*">
-      <div class="topLevelCategoryContainer {$categoryIdentifier}"
-        id="{$categoryIdentifier}TopLevelCategoryContainer">
-        <h2>
-          <a name="{$categoryIdentifier}TopLevelCategoryHeadingAnchor">
-            <xsl:value-of select="$categoryLabel"/>
-          </a>
-        </h2>
-        <div class="expandAll" onclick="expandAll(this.parentNode);">[toggle all <xsl:value-of
-            select="$categoryLabel"/>]</div>
-        <table class="topLevelCategory {$categoryIdentifier}" cellspacing="0">
-          <colgroup>
-            <xsl:for-each select="$headingColumnStyles">
-              <col class="{.}"/>
-            </xsl:for-each>
-          </colgroup>
-          <thead>
-            <tr>
-              <xsl:for-each select="$headingLabels">
-                <th class="header">
-                  <xsl:value-of select="."/>
-                </th>
-              </xsl:for-each>
-            </tr>
-          </thead>
-          <xsl:for-each select="$categoryGroupingElement/*[@idref]">
-            <!-- <xsl:sort select="cybox:Observable_Composition" order="descending"/> -->
-            <xsl:variable name="evenOrOdd" select="if(position() mod 2 = 0) then 'even' else 'odd'"/>
-            <xsl:call-template name="printGenericItemForTopLevelCategoryTable">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
-              <xsl:with-param name="colCount" select="count($headingLabels)"/>
-            </xsl:call-template>
-          </xsl:for-each>
-
-          <xsl:for-each select="$categoryGroupingElement/stix:Kill_Chains">
-            <thead>
-              <tr>
-                <th colspan="3">Kill Chains</th>
-              </tr>
-            </thead>
-            <xsl:for-each select="./stixCommon:Kill_Chain">
-              <!-- <tr><td colspan="2">kill chain <xsl:value-of select="fn:data(./@idref)"/></td></tr> -->
-
-              <xsl:call-template name="printGenericItemForTopLevelCategoryTable">
-                <xsl:with-param name="reference" select="$reference"/>
-                <xsl:with-param name="normalized" select="$normalized"/>
-                <xsl:with-param name="colCount" select="count($headingLabels)"/>
-              </xsl:call-template>
-
-            </xsl:for-each>
-          </xsl:for-each>
-        </table>
-      </div>
-    </xsl:if>
   </xsl:template>
 
   <!--
