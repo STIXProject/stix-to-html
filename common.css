@@ -1,6 +1,17 @@
-body
-{
+body {
+  font-size: smaller;
+  padding: 2em;
+  margin: 0;
   font-family: Arial,Helvetica,sans-serif;
+/*font: 11px Arial, Helvetica, sans-serif;*/
+}
+table
+{
+  /* need to set table font size to inherit, otherwise, some browsers reset the font size */
+  font-size: inherit;
+}
+#wrapper { 
+margin: 0;
 }
 
 .description
@@ -26,7 +37,7 @@ td, th
 /* define table skin */
 table.topLevelCategory {
 margin: 0px;
-margin-left: 25px;
+/*margin-left: 25px; */
 padding: 0;
 border-collapse: separate;
 border-spacing: 0;
@@ -77,18 +88,6 @@ background-color: #EDEDE8;
 */
 
 
-body {
-  font-size: smaller;
-/*font: 11px Arial, Helvetica, sans-serif;*/
-}
-table
-{
-  /* need to set table font size to inherit, otherwise, some browsers reset the font size */
-  font-size: inherit;
-}
-#wrapper { 
-margin: 0 auto;
-}
 #header {
 color: #333;
 margin: 10px 0px 5px 0px;
@@ -512,7 +511,7 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 
 .longText
 {
-   width: 60em;
+   /* width: 60em; */
 }
 .expandableSame.expandableContainer.collapsed
 {
@@ -550,11 +549,6 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 .indicator-sub-table > colgroup > col.heading-column
 {
   width: 15em;
-}
-
-.StixDescriptionValue
-{
-  white-space: pre-line;
 }
 
 .reference

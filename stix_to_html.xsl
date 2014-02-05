@@ -158,7 +158,7 @@ mdunn@mitre.org
       </xsl:if>
       }
       
-      .description
+      .description, .StixDescriptionValue 
       {
       /* if the descriptions are "preformatted text" use "pre-line" or "pre" */
       <xsl:if test="$enablePreformattedDescriptions">
