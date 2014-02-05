@@ -78,8 +78,13 @@ background-color: #EDEDE8;
 
 
 body {
+  font-size: smaller;
 /*font: 11px Arial, Helvetica, sans-serif;*/
-/*font-size: 13px;*/
+}
+table
+{
+  /* need to set table font size to inherit, otherwise, some browsers reset the font size */
+  font-size: inherit;
 }
 #wrapper { 
 margin: 0 auto;
@@ -96,7 +101,6 @@ background: #FFFFFF;
 margin: 0px 0px 5px 0px;
 padding: 10px;
 /*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
-font-size: 11px;
 color: #039;
 }
 
@@ -114,7 +118,6 @@ font-weight:bold; margin:5px; color:#BD9C8C;
 .hor-minimalist-a
 {
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-  font-size: 12px;
 }
 #hor-minimalist-a > thead > tr > th,
 .hor-minimalist-a > thead > tr > th
@@ -226,7 +229,7 @@ padding: 1px;
 }
 #associated_object_label {
 /*font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
-font-size: 12px;
+/*font-size: 12px;*/
 margin-bottom: 2px;
 }
 .heading,
