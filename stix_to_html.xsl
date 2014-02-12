@@ -83,9 +83,9 @@ mdunn@mitre.org
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="icons.xsl"/>
   <xsl:include href="normalize.xsl"/>
-
-  <!-- <xsl:include href="cybox_common.xsl"/> -->
-  <xsl:key name="observableID" match="cybox:Observable" use="@id"/>
+  
+  <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
+  <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />
 
   <!--
     This prints out the header at the top of the page.
@@ -110,7 +110,11 @@ mdunn@mitre.org
   <xsl:template name="customTitle">
     <div class="customTitle">
       <xsl:comment>no custom title provided</xsl:comment>
-      <h1>STIX Report</h1>
+      <h1>
+        <xsl:if test="$isRootStix">STIX</xsl:if>
+        <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+        Report
+      </h1>
     </div>
   </xsl:template>
 
@@ -204,7 +208,12 @@ mdunn@mitre.org
 
     <html>
       <head>
-        <title>STIX Output</title>
+        <title>
+          <xsl:if test="$isRootStix">STIX</xsl:if>
+          <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+          Report
+          Output
+        </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
         <!-- read in the main css -->
@@ -261,7 +270,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <table class="stixMetadata hor-minimalist-a" width="100%">
                 <thead>
                   <tr>
-                    <th scope="col">STIX Version</th>
+                    <th scope="col">
+                      <xsl:if test="$isRootStix">STIX</xsl:if>
+                      <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+                      Version
+                    </th>
                     <th scope="col">Filename</th>
                     <th scope="col">Generation Date</th>
                   </tr>
@@ -351,9 +364,13 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
             </div> <!-- end of div class="documentContentsList" -->
 
           </xsl:if>
-          <xsl:if test="$includeStixHeader">
+          <xsl:if test="$includeStixHeader and $isRootStix">
             <h2>
-              <a name="analysis">STIX Header</a>
+              <a name="analysis">
+                <xsl:if test="$isRootStix">STIX</xsl:if>
+                <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+                Header
+              </a>
             </h2>
             <xsl:call-template name="processHeader"/>
           </xsl:if>
