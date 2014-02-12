@@ -281,7 +281,15 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                 </thead>
                 <tr>
                   <td>
-                    <xsl:value-of select="//stix:STIX_Package/@version"/>
+                    <xsl:choose>
+                      <xsl:when test="$isRootCybox">
+                        <xsl:variable name="cyboxRoot" select="/cybox:Observables" />
+                        <xsl:value-of select="fn:string-join(($cyboxRoot/@cybox_major_version, $cyboxRoot/@cybox_minor_version, $cyboxRoot/@cybox_update_version), '.')" />
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="//stix:STIX_Package/@version"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
                   </td>
                   <td>
                     <xsl:value-of select="tokenize(document-uri(.), '/')[last()]"/>
