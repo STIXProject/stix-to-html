@@ -190,11 +190,11 @@ mdunn@mitre.org
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
     <xsl:variable name="normalized">
-      <xsl:apply-templates select="/stix:STIX_Package/*" mode="createNormalized"/>
+      <xsl:apply-templates select="/stix:STIX_Package/*|/cybox:Observables" mode="createNormalized"/>
     </xsl:variable>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="/stix:STIX_Package//*[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
+        select="/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
             or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
@@ -286,7 +286,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
             <div class="documentContentsList">
               <a href="#observablesTopLevelCategoryContainer">
                 <div class="documentContentsItem">
-                  <xsl:if test="//stix:Observables">
+                  <xsl:if test="//stix:Observables|//cybox:Observables">
                     <xsl:call-template name="iconObservables"/>
                   </xsl:if>
                 </div>
