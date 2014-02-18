@@ -68,8 +68,8 @@
 		</cybox:Properties>    
   -->
   <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#WinRegistryKeyObject-2', 'WindowsRegistryKeyObjectType')]">
-    <xsl:variable name="hive" as="xs:string?" select="registry:Hive" />
-    <xsl:variable name="key" as="xs:string?" select="registry:Key" />
+    <xsl:variable name="hive" as="element()?" select="registry:Hive" />
+    <xsl:variable name="key" as="element()?" select="registry:Key" />
     <xsl:variable name="valueDataSequence" as="element()*" select="registry:Values/registry:Value/registry:Data" />
     <xsl:variable name="valueSequence" as="element()*" select="registry:Values/registry:Value" />
     
@@ -78,30 +78,47 @@
         <tr>
           <th rowspan="2">Location</th>
           <th>Hive:</th>
-          <td><xsl:value-of select="$hive" /></td>
+          <td>
+            <div>
+              <xsl:apply-templates select="$hive/@condition[. ne 'Equals']" mode="cyboxProperties" />
+            </div>
+            
+            <xsl:value-of select="$hive/text()" />
+          </td>
         </tr>
         <tr>
           <th>Key:</th>
-          <td><xsl:value-of select="$key" /></td>
+          <td>
+            <div>
+              <xsl:apply-templates select="$key/@condition[. ne 'Equals']" mode="cyboxProperties" />
+            </div>
+            <xsl:value-of select="$key/text()" />
+          </td>
         </tr>
       </thead>
       <xsl:for-each select="$valueSequence">
         <tbody>
-          <xsl:if test="$valueSequence/registry:Name/text()">
+          <xsl:for-each select="registry:Name[text()]">
             <tr>
               <th colspan="3">Name</th>
             </tr>
             <td colspan="3">
-              <xsl:value-of select="$valueSequence/registry:Name/text()" />
+              <div>
+                <xsl:apply-templates select="@condition[. ne 'Equals']" mode="cyboxProperties" />
+              </div>
+              <xsl:value-of select="text()" />
             </td>
-          </xsl:if>
-          <xsl:if test="$valueSequence/registry:Data/text()">
+          </xsl:for-each>
+          <xsl:if test="registry:Data/text()">
             <tr>
-              <th colspan="3">Value<xsl:value-of select="if (count($valueSequence/registry:Data) > 1) then 's' else ''" /></th>
+              <th colspan="3">Value<xsl:value-of select="if (count(registry:Data) > 1) then 's' else ''" /></th>
             </tr>
-            <xsl:for-each select="$valueSequence/registry:Data">
+            <xsl:for-each select="registry:Data">
               <tr>
                 <td colspan="3">
+                  <div>
+                    <xsl:apply-templates select="@condition[. ne 'Equals']"  mode="cyboxProperties" />
+                  </div>
                   <xsl:value-of select="text()" />
                 </td>
               </tr>
