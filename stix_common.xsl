@@ -32,6 +32,7 @@
     xmlns:cyboxCommon="http://cybox.mitre.org/common-2"
     xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2"
     xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1"
+    xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1"
 
     xmlns:ttp='http://stix.mitre.org/TTP-1'
     >
@@ -147,6 +148,9 @@
         <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
         Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
       </div>
+    </xsl:if>
+    <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
+      <xsl:value-of select="marking:Marking_Structure/terms:Terms_Of_Use/text()"/>
     </xsl:if>
   </xsl:template>
 
