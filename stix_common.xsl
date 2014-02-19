@@ -132,13 +132,7 @@
     </xsl:template>    
   
   <xsl:template match="stix:Handling|indicator:Handling">
-    <xsl:variable name="isSimple" select="'simpleMarking:SimpleMarkingStructureType'"/>
-    <xsl:variable name="isTLP" select="'tlpMarking:TLPMarkingStructureType'"/>
-    
-    <div>HANDLING</div>
-    
     <xsl:apply-templates />
-    
   </xsl:template>
   
   <xsl:template match="marking:Marking">
