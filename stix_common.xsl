@@ -106,26 +106,7 @@
                         -->
                         <xsl:choose>
                           <xsl:when test="self::stix:Handling">
-                            
-                            <!-- fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#WinRegistryKeyObject-2', 'WindowsRegistryKeyObjectType') -->
-                            
-                            <xsl:variable name="isSimple" select="'simpleMarking:SimpleMarkingStructureType'"/>
-                            <xsl:variable name="isTLP" select="'tlpMarking:TLPMarkingStructureType'"/>
-                            <xsl:for-each select="marking:Marking">
-                              <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
-                                <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
-                              </xsl:if>
-                              <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
-                                <div>
-                                  <xsl:if test="lower-case(marking:Marking_Structure/@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
-                                  <xsl:if test="lower-case(marking:Marking_Structure/@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
-                                  <xsl:if test="lower-case(marking:Marking_Structure/@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
-                                  <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
-                                  Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
-                                </div>
-                              </xsl:if>
-                            </xsl:for-each>
-                            
+                            <xsl:apply-templates select="."/>
                           </xsl:when>
                           <xsl:when test="self::stix:Information_Source">
                             <xsl:apply-templates mode="cyboxProperties" />
@@ -149,6 +130,29 @@
                 </td>
             </tr>
     </xsl:template>    
+  
+  <xsl:template match="stix:Handling|indicator:Handling">
+    <xsl:variable name="isSimple" select="'simpleMarking:SimpleMarkingStructureType'"/>
+    <xsl:variable name="isTLP" select="'tlpMarking:TLPMarkingStructureType'"/>
+    
+    <div>HANDLING</div>
+    
+    <xsl:for-each select="marking:Marking">
+      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
+        <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
+      </xsl:if>
+      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
+        <div>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
+          Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
+        </div>
+      </xsl:if>
+    </xsl:for-each>
+    
+  </xsl:template>
 
 
 
@@ -715,6 +719,7 @@
         </xsl:if> 
         <xsl:if test="indicator:Handling">
           <xsl:variable name="contents">
+            <div>name: <xsl:value-of select="local-name(.)"/></div>
             <xsl:apply-templates select="indicator:Handling" />
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
