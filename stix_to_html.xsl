@@ -456,7 +456,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity"
+    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -605,6 +605,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               <xsl:when test="self::stix:Course_Of_Action">
                 <div class="containerCourseOfAction">
                   <xsl:call-template name="processCOAContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::marking:Marking">
+                <div class="containerMarking">
+                    <xsl:apply-templates select="." />
                 </div>
               </xsl:when>
             </xsl:choose>
