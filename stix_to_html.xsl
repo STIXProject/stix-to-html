@@ -37,6 +37,7 @@ mdunn@mitre.org
   xmlns:indicator="http://stix.mitre.org/Indicator-2"
   xmlns:TTP="http://stix.mitre.org/TTP-1"
   xmlns:COA="http://stix.mitre.org/CourseOfAction-1"
+  xmlns:ET="http://stix.mitre.org/ExploitTarget-1"
   xmlns:capec="http://stix.mitre.org/extensions/AP#CAPEC2.5-1"
   xmlns:marking="http://data-marking.mitre.org/Marking-1"
   xmlns:tlpMarking="http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1"
@@ -456,7 +457,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|indicator:Observable|stix:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stix:Incident|stix:Threat_Actor|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking"
+    match="cybox:Observable|stixCommon:Observable|indicator:Observable|stix:Indicator|stixCommon:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -550,7 +551,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
           <div id="{$expandedContentId}" class="expandableContents">
             <!-- <div>THIS ONE</div> -->
             <xsl:choose>
-              <xsl:when test="self::cybox:Observable|self::indicator:Observable">
+              <xsl:when test="self::cybox:Observable|self::stixCommon:Observable|self::indicator:Observable">
                 <div class="containerObservable">
                   <xsl:call-template name="processObservableContents"/>
                 </div>
@@ -564,7 +565,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                 </div>
                 <!-- <xsl:call-template name="processObservableContents" /> -->
               </xsl:when>
-              <xsl:when test="self::stix:Indicator">
+              <xsl:when test="self::stix:Indicator|self::stixCommon:Indicator">
                 <div class="containerIndicator">
                   <xsl:call-template name="processIndicatorContents"/>
                 </div>
@@ -574,35 +575,37 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processTTPContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::TTP:Identity">
+              <xsl:when test="self::TTP:Identity|self::stixCommon:Identity">
                 <div class="containerIdentity">
                   <xsl:apply-templates select="*" mode="cyboxProperties"/>
                 </div>
               </xsl:when>
               <xsl:when test="self::stixCommon:Kill_Chain_Phase">
-                <xsl:apply-templates select="."/>
+                <div class="containerKillChainPhase">
+                  <xsl:apply-templates select="."/>
+                </div>
               </xsl:when>
-              <xsl:when test="self::stix:Campaign">
+              <xsl:when test="self::stix:Campaign|self::stixCommon:Campaign">
                 <div class="containerCampaign">
                   <xsl:call-template name="processCampaignContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Incident">
+              <xsl:when test="self::stix:Incident|self::stixCommon:Incident">
                 <div class="containerIncident">
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Threat_Actor">
+              <xsl:when test="self::stix:Threat_Actor|self::stixCommon:Threat_Actor">
                 <div class="containerThreatActor">
                   <xsl:call-template name="processThreatActorContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stixCommon:Exploit_Target">
+              <xsl:when test="self::ET:Exploit_Target|self::stixCommon:Exploit_Target">
                 <div class="containerExploitTarget">
                   <xsl:call-template name="processExploitTargetContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Course_Of_Action">
+              <xsl:when test="self::stix:Course_Of_Action|self::stixCommon:Course_Of_Action">
                 <div class="containerCourseOfAction">
                   <xsl:call-template name="processCOAContents"/>
                 </div>
