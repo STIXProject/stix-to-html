@@ -617,6 +617,12 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
       </xsl:if>
+      <xsl:if test="et:Related_Exploit_Targets">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Related_Exploit_Targets" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Related Expooit Targets', $contents)" />
+      </xsl:if>
     </div>
   </xsl:template>
   
