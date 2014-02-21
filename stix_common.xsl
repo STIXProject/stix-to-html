@@ -1018,6 +1018,12 @@
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
         </xsl:if>
+        <xsl:if test="COA:Related_COAs">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Related_COAs" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Related COAs', $contents)" />
+        </xsl:if>
       </div>
     </div>
   </xsl:template>
