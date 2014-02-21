@@ -919,7 +919,7 @@
           
           <xsl:if test="ttp:Exploit_Targets">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Exploit_Targets" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Exploit_Targets" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Exploit Targets', $contents)" />
           </xsl:if>  
@@ -954,6 +954,13 @@
         </div>
       </div>
     </xsl:template>
+  
+  <xsl:template match="ttp:Exploit_Target">
+    <div class="container containerTtpExploitTarget">
+      <div><xsl:apply-templates select="stixCommon:Relationship" /></div>
+      <div><xsl:apply-templates select="stixCommon:Exploit_Target" /></div>
+    </div>
+  </xsl:template>
   
   <xsl:template name="processCOAContents">
     <div>
