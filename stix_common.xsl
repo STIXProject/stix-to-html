@@ -729,7 +729,13 @@
             <xsl:apply-templates select="indicator:Related_Indicators" />
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Related Indicators', $contents)" />
-        </xsl:if> 
+        </xsl:if>
+        <xsl:if test="indicator:Related_Campaigns">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Related_Campaigns" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Related Campaigns', $contents)" />
+        </xsl:if>
         <xsl:if test="indicator:Producer">
           <xsl:variable name="contents">
             <xsl:apply-templates select="indicator:Producer" />

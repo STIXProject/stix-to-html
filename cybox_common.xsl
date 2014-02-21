@@ -628,7 +628,7 @@ ikirillov@mitre.org
     See also the similar template in cybox_common.xsl.
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_3 -->
-  <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]">
+  <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
       <xsl:variable name="idGen">
