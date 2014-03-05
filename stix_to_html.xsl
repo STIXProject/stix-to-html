@@ -85,6 +85,9 @@ mdunn@mitre.org
       * relativeUri      - normal html image style references, e.g. <img src="images/logo.svg" /> 
   -->
   <xsl:param name="iconReferenceStyle" select="'inlineLiteralXml'" />
+  <!-- base uri to where image svg files are located (only used for iconReferenceStyle == "relativeUri") -->
+  <xsl:param name="iconExternalImageBaseUri" select="'images'" />
+  <xsl:variable name="iconExternalImageBaseUriVariable" select="$iconExternalImageBaseUri" />
   
   <!--
     do you want to display the constraints in cyboxProperties-style displays?
