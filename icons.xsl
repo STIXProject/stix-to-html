@@ -26,49 +26,77 @@
     xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/"
     xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/">
 
+    <xsl:template name="iconGeneric">
+      <xsl:param name="class" />
+      <xsl:param name="baseFilename" />
+      
+      <div>
+        <xsl:attribute name="class" select="string-join(('itemCategoryIcon', $class), ' ')" />
+        <xsl:copy-of select="doc(concat($baseFilename, '.svg'))" />
+      </div>
+    </xsl:template>
+  
     <xsl:template name="iconCampaigns">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/campaign.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconCampaigns'" />
+        <xsl:with-param name="baseFilename" select="'images/campaign'" />
+      </xsl:call-template>
     </xsl:template>
+    
     <xsl:template name="iconCOAs">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/course_of_action.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconCoa'" />
+        <xsl:with-param name="baseFilename" select="'images/course_of_action'" />
+      </xsl:call-template>
     </xsl:template>
+
     <xsl:template name="iconDataMarkings">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/data_marking.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconDataMarkings'" />
+        <xsl:with-param name="baseFilename" select="'images/data_marking'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconExploitTargets">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/exploit_target.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconExploitTargets'" />
+        <xsl:with-param name="baseFilename" select="'images/explit_target'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconIncidents">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/incident.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconIncident'" />
+        <xsl:with-param name="baseFilename" select="'images/incident'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconIndicators">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/indicator.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconIndicators'" />
+        <xsl:with-param name="baseFilename" select="'images/indicator'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconObservables">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/observable.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconObservables'" />
+        <xsl:with-param name="baseFilename" select="'images/observable'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconThreatActors">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/threat_actor.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconThreatActors'" />
+        <xsl:with-param name="baseFilename" select="'images/threat_actor'" />
+      </xsl:call-template>
     </xsl:template>
+  
     <xsl:template name="iconTTPs">
-      <div class="itemCategoryIcon">
-        <xsl:copy-of select="doc('images/ttp.svg')" />
-      </div>
+      <xsl:call-template name="iconGeneric">
+        <xsl:with-param name="class" select="'iconTTPs'" />
+        <xsl:with-param name="baseFilename" select="'images/ttp'" />
+      </xsl:call-template>
     </xsl:template>
+  
 </xsl:stylesheet>

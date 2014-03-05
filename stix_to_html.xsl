@@ -74,6 +74,14 @@ mdunn@mitre.org
     fields, otherwise text descriptions will be flowed like normal html text
   -->
   <xsl:param name="enablePreformattedDescriptions" select="false()" />
+  
+  <!--
+    set the style of how svg images to be used for item type icons:
+      * inlineLiteralXml - the svg xml will show up inline in the resulting html document
+      * dataUri          - the svg image will be included in the document via the img element's src attribute using a data uri whose contents are a the base64 encoded version of the gzipped svg
+      * relativeUri      - normal html image style references, e.g. <img src="images/logo.svg" /> 
+  -->
+  <xsl:param name="iconReferenceStyle" select="'inlineLiteralXml'" />
 
   <!--
     do you want to display the constraints in cyboxProperties-style displays?
