@@ -48,8 +48,11 @@ mdunn@mitre.org
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
+  <xsl:import href="icons.xsl"/>
+  
   <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html"
     version="4.0"/>
+  
   
   <!--
     how to set parameters: xslt stylesheet parameters should be passed in via
@@ -82,7 +85,7 @@ mdunn@mitre.org
       * relativeUri      - normal html image style references, e.g. <img src="images/logo.svg" /> 
   -->
   <xsl:param name="iconReferenceStyle" select="'inlineLiteralXml'" />
-
+  
   <!--
     do you want to display the constraints in cyboxProperties-style displays?
     usually the answer is true(), but if you want a more concise display, set to false().
@@ -90,8 +93,10 @@ mdunn@mitre.org
   <xsl:param name="displayConstraints" select="true()"/>
 
   <xsl:include href="stix_common.xsl"/>
-  <xsl:include href="icons.xsl"/>
   <xsl:include href="normalize.xsl"/>
+  
+  <!-- do not modify this, this is used inside icons.xsl to pass in the value of the iconReferenceStyle parameter -->
+  <xsl:variable name="iconReferenceStyleVariable" select="$iconReferenceStyle" />
   
   <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
   <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />

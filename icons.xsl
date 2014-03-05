@@ -25,78 +25,77 @@
     xmlns:ns_sfw="http://ns.adobe.com/SaveForWeb/1.0/"
     xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/"
     xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/">
+  
+    <xsl:param name="iconReferenceStyleVariable" select="''" />
 
-    <xsl:template name="iconGeneric">
-      <xsl:param name="class" />
-      <xsl:param name="baseFilename" />
-      
+    <xsl:function name="stix:generateIconGeneric">
+    
+      <xsl:param name="class" as="xs:string" />
+      <xsl:param name="baseFilename" as="xs:string" />
+     
       <div>
         <xsl:attribute name="class" select="string-join(('itemCategoryIcon', $class), ' ')" />
-        <xsl:copy-of select="doc(concat($baseFilename, '.svg'))" />
+        
+        <!--
+          iconReferenceStyle:
+          * inlineLiteralXml
+          * dataUri
+          * relativeUri 
+        -->
+        <xsl:choose>
+          <xsl:when test="$iconReferenceStyleVariable = 'inlineLiteralXml'">
+            <xsl:copy-of select="doc(concat($baseFilename, '.svg'))" />
+          </xsl:when>
+          
+          <xsl:when test="$iconReferenceStyleVariable = 'dataUri'">
+            <xsl:variable name="base64Data" select="unparsed-text(concat($baseFilename, '.svg.base64'))" />
+            <img><xsl:attribute name="src" select="concat('data:image/svg+xml;base64,', $base64Data)" /></img>
+          </xsl:when>
+            
+          <xsl:when test="$iconReferenceStyleVariable = 'relativeUri'">
+            <img><xsl:attribute name="src" select="concat($baseFilename, '.svg')" /></img>
+          </xsl:when>
+          
+          <xsl:otherwise>(icon reference style parameter set to invalid option</xsl:otherwise>
+        </xsl:choose>
+        
       </div>
-    </xsl:template>
-  
+    </xsl:function>
+    
     <xsl:template name="iconCampaigns">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconCampaigns'" />
-        <xsl:with-param name="baseFilename" select="'images/campaign'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconCampaigns', 'images/campaign')" />
     </xsl:template>
     
     <xsl:template name="iconCOAs">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconCoa'" />
-        <xsl:with-param name="baseFilename" select="'images/course_of_action'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconCoa', 'images/course_of_action')" />
     </xsl:template>
 
     <xsl:template name="iconDataMarkings">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconDataMarkings'" />
-        <xsl:with-param name="baseFilename" select="'images/data_marking'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconDataMarkings', 'images/data_marking')" />
     </xsl:template>
   
     <xsl:template name="iconExploitTargets">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconExploitTargets'" />
-        <xsl:with-param name="baseFilename" select="'images/explit_target'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconExploitTargets', 'images/exploit_target')" />
     </xsl:template>
   
     <xsl:template name="iconIncidents">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconIncident'" />
-        <xsl:with-param name="baseFilename" select="'images/incident'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconIncidents', 'images/incident')" />
     </xsl:template>
   
     <xsl:template name="iconIndicators">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconIndicators'" />
-        <xsl:with-param name="baseFilename" select="'images/indicator'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconIndicators', 'images/indicator')" />
     </xsl:template>
   
     <xsl:template name="iconObservables">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconObservables'" />
-        <xsl:with-param name="baseFilename" select="'images/observable'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconObservables', 'images/observable')" />
     </xsl:template>
   
     <xsl:template name="iconThreatActors">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconThreatActors'" />
-        <xsl:with-param name="baseFilename" select="'images/threat_actor'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconThreatActors', 'images/threat_actor')" />
     </xsl:template>
   
     <xsl:template name="iconTTPs">
-      <xsl:call-template name="iconGeneric">
-        <xsl:with-param name="class" select="'iconTTPs'" />
-        <xsl:with-param name="baseFilename" select="'images/ttp'" />
-      </xsl:call-template>
+      <xsl:copy-of select="stix:generateIconGeneric('iconTTPs', 'images/ttp')" />
     </xsl:template>
   
 </xsl:stylesheet>
