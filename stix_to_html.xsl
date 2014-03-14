@@ -97,6 +97,7 @@ mdunn@mitre.org
 
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="normalize.xsl"/>
+  <xsl:include href="identify_anonymous_items.xsl" />
   
   <!-- do not modify this, this is used inside icons.xsl to pass in the value of the iconReferenceStyle parameter -->
   <xsl:variable name="iconReferenceStyleVariable" select="$iconReferenceStyle" />
@@ -210,12 +211,15 @@ mdunn@mitre.org
           These two variables will become the main inputs to the primary transform.
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
+    <xsl:variable name="identifiedInput">
+      <xsl:apply-templates select="/" mode="identifyAnonymousItems" />
+    </xsl:variable>
     <xsl:variable name="normalized">
-      <xsl:apply-templates select="/stix:STIX_Package/*|/cybox:Observables" mode="createNormalized"/>
+      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables)" mode="createNormalized"/>
     </xsl:variable>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
+        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
             or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
