@@ -165,7 +165,7 @@ requirements:
    2013-08-28
 
 
-## More inforation on STIX
+## More information on STIX
 
 STIX - http://stix.mitre.org
 
