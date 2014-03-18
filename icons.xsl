@@ -45,11 +45,11 @@
         -->
         <xsl:choose>
           <xsl:when test="$iconReferenceStyleVariable = 'inlineLiteralXml'">
-            <xsl:copy-of select="doc(concat($baseFilename, '.svg'))" />
+            <xsl:copy-of select="doc(concat('images/', $baseFilename, '.svg'))" />
           </xsl:when>
           
           <xsl:when test="$iconReferenceStyleVariable = 'dataUri'">
-            <xsl:variable name="base64Data" select="unparsed-text(concat($baseFilename, '.svg.base64'))" />
+            <xsl:variable name="base64Data" select="unparsed-text(concat('images/', $baseFilename, '.svg.base64'))" />
             <img><xsl:attribute name="src" select="concat('data:image/svg+xml;base64,', $base64Data)" /></img>
           </xsl:when>
             
