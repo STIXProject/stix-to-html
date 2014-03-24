@@ -172,9 +172,6 @@
       </xsl:attribute>
       -->
       
-      <xsl:if test="campaign:Title">
-        <xsl:copy-of select="stix:printNameValueTable('Title', campaign:Title)" />
-      </xsl:if>              
       <xsl:if test="campaign:Names">
         <xsl:variable name="contents">
           <xsl:apply-templates select="campaign:Names" />
@@ -484,9 +481,6 @@
       </xsl:attribute>
       -->
       
-      <xsl:if test="ta:Title">
-        <xsl:copy-of select="stix:printNameValueTable('Title', ta:Title)" />
-      </xsl:if>              
       <xsl:if test="ta:Identity">
         <xsl:variable name="contents">
           <xsl:apply-templates select="ta:Identity" />
@@ -578,9 +572,6 @@
       </xsl:attribute>
       -->
       
-      <xsl:if test="et:Title">
-        <xsl:copy-of select="stix:printNameValueTable('Title', et:Title)" />
-      </xsl:if>              
       <xsl:if test="et:Vulnerability">
         <xsl:variable name="contents">
           <xsl:apply-templates select="et:Vulnerability" />
@@ -648,9 +639,6 @@
         </xsl:attribute>
         -->
         
-        <xsl:if test="indicator:Title">
-          <xsl:copy-of select="stix:printNameValueTable('Title', indicator:Title)" />
-        </xsl:if>              
         <xsl:if test="indicator:Description">
           <xsl:variable name="contents">
             <xsl:apply-templates select="indicator:Description" />
