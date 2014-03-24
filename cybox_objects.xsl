@@ -79,7 +79,7 @@
           <th rowspan="2">Location</th>
           <th>Hive:</th>
           <td>
-            <div>
+            <div class="cyboxPropertiesConstraints">
               <xsl:apply-templates select="$hive/@condition[. ne 'Equals']" mode="cyboxProperties" />
             </div>
             
@@ -89,7 +89,7 @@
         <tr>
           <th>Key:</th>
           <td>
-            <div>
+            <div class="cyboxPropertiesConstraints">
               <xsl:apply-templates select="$key/@condition[. ne 'Equals']" mode="cyboxProperties" />
             </div>
             <xsl:value-of select="$key/text()" />
@@ -103,7 +103,7 @@
               <th colspan="3">Name</th>
             </tr>
             <td colspan="3">
-              <div>
+              <div class="cyboxPropertiesConstraints">
                 <xsl:apply-templates select="@condition[. ne 'Equals']" mode="cyboxProperties" />
               </div>
               <xsl:value-of select="text()" />
@@ -116,7 +116,7 @@
             <xsl:for-each select="registry:Data">
               <tr>
                 <td colspan="3">
-                  <div>
+                  <div class="cyboxPropertiesConstraints">
                     <xsl:apply-templates select="@condition[. ne 'Equals']"  mode="cyboxProperties" />
                   </div>
                   <xsl:value-of select="text()" />
