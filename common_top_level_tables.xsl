@@ -30,8 +30,18 @@
   >
 
   <xsl:template name="processAllTopLevelTables">
-    <xsl:param name="reference" />
-    <xsl:param name="normalized" />
+    <xsl:param name="reference" tunnel="yes" />
+    <xsl:param name="normalized" tunnel="yes" />
+    
+    <pre>### DEBUG4 ###</pre>
+    
+    <xsl:message>
+      ##DEBUG4 begin ##
+      reference:
+      actualItem: 
+      ##DEBUG4 end ##
+    </xsl:message>
+    
     
     <!--
       MAIN TOP LEVEL CATEGORY TABLES
@@ -135,8 +145,8 @@
       (observables, indicators, TTPs, etc).
     -->
   <xsl:template name="processTopLevelCategory">
-    <xsl:param name="reference" select="()"/>
-    <xsl:param name="normalized" select="()"/>
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="categoryGroupingElement" select="()"/>
     <xsl:param name="headingLabels" select="('Type', 'ID')"/>
     <xsl:param name="headingColumnStyles" select="('typeColumn', 'idColumn')"/>
@@ -211,8 +221,8 @@
       level category tables.
     -->
   <xsl:template name="printGenericItemForTopLevelCategoryTable">
-    <xsl:param name="reference" select="()" />
-    <xsl:param name="normalized" select="()" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="colCount" select="2" />
     
     <xsl:variable name="originalItem" select="." />
@@ -234,6 +244,14 @@
     <xsl:variable name="expandedContentId" select="generate-id(.)"/>
     
     <xsl:variable name="contentVar" select="concat(count(ancestor::node()), '00000000', count(preceding::node()))"/>
+    
+    <xsl:message select="'### ABC ###'">
+      ##DEBUG3 begin ##
+      reference:
+      actualItem: 
+      ##DEBUG3 end ##
+    </xsl:message>
+    
     
     <xsl:variable name="allColumnsSequence" select="cybox:calculateAllColumns($actualItem, $reference)"/>
     
@@ -335,6 +353,12 @@
     <xsl:variable name="column1">
       <xsl:value-of select="if ($actualItem/cybox:Title) then ($actualItem/cybox:Title) else '[no title]'" />
     </xsl:variable>
+    <xsl:message>
+      ##DEBUG begin ##
+      reference:
+      actualItem: 
+      ##DEBUG end ##
+    </xsl:message>
     <xsl:variable name="column2">
       <xsl:choose>
         <xsl:when test="$actualItem/cybox:Observable_Composition">
@@ -344,7 +368,7 @@
           Event
         </xsl:when>
         <xsl:when test="$actualItem/cybox:Object">
-          <xsl:variable name="objectItem" select="$reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
+          <xsl:variable name="objectItem" select="if ((not($reference instance of element()*)) or (not($actualItem instance of element()*))) then () else  $reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
           
           <xsl:choose>
             <xsl:when test="$objectItem/cybox:Properties/@xsi:type" xml:space="preserve">

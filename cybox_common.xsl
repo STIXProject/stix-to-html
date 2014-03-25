@@ -427,26 +427,39 @@ ikirillov@mitre.org
         <xsl:param name="targetObject"/>
         <xsl:param name="relationshipOrAssociationType" select="''"/>
         <xsl:param name="idref"/>
+        <xsl:param name="reference" tunnel="yes" />
+      
+        <!-- <xsl:variable name="threeColumns" select="(1, 2, 3)" /> -->
+        <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
+      
+        <div class="clickableIdref">
+          <xsl:value-of select="$threeColumns[1]" />
+          &#x25CB;
+          <xsl:value-of select="$threeColumns[2]" />
+          &#x25CB;
+          <xsl:value-of select="$threeColumns[3]" />
+        </div>
         
+        <!--
         <xsl:variable name="targetObjectType">
             <xsl:choose>
-                <!-- case 0: targetObject not present -->
+                <!- - case 0: targetObject not present - ->
                 <xsl:when test="not($targetObject)"></xsl:when>
-                <!-- case 1: cybox objects have a cybox:Properties child with an xsi type,
+                <!- - case 1: cybox objects have a cybox:Properties child with an xsi type,
                      or an observable has a child that is an object that has cybox:Properties
-                -->
+                - ->
                 <xsl:when test="($targetObject/cybox:Properties|$targetObject/cybox:*/cybox:Properties)/@xsi:type">
                     <xsl:value-of select="fn:local-name-from-QName(fn:resolve-QName(($targetObject/cybox:Properties|$targetObject/cybox:*/cybox:Properties)/@xsi:type, ($targetObject/cybox:Properties|$targetObject/cybox:*/cybox:Properties)))"/>
                 </xsl:when>
-                <!-- case 2: cybox event with a name  -->
+                <!- - case 2: cybox event with a name  - ->
                 <xsl:when test="$targetObject/cybox:Name|$targetObject/cybox:Event/cybox:Name">
                     <xsl:value-of select="($targetObject/cybox:Name|$targetObject/cybox:Event/cybox:Name)/text()"/>
                 </xsl:when>
-                <!-- case 3: the current item is a cybox event or an observable that contains an event  -->
+                <!- - case 3: the current item is a cybox event or an observable that contains an event  - ->
                 <xsl:when test="$targetObject/cybox:Type|$targetObject/cybox:Event/cybox:Type">
                     <xsl:value-of select="($targetObject/cybox:Type|$targetObject/cybox:Event/cybox:Type)/text()"/>
                 </xsl:when>
-                <!-- catch all -->
+                <!- - catch all - ->
                 <xsl:otherwise></xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -466,12 +479,13 @@ ikirillov@mitre.org
             <xsl:text> &#x25CB; </xsl:text>
         </xsl:if>
         
-        <!-- THIS IS THE MAIN LINK TEXT -->
-        <xsl:if test="$idref!='[No ID]'">"</xsl:if>
-        <xsl:value-of select="$idref"/>
-        <xsl:if test="$idref!='[No ID]'">"</xsl:if>
+        <!- - THIS IS THE MAIN LINK TEXT - ->
+        <!- - <xsl:if test="$idref!='[No ID]'">"</xsl:if> - ->
+        <!- - <xsl:value-of select="$idref"/> - ->
+        <!- - <xsl:if test="$idref!='[No ID]'">"</xsl:if> - ->
 
         <xsl:text> </xsl:text>
+        -->
         
     </xsl:template>
 

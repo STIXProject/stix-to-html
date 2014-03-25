@@ -423,8 +423,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
           </xsl:call-template>
           
           <xsl:call-template name="processAllTopLevelTables">
-            <xsl:with-param name="reference" select="$reference"/>
-            <xsl:with-param name="normalized" select="$normalized"/>
+            <xsl:with-param name="reference" select="$reference" tunnel="yes" />
+            <xsl:with-param name="normalized" select="$normalized" tunnel="yes" />
           </xsl:call-template>
 
 
