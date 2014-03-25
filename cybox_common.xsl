@@ -432,13 +432,13 @@ ikirillov@mitre.org
         <!-- <xsl:variable name="threeColumns" select="(1, 2, 3)" /> -->
         <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
       
-        <div class="clickableIdref">
+        <span class="clickableIdref">
           <xsl:value-of select="$threeColumns[1]" />
-          &#x25CB;
+          <xsl:if test="fn:normalize-space($threeColumns[2])"> &#x25CB; </xsl:if>
           <xsl:value-of select="$threeColumns[2]" />
-          &#x25CB;
+          <xsl:if test="fn:normalize-space($threeColumns[3])"> &#x25CB; </xsl:if>
           <xsl:value-of select="$threeColumns[3]" />
-        </div>
+        </span>
         
         <!--
         <xsl:variable name="targetObjectType">
