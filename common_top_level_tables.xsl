@@ -33,16 +33,6 @@
     <xsl:param name="reference" tunnel="yes" />
     <xsl:param name="normalized" tunnel="yes" />
     
-    <pre>### DEBUG4 ###</pre>
-    
-    <xsl:message>
-      ##DEBUG4 begin ##
-      reference:
-      actualItem: 
-      ##DEBUG4 end ##
-    </xsl:message>
-    
-    
     <!--
       MAIN TOP LEVEL CATEGORY TABLES
     -->
@@ -245,14 +235,6 @@
     
     <xsl:variable name="contentVar" select="concat(count(ancestor::node()), '00000000', count(preceding::node()))"/>
     
-    <xsl:message select="'### ABC ###'">
-      ##DEBUG3 begin ##
-      reference:
-      actualItem: 
-      ##DEBUG3 end ##
-    </xsl:message>
-    
-    
     <xsl:variable name="allColumnsSequence" select="cybox:calculateAllColumns($actualItem, $reference)"/>
     
     <xsl:variable name="column1" select="$allColumnsSequence[1]" />
@@ -353,12 +335,6 @@
     <xsl:variable name="column1">
       <xsl:value-of select="if ($actualItem/cybox:Title) then ($actualItem/cybox:Title) else '[no title]'" />
     </xsl:variable>
-    <xsl:message>
-      ##DEBUG begin ##
-      reference:
-      actualItem: 
-      ##DEBUG end ##
-    </xsl:message>
     <xsl:variable name="column2">
       <xsl:choose>
         <xsl:when test="$actualItem/cybox:Observable_Composition">
