@@ -47,7 +47,7 @@
   -->
   
   <!--
-    purpose: template for displayin descriptions from any namespace.  very
+    purpose: template for displaying descriptions from any namespace.  very
     simple, but useful for adding a css class so that they can be styled
     across any content type.
     
@@ -56,7 +56,7 @@
   -->
   <xsl:template match="*:Description">
     <div class="description">
-      <xsl:value-of select="text()" />
+      <xsl:apply-templates select="text()" />
     </div>
   </xsl:template>
     

@@ -908,7 +908,7 @@ ikirillov@mitre.org
       then later on when the page is loaded the html content is parsed and
       inserted into the page's dom.
     -->
-    <xsl:template match="text()[../self::*:Description[@structuring_format='HTML5']]" mode="cyboxProperties">
+    <xsl:template match="text()[../self::*:Description[@structuring_format='HTML5']]" mode="cyboxProperties #default">
       <xsl:variable name="content" select="fn:data(.)" />
       <div class="htmlContainer" data-stix-content="{$content}" />
     </xsl:template>
