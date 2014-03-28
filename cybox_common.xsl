@@ -851,23 +851,14 @@ ikirillov@mitre.org
       This is customizable by writing custom templates for specific properties.
     -->
     <xsl:template match="cybox:Properties|ttp:Behavior|ta:Identity|ta:Type|ta:Motivation|et:Vulnerability|stixCommon:Course_Of_Action|stix:Course_Of_Action">
-        <fieldset>
-            <legend>
-                <xsl:if test="./self::cybox:Properties">cybox properties</xsl:if>
-                <xsl:if test="./self::ttp:Behavior">behavior</xsl:if>
-                <xsl:if test="./self::ta:Identity">identity</xsl:if>
-                <xsl:if test="./self::ta:Type">type</xsl:if>
-                <xsl:if test="./self::ta:Motivation">motivation</xsl:if>
-                <xsl:if test="./self::et:Vulnerability">vulnerability</xsl:if>
-                <xsl:if test="./self::stixCommon:Course_Of_Action|./self::stix:Course_Of_Action">course of action</xsl:if>
-                <xsl:if test="@xsi:type">
-                    (type: <xsl:value-of select="local-name-from-QName(fn:resolve-QName(fn:data(@xsi:type), .))"/>)
-                </xsl:if>
-              <xsl:apply-templates select="@*[not((fn:QName(namespace-uri(), local-name()) = fn:QName('http://www.w3.org/2001/XMLSchema-instance', 'type')) or (fn:QName(namespace-uri(), local-name()) = fn:QName('', 'id')))]" mode="cyboxProperties" />
-            </legend>
-            <xsl:apply-templates select="*" mode="cyboxProperties"></xsl:apply-templates>
-            
-        </fieldset>
+      <div class="cyboxPropertiesStyleContainer">
+        <div class="cyboxPropertiesStyleConstraints">
+          <xsl:apply-templates select="@*[not((fn:QName(namespace-uri(), local-name()) = fn:QName('http://www.w3.org/2001/XMLSchema-instance', 'type')) or (fn:QName(namespace-uri(), local-name()) = fn:QName('', 'id')))]" mode="cyboxProperties" />
+        </div>
+        <div class="cyboxPropertiesStyleDetails">
+          <xsl:apply-templates select="*" mode="cyboxProperties" />
+        </div>
+      </div>
     </xsl:template>
 
     <!--
