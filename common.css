@@ -507,6 +507,11 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 {
    /* width: 60em; */
 }
+.expandableSame.expandableContainer
+{
+  padding-bottom: 0.2em;
+  padding-top: 0.2em;
+}
 .expandableSame.expandableContainer.collapsed
 {
   overflow: hidden;
