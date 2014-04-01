@@ -350,6 +350,8 @@
           Event
         </xsl:when>
         <xsl:when test="$actualItem/cybox:Object">
+          Object
+          <!--
           <xsl:variable name="objectItem" select="if ((not($reference instance of element()*)) or (not($actualItem instance of element()*))) then () else  $reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
           
           <xsl:choose>
@@ -363,6 +365,7 @@
               [Object, no ID]
             </xsl:otherwise>
           </xsl:choose>
+          -->
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
