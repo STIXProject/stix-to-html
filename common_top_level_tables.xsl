@@ -304,6 +304,9 @@
       <xsl:when test="$actualItem[self::cybox:Object]">
         <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
       </xsl:when>
+      <xsl:when test="$actualItem[self::cybox:Action]">
+        <xsl:sequence select="cybox:calculateAllColumnsAction($actualItem, $reference)" />
+      </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
       </xsl:otherwise>
@@ -378,6 +381,24 @@
       <xsl:value-of select="if ($actualItem/cybox:Properties/@xsi:type) then (fn:local-name-from-QName(fn:resolve-QName($actualItem/cybox:Properties/@xsi:type, $actualItem/cybox:Properties))) else '[no type]'" />
     </xsl:variable>
     <xsl:variable name="column2" />
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsAction">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/cybox:Name) then ($actualItem/cybox:Name/text()) else '[no title]'" />
+    </xsl:variable>
+    <xsl:variable name="column2">
+      <xsl:value-of select="if ($actualItem/cybox:Type) then ($actualItem/cybox:Type/text()) else '[no type]'" />
+    </xsl:variable>
+    
     <xsl:variable name="column3">
       <xsl:value-of select="fn:data($actualItem/@id)" />
     </xsl:variable>
