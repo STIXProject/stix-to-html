@@ -53,8 +53,8 @@
             <div class="stixHeader">
               <table class="grid topLevelCategory tablesorter" cellspacing="0">
                     <colgroup>
-                        <col width="30%"/>
-                        <col width="70%"/>
+                      <col class="stixHeaderColumnHeadings" />
+                      <col class="stixHeaderColumnValues" />
                     </colgroup>
                     <thead>
 <!--
