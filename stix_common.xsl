@@ -137,21 +137,27 @@
   </xsl:template>
   
   <xsl:template match="marking:Marking">
-    <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
-      <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
-    </xsl:if>
-    <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
-      <div>
-        <xsl:if test="lower-case(marking:Marking_Structure/@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
-        <xsl:if test="lower-case(marking:Marking_Structure/@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
-        <xsl:if test="lower-case(marking:Marking_Structure/@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
-        <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
-        Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
-      </div>
-    </xsl:if>
-    <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
-      <xsl:value-of select="marking:Marking_Structure/terms:Terms_Of_Use/text()"/>
-    </xsl:if>
+    <div class="marking">
+      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
+        <div class="markingSimple">
+          <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
+        </div>
+      </xsl:if>
+      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
+        <div class="markingTlp">
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
+          <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
+          Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
+        </div>
+      </xsl:if>
+      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
+        <div class="markingTermsOfUse">
+          <xsl:value-of select="marking:Marking_Structure/terms:Terms_Of_Use/text()"/>
+        </div>
+      </xsl:if>
+    </div>
   </xsl:template>
 
 
