@@ -477,7 +477,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|indicator:Observable|stix:Indicator|stixCommon:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking"
+    match="cybox:Observable|stixCommon:Observable|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -585,7 +585,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                 </div>
                 <!-- <xsl:call-template name="processObservableContents" /> -->
               </xsl:when>
-              <xsl:when test="self::stix:Indicator|self::stixCommon:Indicator">
+              <xsl:when test="self::stix:Indicator|self::stixCommon:Indicator|self::indicator:Indicator">
                 <div class="containerIndicator">
                   <xsl:call-template name="processIndicatorContents"/>
                 </div>
