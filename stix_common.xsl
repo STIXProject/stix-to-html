@@ -883,30 +883,23 @@
             <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
           </xsl:if>  
 
-          <xsl:if test="ttp:Intended_Effect">
-            <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Intended_Effect" mode="cyboxProperties" />
-            </xsl:variable>
-            <xsl:copy-of select="stix:printNameValueTable('Intended Effect', $contents)" />
-          </xsl:if>  
-          
           <xsl:if test="ttp:Behavior">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Behavior" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Behavior/*" mode="cyboxProperties" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Behavior', $contents)" />
           </xsl:if>
           
           <xsl:if test="ttp:Resources">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Resources" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Resources/*" mode="cyboxProperties" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Resources', $contents)" />
           </xsl:if>  
           
           <xsl:if test="ttp:Victim_Targeting">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Victim_Targeting" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Victim_Targeting/*" mode="cyboxProperties" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Victim Targeting', $contents)" />
           </xsl:if>  
@@ -934,14 +927,14 @@
           
           <xsl:if test="ttp:Information_Source">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Information_Source" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Information_Source/*" mode="cyboxProperties" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Information Source', $contents)" />
           </xsl:if>  
 
           <xsl:if test="ttp:Handling">
             <xsl:variable name="contents">
-              <xsl:apply-templates select="ttp:Handling" mode="cyboxProperties" />
+              <xsl:apply-templates select="ttp:Handling/*" mode="cyboxProperties" />
             </xsl:variable>
             <xsl:copy-of select="stix:printNameValueTable('Handling', $contents)" />
           </xsl:if>  
