@@ -286,7 +286,6 @@
         <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
       </xsl:when>
       <xsl:when test="$actualItem[self::stixCommon:Exploit_Target]">
-        <xsl:message>hit exploit target</xsl:message>
         <xsl:sequence select="cybox:calculateAllColumnsExploitTarget($actualItem, $reference)" />
       </xsl:when>
       <xsl:when test="$actualItem[self::stix:Incident]">

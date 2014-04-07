@@ -138,7 +138,7 @@
             <xsl:choose>
                 <xsl:when test="$cutOff and not($isRoot)">
                 <!-- call template applying idref -->
-                    <xsl:message select="local-name(.)"></xsl:message>
+                    <!-- <xsl:message select="local-name(.)"></xsl:message> -->
                     
                     <xsl:if test="not(@id) and not(@idref) and not(@action_id)">
                         <xsl:attribute name="idgen"><xsl:value-of select="true()" /></xsl:attribute>

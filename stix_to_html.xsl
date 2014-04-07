@@ -211,12 +211,17 @@ mdunn@mitre.org
           These two variables will become the main inputs to the primary transform.
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
+    <xsl:message>identifying input...</xsl:message>
     <xsl:variable name="identifiedInput">
       <xsl:apply-templates select="/" mode="identifyAnonymousItems" />
     </xsl:variable>
+    <xsl:message>DONE identifying input.</xsl:message>
+    <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
       <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables)" mode="createNormalized"/>
     </xsl:variable>
+    <xsl:message>DONE normalizing input.</xsl:message>
+    <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
       <xsl:apply-templates
         select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
@@ -226,6 +231,8 @@ mdunn@mitre.org
         <xsl:with-param name="isRoot" select="fn:true()"/>
       </xsl:apply-templates>
     </xsl:variable>
+    <xsl:message>DONE creating reference.</xsl:message>
+    <xsl:message>processing main...</xsl:message>
 
     <html>
       <head>
@@ -433,6 +440,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
         <xsl:call-template name="customFooter"/>
       </body>
     </html>
+    <xsl:message>DONE processing main.</xsl:message>
+    <xsl:message>##########</xsl:message>
   </xsl:template>
   
   <!--
