@@ -59,5 +59,20 @@
       <xsl:apply-templates select="text()" />
     </div>
   </xsl:template>
+  
+  <!--
+    purpose: make stixCommon:Reference elements into clickable links in the
+    html output.
+  -->
+  <xsl:template match="stixCommon:Reference" mode="cyboxProperties">
+    <xsl:variable name="url" select="fn:data(.)" />
+    
+    <div class="stixCommonReference">
+      <xsl:element name="a">
+        <xsl:attribute name="href" select="$url" />
+        <xsl:value-of select="$url" />
+      </xsl:element>
+    </div>
+  </xsl:template>
     
 </xsl:stylesheet>
