@@ -29,22 +29,30 @@
   <!--
       Output URI & Link value without unnecessary nested schema tree structure
     -->
-  <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]"><fieldset>
-    <legend>URI</legend>
-    <div class="container cyboxPropertiesContainer cyboxProperties">
-      <div class="heading cyboxPropertiesHeading cyboxProperties">
-        <xsl:apply-templates select="URIObject:Value" mode="cyboxProperties" />
-      </div>
-    </div>
-  </fieldset>
+  <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#AddressObject-2', 'AddressObjectType')]">
+    <xsl:apply-templates select="URIObject:Value|AddressObject:Address_Value|Common:Address" mode="cyboxProperties" />
   </xsl:template>
-  <xsl:template match="URIObject:Value" mode="cyboxProperties">
-    Value <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
-    <xsl:choose>
-      <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-      <xsl:otherwise> = </xsl:otherwise>
-    </xsl:choose>
-    <xsl:value-of select="." />
+
+  <xsl:template match="URIObject:Value|AddressObject:Address_Value" mode="cyboxProperties">
+    <xsl:variable name="condition">
+      <xsl:choose>
+        <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
+        <xsl:otherwise> = </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <div class="container cyboxPropertiesContainer cyboxProperties">
+      <span class="heading cyboxPropertiesHeading cyboxProperties">
+        Value
+      </span>
+      <span class="contents cyboxPropertiesHeading cyboxProperties">
+        <span class="cyboxPropertiesConstraints">
+          <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
+        </span>
+        <xsl:value-of select="$condition" />
+        <xsl:value-of select="." />
+      </span>
+    </div>
   </xsl:template>
   
   <!--

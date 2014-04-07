@@ -906,12 +906,11 @@ ikirillov@mitre.org
   
     <!--
       Output Address value without unnecessary nested schema tree structure
+      
+      See also: templates in cybox_objects.xsl for
+        * <cybox:Properties xsi:type="AddressObject:AddressObjectType" /> and
+        * <AddressObject:Address_Value />
     -->
-    <xsl:template match="cybox:Properties[contains(@xsi:type,'AddressObjectType')]">
-        <xsl:call-template name="Common:Address">
-            <xsl:with-param name="context" select="."/>
-        </xsl:call-template>
-    </xsl:template>
     <xsl:template match="*:IP_Address" mode="cyboxProperties">
         <xsl:call-template name="Common:Address">
             <xsl:with-param name="context" select="."/>
@@ -942,14 +941,6 @@ ikirillov@mitre.org
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
-    <xsl:template match="AddressObject:Address_Value" mode="cyboxProperties">
-        Address <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
-        <xsl:choose>
-            <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-            <xsl:otherwise> = </xsl:otherwise>
-        </xsl:choose>
-        <xsl:value-of select="." />
-    </xsl:template>
     
     <!--
       default template for outputting hierarchical cybox:Properties names/values/constraints
