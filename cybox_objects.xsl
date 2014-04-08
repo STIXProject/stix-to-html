@@ -84,7 +84,6 @@
     <table class="windowsRegistryTable">
       <thead>
         <tr>
-          <th rowspan="2">Location</th>
           <th>Hive:</th>
           <td>
             <div class="cyboxPropertiesConstraints">
@@ -108,9 +107,9 @@
         <tbody>
           <xsl:for-each select="registry:Name[text()]">
             <tr>
-              <th colspan="3">Name</th>
+              <th colspan="2">Name</th>
             </tr>
-            <td colspan="3">
+            <td colspan="2">
               <div class="cyboxPropertiesConstraints">
                 <xsl:apply-templates select="@condition[. ne 'Equals']" mode="cyboxProperties" />
               </div>
@@ -119,11 +118,11 @@
           </xsl:for-each>
           <xsl:if test="registry:Data/text()">
             <tr>
-              <th colspan="3">Value<xsl:value-of select="if (count(registry:Data) > 1) then 's' else ''" /></th>
+              <th colspan="2">Value<xsl:value-of select="if (count(registry:Data) > 1) then 's' else ''" /></th>
             </tr>
             <xsl:for-each select="registry:Data">
               <tr>
-                <td colspan="3">
+                <td colspan="2">
                   <div class="cyboxPropertiesConstraints">
                     <xsl:apply-templates select="@condition[. ne 'Equals']"  mode="cyboxProperties" />
                   </div>
