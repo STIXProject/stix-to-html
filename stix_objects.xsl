@@ -74,5 +74,20 @@
       </xsl:element>
     </div>
   </xsl:template>
+  
+  <!--
+  ····························································
+  -->
+  
+  <!--
+    purpose: placeholder for future template to support maec objects
+    
+    example:
+    <ttp:Malware_Instance xsi:type="maecInstance:MAEC4.0InstanceType" />
+  -->
+  <xsl:template match="*[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://stix.mitre.org/extensions/Malware#MAEC4.0-1', 'MAEC4.0InstanceType')]" mode="cyboxProperties">
+    PLACEHOLDER -- STIX-TO-HTML WILL SUPPORT MAEC CONTENT IN THE NEXT RELEASE.
+  </xsl:template>
+  
     
 </xsl:stylesheet>
