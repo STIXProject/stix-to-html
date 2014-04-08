@@ -138,6 +138,14 @@
   
   <xsl:template match="marking:Marking">
     <div class="marking">
+      <div class="markingControlStructure cyboxPropertiesConstraints">
+        <xsl:choose>
+          <xsl:when test="marking:Controlled_Structure">
+            marking for (xpath): <xsl:value-of select="marking:Controlled_Structure" />
+          </xsl:when>
+          <xsl:otherwise>whole document:</xsl:otherwise>
+        </xsl:choose>
+      </div>
       <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
         <div class="markingSimple">
           <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
