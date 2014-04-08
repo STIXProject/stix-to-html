@@ -133,6 +133,9 @@
     </xsl:template>    
   
   <xsl:template match="stix:Handling|indicator:Handling">
+    <xsl:if test="marking:Marking">
+      <div class="cyboxPropertiesConstraints">WARNING: Handling of marking data is not fully supported in stix-to-html yet.</div>
+    </xsl:if>
     <xsl:apply-templates />
   </xsl:template>
   
