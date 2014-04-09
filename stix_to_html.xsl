@@ -425,8 +425,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
 
           <!-- REFERENCE: HELP_UPDATE_STEP_1C -->
           <xsl:call-template name="printReference">
-            <xsl:with-param name="reference" select="$reference"/>
-            <xsl:with-param name="normalized" select="$normalized"/>
+            <xsl:with-param name="reference" select="$reference" tunnel="yes" />
+            <xsl:with-param name="normalized" select="$normalized" />
           </xsl:call-template>
           
           <xsl:call-template name="processAllTopLevelTables">
@@ -458,8 +458,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     and building this content.
   -->
   <xsl:template name="printReference">
-    <xsl:param name="reference" select="()"/>
-    <xsl:param name="normalized" select="()"/>
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
 
     <div class="reference">
       <xsl:apply-templates select="$reference" mode="printReference"/>

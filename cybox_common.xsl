@@ -616,14 +616,31 @@ ikirillov@mitre.org
       objects).
     -->
     <xsl:template match="cybox:Related_Objects|cybox:Associated_Objects|ttp:Related_TTPs">
+        <xsl:param name="reference" as="node()*" tunnel="yes" />
         <xsl:variable name="relatedOrAssociated" select="if (local-name() = 'Related_Objects') then ('related') else if (local-name() = 'Associated_Objects') then ('associated') else ('other')" />
         <xsl:variable name="relatedOrAssociatedCapitalized" select="if (local-name() = 'Related_Objects') then ('Related') else if (local-name() = 'Associated_Objects') then ('Associated') else ('Other')" />
+        
+      
         <div class="container {$relatedOrAssociated}Objects">
             <div class="heading {$relatedOrAssociated}Objects">
                 <xsl:value-of select="$relatedOrAssociatedCapitalized"/> Objects
             </div>
             <div class="contents {$relatedOrAssociated}Objects">
-                <xsl:apply-templates select="cybox:Related_Object|cybox:Associated_Object|ttp:Related_TTP"></xsl:apply-templates>
+              <xsl:for-each select="cybox:Related_Object|cybox:Associated_Object|ttp:Related_TTP">
+                <xsl:variable name="currentId" select="fn:data(./@idref)" />
+                <xsl:variable name="r" select="$reference/*[@id=$currentId]" />
+                <div>BEFORE</div>
+                <div>IDREF: <xsl:value-of select="$currentId" /></div>
+                <div>REFERENCE COUNT: <xsl:value-of select="count($reference)" /></div>
+                <div>R COUNT: <xsl:value-of select="count($r)" /></div>
+                <div>CURRENT NAME: <xsl:value-of select="local-name(.)" /></div>
+                <div>CONTEXT CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in ./* return name($c)), ', ')" /></div>
+                <div>R CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in $r/* return name($c)), ', ')" /></div>
+                <div>ONE: <xsl:apply-templates select="./cybox:Relationship/text()" /> </div>
+                <div>TWO: <xsl:value-of select="$r/cybox:Relationship/text()" /> </div>
+                <xsl:apply-templates select="." />
+              </xsl:for-each>
+              <!-- <xsl:apply-templates select="cybox:Related_Object|cybox:Associated_Object|ttp:Related_TTP" /> -->
             </div>
         </div>
     </xsl:template>
@@ -677,6 +694,9 @@ ikirillov@mitre.org
         <xsl:variable name="headingName" select="fn:upper-case($friendlyName)" />
       
         <div class="debug">NOT THERE</div>
+      
+        <!-- <xsl:apply-templates select="cybox:Relationship|cybox:Association_Type" /> -->
+      
         
         <div class="container {$identifierName}Container {$identifierName}">
             <div class="contents {$identifierName}Contents {$identifierName}">
