@@ -211,11 +211,19 @@ mdunn@mitre.org
           These two variables will become the main inputs to the primary transform.
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
+    <xsl:message>cleaning up input...</xsl:message>
+    <xsl:variable name="root" select="/" />
+    <xsl:variable name="cleanedInput">
+      <xsl:apply-templates select="$root" mode="cleanup" />
+    </xsl:variable>
+    <xsl:message>DONE cleaning up input.</xsl:message>
+    
     <xsl:message>identifying input...</xsl:message>
     <xsl:variable name="identifiedInput">
-      <xsl:apply-templates select="/" mode="identifyAnonymousItems" />
+      <xsl:apply-templates select="$cleanedInput" mode="identifyAnonymousItems" />
     </xsl:variable>
     <xsl:message>DONE identifying input.</xsl:message>
+
     <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
       <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables)" mode="createNormalized"/>
@@ -232,6 +240,7 @@ mdunn@mitre.org
       </xsl:apply-templates>
     </xsl:variable>
     <xsl:message>DONE creating reference.</xsl:message>
+    <xsl:message>count related_obects with object child: <xsl:value-of select="count($cleanedInput//cybox:Related_Object[cybox:Object])" /></xsl:message>
     <xsl:message>processing main...</xsl:message>
 
     <html>

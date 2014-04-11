@@ -629,20 +629,27 @@ ikirillov@mitre.org
               <xsl:for-each select="cybox:Related_Object|cybox:Associated_Object|ttp:Related_TTP">
                 <xsl:variable name="currentId" select="fn:data(./@idref)" />
                 <xsl:variable name="r" select="$reference/*[@id=$currentId]" />
-                <div>BEFORE</div>
-                <div>IDREF: <xsl:value-of select="$currentId" /></div>
-                <div>REFERENCE COUNT: <xsl:value-of select="count($reference)" /></div>
-                <div>R COUNT: <xsl:value-of select="count($r)" /></div>
-                <div>CURRENT NAME: <xsl:value-of select="local-name(.)" /></div>
-                <div>CONTEXT CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in ./* return name($c)), ', ')" /></div>
-                <div>R CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in $r/* return name($c)), ', ')" /></div>
-                <div>ONE: <xsl:apply-templates select="./cybox:Relationship/text()" /> </div>
-                <div>TWO: <xsl:value-of select="$r/cybox:Relationship/text()" /> </div>
+                <div class="debug">
+                  <div>BEFORE</div>
+                  <div>IDREF: <xsl:value-of select="$currentId" /></div>
+                  <div>REFERENCE COUNT: <xsl:value-of select="count($reference)" /></div>
+                  <div>R COUNT: <xsl:value-of select="count($r)" /></div>
+                  <div>CURRENT NAME: <xsl:value-of select="local-name(.)" /></div>
+                  <div>CONTEXT CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in ./* return name($c)), ', ')" /></div>
+                  <div>R CHILD NAMES: <xsl:value-of select="fn:string-join((for $c in $r/* return name($c)), ', ')" /></div>
+                  <div>ONE: <xsl:apply-templates select="./cybox:Relationship/text()" /> </div>
+                  <div>TWO: <xsl:value-of select="$r/cybox:Relationship/text()" /> </div>
+                </div>
                 <xsl:apply-templates select="." />
               </xsl:for-each>
               <!-- <xsl:apply-templates select="cybox:Related_Object|cybox:Associated_Object|ttp:Related_TTP" /> -->
             </div>
         </div>
+    </xsl:template>
+  
+    <xsl:template match="cybox:Related_Object">
+      <xsl:apply-templates select="cybox:Relationship" />
+      <xsl:apply-templates select="cybox:Object" />
     </xsl:template>
 
   <!--
@@ -687,7 +694,8 @@ ikirillov@mitre.org
        It also prints out either original inline objects (with an id) or object references (with and idref).
     -->
     <!--<xsl:template match="cybox:Object[@id]|cybox:Event[@id]|cybox:Related_Object[@id]|cybox:Associated_Object[@id]|cybox:Action_Reference[@id]">-->
-    <xsl:template match="cybox:Object|cybox:Event|cybox:Related_Object|cybox:Associated_Object|cybox:Action_Reference">
+    <!-- <xsl:template match="cybox:Object|cybox:Event|cybox:Related_Object|cybox:Associated_Object|cybox:Action_Reference"> -->
+    <xsl:template match="cybox:Object|cybox:Event|cybox:Associated_Object|cybox:Action_Reference">
         <xsl:variable name="localName" select="local-name()"/>
         <xsl:variable name="identifierName" select="if ($localName = 'Object') then 'object' else if ($localName = 'Event') then 'event' else if ($localName = 'Related_Object') then 'relatedObject' else if ($localName = 'Associated_Object') then 'associatedObject' else ''" />
         <xsl:variable name="friendlyName" select="fn:replace($localName, '_', ' ')" />
@@ -810,7 +818,7 @@ ikirillov@mitre.org
         </div>
     </xsl:template>
   
-  <xsl:template match="cybox:Relationship">
+  <xsl:template match="cybox:Relationship[not(../self::cybox:Related_Object)]">
     <xsl:variable name="localName" select="local-name()"/>
     <xsl:variable name="identifierName" select="cybox:elementLocalNameToIdentifier($localName)" />
     <xsl:variable name="friendlyName" select="fn:replace($localName, '_', ' ')" />

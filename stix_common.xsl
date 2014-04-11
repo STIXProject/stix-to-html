@@ -264,7 +264,11 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="stixCommon:Relationship|cybox:Relationship">
+  <xsl:template match="stixCommon:Relationship">
+    <div>Relationship: <xsl:apply-templates /></div>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Related_Object/cybox:Relationship">
     <div>Relationship: <xsl:apply-templates /></div>
   </xsl:template>
   
