@@ -335,7 +335,7 @@
       <xsl:value-of select="fn:data($actualItem/@id)" />
     </xsl:variable>
     
-    <xsl:sequence select="$column1,$column2,concat($column3, '_OTHER_OTHER_OTHER')" />
+    <xsl:sequence select="$column1,$column2,$column3" />
     
   </xsl:function>
   
