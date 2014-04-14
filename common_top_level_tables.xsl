@@ -276,31 +276,31 @@
     <xsl:param name="reference" />
     
     <xsl:choose>
-      <xsl:when test="$actualItem[self::cybox:Observable]">
+      <xsl:when test="$actualItem[self::*:Observable]">
         <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:Indicator]">
+      <xsl:when test="$actualItem[self::*:Indicator]">
         <xsl:sequence select="cybox:calculateAllColumnsIndicator($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:TTP]">
+      <xsl:when test="$actualItem[self::*:TTP]">
         <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stixCommon:Exploit_Target]">
+      <xsl:when test="$actualItem[self::*:Exploit_Target]">
         <xsl:sequence select="cybox:calculateAllColumnsExploitTarget($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:Incident]">
+      <xsl:when test="$actualItem[self::*:Incident]">
         <xsl:sequence select="cybox:calculateAllColumnsIncident($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:Course_Of_Action]">
+      <xsl:when test="$actualItem[self::*:Course_Of_Action]">
         <xsl:sequence select="cybox:calculateAllColumnsCourseOfAction($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:Campaign]">
+      <xsl:when test="$actualItem[self::*:Campaign]">
         <xsl:sequence select="cybox:calculateAllColumnsCampaign($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::stix:Threat_Actor]">
+      <xsl:when test="$actualItem[self::*:Threat_Actor]">
         <xsl:sequence select="cybox:calculateAllColumnsThreatActor($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::cybox:Object|self::cybox:Associated_Object|self::cybox:Related_Object]">
+      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object]">
         <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
       </xsl:when>
       <xsl:when test="$actualItem[self::cybox:Event]">
