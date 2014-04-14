@@ -85,7 +85,7 @@
     example:
     <ttp:Malware_Instance xsi:type="maecInstance:MAEC4.0InstanceType" />
   -->
-  <xsl:template match="*[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://stix.mitre.org/extensions/Malware#MAEC4.0-1', 'MAEC4.0InstanceType')]" mode="cyboxProperties">
+  <xsl:template match="*[some $ns in ('http://stix.mitre.org/extensions/Malware#MAEC4.0-1', 'http://stix.mitre.org/extensions/Malware#MAEC4.1-1') satisfies $ns = fn:namespace-uri-from-QName(fn:resolve-QName(fn:data(@xsi:type), .))]" mode="cyboxProperties">
     PLACEHOLDER -- STIX-TO-HTML WILL SUPPORT MAEC CONTENT IN THE NEXT RELEASE.
   </xsl:template>
   
