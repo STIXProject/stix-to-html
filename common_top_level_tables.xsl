@@ -309,6 +309,9 @@
       <xsl:when test="$actualItem[self::cybox:Action]">
         <xsl:sequence select="cybox:calculateAllColumnsAction($actualItem, $reference)" />
       </xsl:when>
+      <xsl:when test="$actualItem[self::stixCommon:Kill_Chain|self::stixCommon:Kill_Chain_Phase]">
+        <xsl:sequence select="cybox:calculateAllColumnsKillChainOrKillChainPhase($actualItem, $reference)" />
+      </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
       </xsl:otherwise>
@@ -321,7 +324,7 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="if ($actualItem/*:Title) then ($actualItem/*:Title) else '[no title]'" />
+      <xsl:value-of select="if ($actualItem/(*:Title|*:Name)) then (($actualItem/(*:Title|*:Name))[1]) else '[no title]'" />
     </xsl:variable>
     <xsl:variable name="column2">
       <xsl:if test="$actualItem/*:Type">
@@ -542,6 +545,22 @@
     
     <xsl:variable name="column1">
       <xsl:value-of select="if ($actualItem/ta:Title) then ($actualItem/ta:Title) else '[no title]'" />
+    </xsl:variable>
+    <xsl:variable name="column2">
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsKillChainOrKillChainPhase">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/@name) then (fn:data($actualItem/@name)) else '[no name]'" />
     </xsl:variable>
     <xsl:variable name="column2">
     </xsl:variable>
