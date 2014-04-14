@@ -429,16 +429,29 @@ ikirillov@mitre.org
         <xsl:param name="idref"/>
         <xsl:param name="reference" tunnel="yes" />
       
-        <!-- <xsl:variable name="threeColumns" select="(1, 2, 3)" /> -->
-        <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
-      
-        <span class="clickableIdref">
-          <xsl:value-of select="$threeColumns[1]" />
-          <xsl:if test="fn:normalize-space($threeColumns[2])"> &#x25CB; </xsl:if>
-          <xsl:value-of select="$threeColumns[2]" />
-          <xsl:if test="fn:normalize-space($threeColumns[3])"> &#x25CB; </xsl:if>
-          <xsl:value-of select="$threeColumns[3]" />
-        </span>
+        <xsl:choose>
+          <xsl:when test="$targetObject">
+            <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
+            
+            <span class="clickableIdref">
+              <xsl:value-of select="$threeColumns[1]" />
+              <xsl:if test="fn:normalize-space($threeColumns[2])"> &#x25CB; </xsl:if>
+              <xsl:value-of select="$threeColumns[2]" />
+              <xsl:if test="fn:normalize-space($threeColumns[3])"> &#x25CB; </xsl:if>
+              <xsl:value-of select="$threeColumns[3]" />
+            </span>
+          </xsl:when>
+          
+          <!--
+            otherwise, target object not found in current document and it
+            should be labeled as external and it should not be expandable.
+          -->
+          <xsl:otherwise>
+            <xsl:value-of select="$idref" />
+            <xsl:text> </xsl:text>
+            <span class="externalLinkWarning">[external]</span>
+          </xsl:otherwise>
+        </xsl:choose>
         
         <!--
         <xsl:variable name="targetObjectType">

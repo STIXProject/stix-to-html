@@ -237,7 +237,7 @@
     
     <xsl:variable name="allColumnsSequence" select="cybox:calculateAllColumns($actualItem, $reference)"/>
     
-    <xsl:variable name="column1" select="$allColumnsSequence[1]" />
+    <xsl:variable name="column1" select="if ($actualItem) then $allColumnsSequence[1] else fn:data($originalItem/@idref)" />
     <xsl:variable name="column2" select="$allColumnsSequence[2]" />
     <xsl:variable name="column3" select="$allColumnsSequence[3]" />
     
