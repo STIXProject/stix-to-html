@@ -72,7 +72,8 @@ ikirillov@mitre.org
   
     <xsl:include href="common_top_level_tables.xsl" />
   
-
+    <xsl:variable name="separator" select="'&#x25CB;'" />
+    <xsl:variable name="nameValueSeparator" select="'&#x2192;'" />
 
   
   
@@ -356,18 +357,18 @@ ikirillov@mitre.org
         </xsl:variable>
       
         <xsl:if test="$relationshipOrAssociationType or $currentObjectType">
-          <xsl:text> &#x25CB; </xsl:text>
+          <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <xsl:if test="$relationshipOrAssociationType">
             <xsl:value-of select="$relationshipOrAssociationType/text()" />
-            <xsl:text> &#x25CB; </xsl:text>
+            <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <xsl:if test="$currentObjectType">
             <xsl:text> </xsl:text>
             <xsl:value-of select="$currentObjectType" />
-            <xsl:text> &#x25CB; </xsl:text>
+            <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
     </xsl:template>
 
@@ -397,13 +398,13 @@ ikirillov@mitre.org
         
         <xsl:if test="$relationshipOrAssociationType">
             <xsl:value-of select="$relationshipOrAssociationType/text()" />
-            <xsl:text> &#x25CB; </xsl:text>
+            <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <xsl:if test="$currentObjectType">
             <xsl:text> </xsl:text>
             <xsl:value-of select="$currentObjectType" />
-            <xsl:text> &#x25CB; </xsl:text>
+            <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <xsl:element name="span">
@@ -435,9 +436,9 @@ ikirillov@mitre.org
             
             <span class="clickableIdref">
               <xsl:value-of select="$threeColumns[1]" />
-              <xsl:if test="fn:normalize-space($threeColumns[2])"> &#x25CB; </xsl:if>
+              <xsl:if test="fn:normalize-space($threeColumns[2])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
               <xsl:value-of select="$threeColumns[2]" />
-              <xsl:if test="fn:normalize-space($threeColumns[3])"> &#x25CB; </xsl:if>
+              <xsl:if test="fn:normalize-space($threeColumns[3])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
               <xsl:value-of select="$threeColumns[3]" />
             </span>
           </xsl:when>
@@ -479,7 +480,7 @@ ikirillov@mitre.org
         
         <xsl:if test="$relationshipOrAssociationType">
            <xsl:value-of select="$relationshipOrAssociationType/text()" />
-           <xsl:text> &#x25CB; </xsl:text>
+           <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <xsl:if test="not($targetObject)">
@@ -489,7 +490,7 @@ ikirillov@mitre.org
         <xsl:if test="$targetObjectType">
             <xsl:text> </xsl:text>
             <xsl:value-of select="$targetObjectType" />
-            <xsl:text> &#x25CB; </xsl:text>
+            <xsl:value-of select="concat(' ', $separator, ' ')" />
         </xsl:if>
         
         <!- - THIS IS THE MAIN LINK TEXT - ->
@@ -992,7 +993,7 @@ ikirillov@mitre.org
                 <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/> </span>
                 <span class="cyboxPropertiesConstraints"><xsl:apply-templates select="@*[not(node-name(.) = fn:QName('', 'id')) and not(node-name(.) = fn:QName('', 'idref')) and not(node-name(.) = fn:QName('', 'object_reference'))][not(node-name(.) = fn:QName('http://www.w3.org/2001/XMLSchema-instance', 'type'))]" mode="#current"/></span>
                 <xsl:if test="text()">
-                    <span class="cyboxPropertiesNameValueSeparator"> &#x2192; </span>
+                    <span class="cyboxPropertiesNameValueSeparator"><xsl:value-of select="concat(' ', $nameValueSeparator, ' ')" /></span>
                 </xsl:if>
                 <span class="cyboxPropertiesValue">
                     <xsl:apply-templates select="text()" mode="#current"/>
