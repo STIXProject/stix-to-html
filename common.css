@@ -234,7 +234,7 @@ margin-bottom: 2px;
 .eventTypeHeading
 {
   margin-bottom: 0.5em;
-  font-weight: bold;
+  font-weight: normal;
 }
 .contents,
 .eventDescription
@@ -410,7 +410,7 @@ table
 }
 .cyboxPropertiesValue
 {
-  font-weight: normal;
+  font-weight: bold;
 }
 
 .cyboxPropertiesConstraints
@@ -655,6 +655,16 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
   border-color: black;
   border-width: 1px;
 }
+.windowsRegistryTable > thead > tr > th,
+.windowsRegistryTable > tbody > tr > th
+{
+  font-weight: normal;
+}
+.windowsRegistryTable > thead > tr > td,
+.windowsRegistryTable > tbody > tr > td
+{
+  font-weight: bold;
+}
 
 .httpRequestResponseTable
 {
@@ -676,8 +686,19 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 }
 .requestResponseHeaderRow
 {
-  background-color: black;
-  color: white;
+  background-color: inherit;
+  color: silver;
+}
+.httpRequestResponseTable > thead > tr> th,
+.httpRequestResponseTable > tbody > tr> th
+{
+  font-weight: normal;
+}
+.httpRequestResponseTable > thead > tr> td,
+.httpRequestResponseTable > tbody > tr> td
+{
+  font-weight: bold;
+  color: black;
 }
 
 .conditionClause

@@ -50,7 +50,9 @@
           <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
         </span>
         <xsl:value-of select="$condition" />
-        <xsl:value-of select="." />
+        <span class="cyboxPropertiesValue">
+          <xsl:value-of select="." />
+        </span>
       </span>
     </div>
   </xsl:template>
@@ -285,7 +287,7 @@
   -->
   <xsl:template match="Common:Hash" mode="cyboxProperties">
     <div class="container cyboxPropertiesContainer cyboxProperties">
-      <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/> </span>
+      <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/><xsl:text> </xsl:text> </span>
       <span class="cyboxPropertiesValue">
         <xsl:value-of select="./Common:Type"/> = 
         <xsl:value-of select="./Common:Simple_Hash_Value|./Common:Fuzzy_Hash_Value"/>
