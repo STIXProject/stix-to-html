@@ -386,7 +386,15 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="if ($actualItem/cybox:Properties/@xsi:type) then (fn:local-name-from-QName(fn:resolve-QName($actualItem/cybox:Properties/@xsi:type, $actualItem/cybox:Properties))) else '[no type]'" />
+      <xsl:choose>
+        <xsl:when test="not($actualItem/cybox:Properties/@xsi:type)">[no type]</xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="localName" select="fn:local-name-from-QName(fn:resolve-QName($actualItem/cybox:Properties/@xsi:type, $actualItem/cybox:Properties))" />
+          <xsl:variable name="humanReadableName" select="stix:convertObjectTypeNameToLabel($localName)" />
+          <xsl:value-of select="$humanReadableName" />
+        </xsl:otherwise>
+      </xsl:choose>
+      
     </xsl:variable>
     <xsl:variable name="column2" />
     <xsl:variable name="column3">
@@ -587,5 +595,22 @@
     </xsl:choose>
   </xsl:function>
   
+  <!--
+    function to convert cybox object type names (xml schema names) into human readable names.
+     * remove the namespace prefix if it's there
+     * remove "ObjectType" from the end of the string if it's there
+     * convert the non-space-separated string into space separated strings
+       based on each new capital letter ("WindowsRegistryKey" would become
+       "Windows Registry Key")
+  -->
+  <xsl:function name="stix:convertObjectTypeNameToLabel">
+    <xsl:param name="objectTypeName" as="xs:string" />
+    
+    <xsl:variable name="short" select="fn:replace($objectTypeName, '^([^:]+:)?(.+?)(ObjectType)?$', '$2')" />
+    
+    <xsl:variable name="humanReadable" select="fn:normalize-space(fn:replace($short, '[\p{Lu}][^\p{Lu}]*', '$0 '))" />
+    
+    <xsl:value-of select="$humanReadable" />
+  </xsl:function>
   
 </xsl:stylesheet>
