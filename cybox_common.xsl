@@ -73,7 +73,7 @@ ikirillov@mitre.org
     <xsl:include href="common_top_level_tables.xsl" />
   
     <xsl:variable name="separator" select="'&#x25CB;'" />
-    <xsl:variable name="nameValueSeparator" select="'&#x2192;'" />
+    <xsl:variable name="nameValueSeparator" select="':'" />
 
   
   
