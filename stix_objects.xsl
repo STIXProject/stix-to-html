@@ -89,5 +89,11 @@
     PLACEHOLDER -- STIX-TO-HTML WILL SUPPORT MAEC CONTENT IN THE NEXT RELEASE.
   </xsl:template>
   
+  <!--
+  <xsl:template match="*:Type[count(../*:Type) ge 2]" mode="cyboxProperties">
+    <xsl:apply-templates mode="#current" /> <xsl:text> %% </xsl:text>
+  </xsl:template>
+  -->
+  
     
 </xsl:stylesheet>
