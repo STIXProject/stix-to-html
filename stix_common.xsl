@@ -142,16 +142,21 @@
   <xsl:template match="marking:Marking">
     <div class="marking">
       <!-- TODO display marking's control structure or apply to xml -->
-      <!--
-      <div class="markingControlStructure cyboxPropertiesConstraints">
-        <xsl:choose>
-          <xsl:when test="marking:Controlled_Structure">
-            marking for (xpath): <xsl:value-of select="marking:Controlled_Structure" />
-          </xsl:when>
-          <xsl:otherwise>whole document:</xsl:otherwise>
-        </xsl:choose>
-      </div>
-      -->
+      <xsl:if test="marking:Controlled_Structure">
+        <div class="markingControlStructure cyboxPropertiesConstraints">
+          <xsl:choose>
+            <xsl:when test="marking:Controlled_Structure/text() = '//node()'">
+              marking for whole document:
+            </xsl:when>
+            <xsl:when test="not(marking:Controlled_Structure/text()) or (fn:normalize-space(marking:Controlled_Structure/text()) = '')">
+              no marking control structure specified:
+            </xsl:when>
+            <xsl:otherwise>
+              marking for (xpath): <xsl:value-of select="marking:Controlled_Structure" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </div>
+      </xsl:if>
       <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
         <div class="markingSimple">
           <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
@@ -682,7 +687,8 @@
         
         <xsl:if test="indicator:Observable">
           <xsl:variable name="contents">
-            <xsl:apply-templates select="indicator:Observable" mode="cyboxProperties" />
+            <xsl:apply-templates select="indicator:Observable/@*" mode="cyboxProperties" />
+            <xsl:apply-templates select="indicator:Observable/*" mode="cyboxProperties" />
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Observable', $contents)" />
         </xsl:if>
