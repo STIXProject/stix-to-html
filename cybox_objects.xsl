@@ -247,10 +247,11 @@
         <xsl:variable name="applyCondition" select="if (../@apply_condition) then (fn:data(../@apply_condition)) else ('Any')" />
         
         <div class="conditionClause"><xsl:value-of select="concat($condition, ' ', $applyCondition, ':')"/></div>
+        <!--
         <div class="cyboxPropertiesTokenizedList">
           <xsl:value-of select="fn:string-join($tokens, ',')" />
         </div>
-        <!--
+        -->
         <ul class="cyboxPropertiesTokenizedList">
          <xsl:for-each select="$tokens">
            <li>
@@ -258,7 +259,6 @@
            </li>
          </xsl:for-each>
         </ul>
-        -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
