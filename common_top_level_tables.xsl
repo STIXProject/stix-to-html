@@ -355,7 +355,11 @@
           Event
         </xsl:when>
         <xsl:when test="$actualItem/cybox:Object">
-          Object
+          <xsl:variable name="object" select="$reference/*[@id=$actualItem/cybox:Object/@idref]" />
+          <xsl:variable name="objectThreeFields" select="cybox:calculateAllColumnsObject($object, $reference)" />
+          <xsl:variable name="objectType" select="$objectThreeFields[1]" />
+          
+          Object<xsl:if test="$objectType">/<xsl:value-of select="$objectType" /></xsl:if>
           <!--
           <xsl:variable name="objectItem" select="if ((not($reference instance of element()*)) or (not($actualItem instance of element()*))) then () else  $reference/*[@id = fn:data($actualItem/cybox:Object/@idref)]" />
           
