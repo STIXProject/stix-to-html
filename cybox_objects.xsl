@@ -292,12 +292,20 @@
   -->
   <xsl:template match="Common:Hash" mode="cyboxProperties">
     <div class="container cyboxPropertiesContainer cyboxProperties">
+      <!--
       <span class="cyboxPropertiesName"><xsl:value-of select="local-name()"/><xsl:text> </xsl:text> </span>
       <span class="cyboxPropertiesValue">
         <xsl:value-of select="./Common:Type"/> = 
         <xsl:apply-templates select="./Common:Simple_Hash_Value|./Common:Fuzzy_Hash_Value" mode="#current" />
-      </span>            
+      </span>
+      -->
+      <xsl:value-of select="./Common:Type"/>
+      <xsl:apply-templates select="*[not(self::Common:Type)]" mode="#current" />
     </div>
+  </xsl:template>
+  
+  <xsl:template match="Common:Simple_Hash_Value" mode="cyboxProperties">
+    <xsl:apply-templates select="text()" mode="#current" />
   </xsl:template>
   
   <!--

@@ -703,8 +703,8 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 
 .conditionClause
 {
-  margin-top: 1em;
-  margin-left: 1em;
+  /*margin-top: 1em;*/
+  /*margin-left: 1em;*/
 }
 
 .documentContentsList > a
