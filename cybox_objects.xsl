@@ -187,7 +187,7 @@
             </xsl:if>
             
             <xsl:for-each select="$mainRequest/http:HTTP_Request_Header">
-              <xsl:for-each select="http:Parsed_Header">'
+              <xsl:for-each select="http:Parsed_Header">
                 <xsl:variable name="parsedHeader" select="." />
                 <xsl:variable name="parsedHeaderChild" select="$parsedHeader/*" />
                 <tr>
