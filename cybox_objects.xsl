@@ -178,7 +178,14 @@
               <th>method</th>
               <td colspan="2"><xsl:value-of select="$method/text()" /></td>          
             </tr>
-          
+            
+            <xsl:if test="$value">
+              <tr>
+                <th>value</th>
+                <td colspan="2"><xsl:value-of select="$value" /></td>
+              </tr>
+            </xsl:if>
+            
             <xsl:for-each select="$mainRequest/http:HTTP_Request_Header">
               <xsl:for-each select="http:Parsed_Header">'
                 <xsl:variable name="parsedHeader" select="." />
@@ -190,7 +197,6 @@
                 </tr>
               </xsl:for-each>
             </xsl:for-each>
-            
           </tbody> <!-- end of tbody.httpRequestDetails -->
         </xsl:if> <!-- end of if($mainRequest) -->
         
