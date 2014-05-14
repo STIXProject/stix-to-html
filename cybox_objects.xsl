@@ -305,7 +305,10 @@
         <xsl:apply-templates select="./Common:Simple_Hash_Value|./Common:Fuzzy_Hash_Value" mode="#current" />
       </span>
       -->
-      <xsl:value-of select="./Common:Type"/>
+      <xsl:value-of select="./Common:Type" />
+      <span class="cyboxPropertiesConstraints">
+        <xsl:apply-templates select="(./Common:Type/@*[not(fn:node-name(.) = fn:QName('http://www.w3.org/2001/XMLSchema-instance', 'type'))])" mode="#current" />
+      </span>
       <xsl:apply-templates select="*[not(self::Common:Type)]" mode="#current" />
     </div>
   </xsl:template>
