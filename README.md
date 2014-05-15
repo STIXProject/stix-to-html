@@ -13,10 +13,10 @@ THE STIX XML to HTML TRANSFORM.
 For more information, please refer to the terms.txt file.
 ~~~
 
-## STIX XML to HTML transform v1.0beta3
+## STIX XML to HTML transform v1.0beta4
 Compatible with STIX v1.0.1
 
-This is an xslt to transform a stix 1.0/1.0.1 document containing metadata and
+This is an xslt to transform a stix 1.0/1.0.1/1.1 document containing metadata and
 different categories of top level items into html for easy viewing.
 
 The first two tables on the output html page are 1) a metadata table
@@ -30,7 +30,7 @@ xpath is not used yet.
 
 Currently we support the following top level entities and sub-entities:
 - **Observables**
-  - All except for Events (this is true for any embedded Observables also)
+  - All (except no support for MAEC objects yet)
 - **Indicators**
   - Title
   - Description
@@ -149,15 +149,18 @@ This is a work in progress.  Feedback is most welcome!
 
 requirements:
  - XSLT 2.0 engine (this has been tested with Saxon 9.5)
- - a STIX 1.0/1.0.1 input xml document
+ - a STIX 1.0/1.0.1/1.1 input xml document
 
 ## Releases
 ### current release
+ * v1.0beta4
+   2014-05-15  
+   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=2&page=1&sort=updated&state=closed
+
+### previous releases
  * v1.0beta3
    2014-01-15  
    https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=1&page=1&sort=updated&state=closed
-
-### previous releases
  * v1.0beta2  
    2013-10-24  
    https://github.com/STIXProject/Tools/issues?milestone=1&state=open
@@ -274,12 +277,9 @@ such information what type of matching is performed (equals or string match).
 ### List of Objects With Object-specific Templates
 
  * cybox
-   * EmailMessageObjectType (cybox_objects.xsl)
+   * EmailMessageObjectType (commented-out example in cybox_objects.xsl)
    * Hash (cybox_objects.xsl)
    * HTTP_Request_Response (cybox_objects.xsl)
-   * Port (cybox_objects.xsl)
-   * URIObject (cybox_objects.xsl)
-   * WindowsRegistryKeyObjectType (cybox_objects.xsl)
    * [not really object-specific] any cybox:Properties text node with ##comma## delimited range or list (cybox_objects.xsl)
  * indicator
    * sighting (stix_objects.xsl)
