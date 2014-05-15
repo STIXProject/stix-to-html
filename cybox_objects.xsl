@@ -27,42 +27,6 @@
   -->
   
   <!--
-      Output URI & Link value without unnecessary nested schema tree structure
-    -->
-  <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'URIObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#URIObject-2', 'LinkObjectType')]|cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#AddressObject-2', 'AddressObjectType')]">
-    <xsl:apply-templates select="URIObject:Value|AddressObject:Address_Value|Common:Address" mode="cyboxProperties" />
-  </xsl:template>
-
-  <xsl:template match="URIObject:Value|AddressObject:Address_Value" mode="cyboxProperties">
-    <xsl:variable name="condition">
-      <xsl:choose>
-        <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-        <xsl:otherwise> = </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    
-    <div class="container cyboxPropertiesContainer cyboxProperties">
-      <span class="heading cyboxPropertiesHeading cyboxProperties">
-        Value
-      </span>
-      <span class="contents cyboxPropertiesHeading cyboxProperties">
-        <span class="cyboxPropertiesConstraints">
-          <xsl:value-of select="Common:Defanged(@is_defanged, @defanging_algorithm_ref)" />
-        </span>
-        <xsl:value-of select="$condition" />
-        <span class="cyboxPropertiesValue">
-          <xsl:value-of select="." />
-        </span>
-      </span>
-    </div>
-  </xsl:template>
-  
-  <!--
-    ····························································
-  -->
-  
-  
-  <!--
     purpose: for registry key objects (which are now printing using the default templates), do not show the "Values" element - - just jump to its children.
   -->
   <xsl:template match="registry:Values" mode="cyboxProperties">

@@ -413,7 +413,7 @@ table
   font-weight: bold;
 }
 
-.cyboxPropertiesConstraints
+.cyboxPropertiesConstraints, .cyboxPropertiesStyleConstraints
 {
   font-weight: normal;
   font-style: italic!important;
