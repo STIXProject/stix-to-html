@@ -176,13 +176,13 @@
           <tbody class="httpRequestDetails">
             <tr>
               <th>method</th>
-              <td colspan="2"><xsl:value-of select="$method/text()" /></td>          
+              <td colspan="2"><xsl:apply-templates select="$method/text()" /></td>          
             </tr>
             
             <xsl:if test="$value">
               <tr>
                 <th>value</th>
-                <td colspan="2"><xsl:value-of select="$value" /></td>
+                <td colspan="2"><xsl:apply-templates select="$value" /></td>
               </tr>
             </xsl:if>
             
@@ -193,7 +193,7 @@
                 <tr>
                   <th>header</th>
                   <td><xsl:value-of select="local-name($parsedHeaderChild)" /></td>
-                  <td><xsl:value-of select="$parsedHeaderChild/text()" /></td>
+                  <td><xsl:apply-templates select="$parsedHeaderChild/text()" /></td>
                 </tr>
               </xsl:for-each>
             </xsl:for-each>
@@ -225,7 +225,7 @@
       ##comma##, tokenize the item. For items that have a InclusiveBetween or
       ExclusiveBetween, they are ranges and should be labeled as such.
   -->
-  <xsl:template match="cybox:Properties//text()[fn:contains(., '##comma##')]" mode="cyboxProperties">
+  <xsl:template match="cybox:Properties//text()[fn:contains(., '##comma##')]" mode="cyboxProperties #default">
     <xsl:param name="includeConstraints" select="fn:true()" tunnel="yes" />
     <xsl:variable name="text" select="fn:data(.)" />
     <xsl:variable name="tokens" select="fn:tokenize($text, '##comma##')" />
