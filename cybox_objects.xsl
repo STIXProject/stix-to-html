@@ -63,82 +63,11 @@
   
   
   <!--
-    purpose: template for processing windows registry entry with more common
-    sense output formatting [making use of hive, key, and value(s)].
+    purpose: for registry key objects (which are now printing using the default templates), do not show the "Values" element - - just jump to its children.
   -->
-  <!--
-    <cybox:Properties xsi:type="WinRegistryKeyObject:WindowsRegistryKeyObjectType">
-			<WinRegistryKeyObject:Key condition="Equals">SOFTWARE\Microsoft\Windows\CurrentVersion\Run</WinRegistryKeyObject:Key>
-			<WinRegistryKeyObject:Hive condition="Equals">HKLM</WinRegistryKeyObject:Hive>
-			<WinRegistryKeyObject:Values>
-				<WinRegistryKeyObject:Value>
-					<WinRegistryKeyObject:Data condition="FitsPattern">rundll32\.exe C:\\DOCUME~1\\USER\\LOCALS~1\\Temp\\[^.]+\.dll&comma;XMLResFunc [^ ]+ 0</WinRegistryKeyObject:Data>
-				</WinRegistryKeyObject:Value>
-			</WinRegistryKeyObject:Values>
-		</cybox:Properties>    
-  -->
-  <xsl:template match="cybox:Properties[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://cybox.mitre.org/objects#WinRegistryKeyObject-2', 'WindowsRegistryKeyObjectType')]">
-    <xsl:variable name="hive" as="element()?" select="registry:Hive" />
-    <xsl:variable name="key" as="element()?" select="registry:Key" />
-    <xsl:variable name="valueDataSequence" as="element()*" select="registry:Values/registry:Value/registry:Data" />
-    <xsl:variable name="valueSequence" as="element()*" select="registry:Values/registry:Value" />
-    
-    <table class="windowsRegistryTable">
-      <thead>
-        <tr>
-          <th>Hive:</th>
-          <td>
-            <div class="cyboxPropertiesConstraints">
-              <xsl:apply-templates select="$hive/@condition[. ne 'Equals']" mode="cyboxProperties" />
-            </div>
-            
-            <xsl:value-of select="$hive/text()" />
-          </td>
-        </tr>
-        <tr>
-          <th>Key:</th>
-          <td>
-            <div class="cyboxPropertiesConstraints">
-              <xsl:apply-templates select="$key/@condition[. ne 'Equals']" mode="cyboxProperties" />
-            </div>
-            <xsl:value-of select="$key/text()" />
-          </td>
-        </tr>
-      </thead>
-      <xsl:for-each select="$valueSequence">
-        <tbody>
-          <xsl:for-each select="registry:Name[text()]">
-            <tr>
-              <th colspan="2">Name</th>
-            </tr>
-            <td colspan="2">
-              <div class="cyboxPropertiesConstraints">
-                <xsl:apply-templates select="@condition[. ne 'Equals']" mode="cyboxProperties" />
-              </div>
-              <xsl:value-of select="text()" />
-            </td>
-          </xsl:for-each>
-          <xsl:if test="registry:Data/text()">
-            <tr>
-              <th colspan="2">Value<xsl:value-of select="if (count(registry:Data) > 1) then 's' else ''" /></th>
-            </tr>
-            <xsl:for-each select="registry:Data">
-              <tr>
-                <td colspan="2">
-                  <div class="cyboxPropertiesConstraints">
-                    <xsl:apply-templates select="@condition[. ne 'Equals']"  mode="cyboxProperties" />
-                  </div>
-                  <xsl:value-of select="text()" />
-                </td>
-              </tr>
-            </xsl:for-each>
-          </xsl:if>
-          
-        </tbody>
-      </xsl:for-each>
-    </table>
-    
-  </xsl:template>  
+  <xsl:template match="registry:Values" mode="cyboxProperties">
+    <xsl:apply-templates mode="#current" />
+  </xsl:template>
   <!--
     ····························································
   -->
