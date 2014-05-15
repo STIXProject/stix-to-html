@@ -612,7 +612,7 @@
     
     <xsl:variable name="short" select="fn:replace($objectTypeName, '^([^:]+:)?(.+?)(ObjectType)?$', '$2')" />
     
-    <xsl:variable name="humanReadable" select="fn:normalize-space(fn:replace($short, '[\p{Lu}][^\p{Lu}]*', '$0 '))" />
+    <xsl:variable name="humanReadable" select="fn:normalize-space(fn:replace($short, '[\p{Lu}][^\p{Lu}]+', '$0 '))" />
     
     <xsl:value-of select="$humanReadable" />
   </xsl:function>
