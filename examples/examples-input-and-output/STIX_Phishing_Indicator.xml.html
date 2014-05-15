@@ -242,7 +242,7 @@ margin-bottom: 2px;
 .eventTypeHeading
 {
   margin-bottom: 0.5em;
-  font-weight: bold;
+  font-weight: normal;
 }
 .contents,
 .eventDescription
@@ -267,11 +267,6 @@ margin-bottom: 2px;
   font-style: italic!important;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-}
-.description::before
-{
-  font-weight: bold;
-  content: "Description: "
 }
 .emailDiv
 {
@@ -423,14 +418,14 @@ table
 }
 .cyboxPropertiesValue
 {
-  font-weight: normal;
+  font-weight: bold;
 }
 
-.cyboxPropertiesConstraints
+.cyboxPropertiesConstraints, .cyboxPropertiesStyleConstraints
 {
   font-weight: normal;
   font-style: italic!important;
-  color: red;
+  color: darkgray;
 }
 
 .cyboxPropertiesConstraints .objectReference
@@ -520,6 +515,11 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 {
    /* width: 60em; */
 }
+.expandableSame.expandableContainer
+{
+  padding-bottom: 0.2em;
+  padding-top: 0.2em;
+}
 .expandableSame.expandableContainer.collapsed
 {
   overflow: hidden;
@@ -555,7 +555,7 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 
 .indicator-sub-table > colgroup > col.heading-column
 {
-  width: 15em;
+  width: 8em;
 }
 
 .reference
@@ -663,6 +663,16 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
   border-color: black;
   border-width: 1px;
 }
+.windowsRegistryTable > thead > tr > th,
+.windowsRegistryTable > tbody > tr > th
+{
+  font-weight: normal;
+}
+.windowsRegistryTable > thead > tr > td,
+.windowsRegistryTable > tbody > tr > td
+{
+  font-weight: bold;
+}
 
 .httpRequestResponseTable
 {
@@ -684,19 +694,40 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 }
 .requestResponseHeaderRow
 {
-  background-color: black;
-  color: white;
+  background-color: inherit;
+  color: silver;
+}
+.httpRequestResponseTable > thead > tr> th,
+.httpRequestResponseTable > tbody > tr> th
+{
+  font-weight: normal;
+}
+.httpRequestResponseTable > thead > tr> td,
+.httpRequestResponseTable > tbody > tr> td
+{
+  font-weight: bold;
+  color: black;
 }
 
 .conditionClause
 {
-  margin-top: 1em;
-  margin-left: 1em;
+  /*margin-top: 1em;*/
+  /*margin-left: 1em;*/
 }
 
 .documentContentsList > a
 {
   text-decoration: none;
+}
+
+.marking:not(:first-child) {
+  margin-top: 1em;
+}
+
+.StixTitleValue,
+.StixPackage_IntentValue
+{
+  font-weight: bold;
 }</style><style type="text/css">/*
  * Default coloring of top level category tables
  * 
@@ -1170,7 +1201,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                <tr>
                   <td>1.0</td>
                   <td>STIX_Phishing_Indicator.xml</td>
-                  <td>2014-02-20T08:58:12.107-05:00</td>
+                  <td>2014-05-15T15:53:12.07-04:00</td>
                </tr>
             </table>
          </div>
@@ -1178,7 +1209,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
          <div class="documentContentsList"><a href="#observablesTopLevelCategoryContainer">
                <div class="documentContentsItem"></div></a><a href="#indicatorsTopLevelCategoryContainer">
                <div class="documentContentsItem">
-                  <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns_extend="http://ns.adobe.com/Extensibility/1.0/" xmlns:ns_ai="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:ns_graphs="http://ns.adobe.com/Graphs/1.0/" xmlns:ns_vars="http://ns.adobe.com/Variables/1.0/" xmlns:ns_imrep="http://ns.adobe.com/ImageReplacement/1.0/" xmlns:ns_sfw="http://ns.adobe.com/SaveForWeb/1.0/" xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/" xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/" class="itemCategoryIcon">
+                  <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns_extend="http://ns.adobe.com/Extensibility/1.0/" xmlns:ns_ai="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:ns_graphs="http://ns.adobe.com/Graphs/1.0/" xmlns:ns_vars="http://ns.adobe.com/Variables/1.0/" xmlns:ns_imrep="http://ns.adobe.com/ImageReplacement/1.0/" xmlns:ns_sfw="http://ns.adobe.com/SaveForWeb/1.0/" xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/" xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/" class="itemCategoryIcon iconIndicators">
                      <!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="idIndicatorLayer" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 144 144" enable-background="new 0 0 144 144" xml:space="preserve" preserveAspectRatio="xMidYMid meet" zoomAndPan="magnify" contentScriptType="text/ecmascript" contentStyleType="text/css">
                         
@@ -1933,7 +1964,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                <div class="documentContentsItem"></div></a><a href="#campaignsTopLevelCategoryContainer">
                <div class="documentContentsItem"></div></a><a href="#threatActorsTopLevelCategoryContainer">
                <div class="documentContentsItem"></div></a><div class="documentContentsItem">
-               <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns_extend="http://ns.adobe.com/Extensibility/1.0/" xmlns:ns_ai="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:ns_graphs="http://ns.adobe.com/Graphs/1.0/" xmlns:ns_vars="http://ns.adobe.com/Variables/1.0/" xmlns:ns_imrep="http://ns.adobe.com/ImageReplacement/1.0/" xmlns:ns_sfw="http://ns.adobe.com/SaveForWeb/1.0/" xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/" xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/" class="itemCategoryIcon">
+               <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ns_extend="http://ns.adobe.com/Extensibility/1.0/" xmlns:ns_ai="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:ns_graphs="http://ns.adobe.com/Graphs/1.0/" xmlns:ns_vars="http://ns.adobe.com/Variables/1.0/" xmlns:ns_imrep="http://ns.adobe.com/ImageReplacement/1.0/" xmlns:ns_sfw="http://ns.adobe.com/SaveForWeb/1.0/" xmlns:ns_custom="http://ns.adobe.com/GenericCustomNamespace/1.0/" xmlns:ns_adobe_xpath="http://ns.adobe.com/XPath/1.0/" class="itemCategoryIcon iconDataMarkings">
                   <!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="idMarkingLayer" x="0px" y="0px" width="100%" height="100%" viewBox="0 0 144 144" enable-background="new 0 0 144 144" xml:space="preserve" preserveAspectRatio="xMidYMid meet" zoomAndPan="magnify" contentScriptType="text/ecmascript" contentStyleType="text/css">
                      
@@ -2342,8 +2373,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
          <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" class="stixHeader">
             <table class="grid topLevelCategory tablesorter" cellspacing="0">
                <colgroup>
-                  <col width="30%">
-                  <col width="70%">
+                  <col class="stixHeaderColumnHeadings">
+                  <col class="stixHeaderColumnValues">
                </colgroup>
                <thead></thead>
                <tbody>
@@ -2366,26 +2397,10 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
          </div>
          <div class="reference">
             <div id="example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7','d13e1');">example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7 ○   ○ </div>
-               <div id="d13e1" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7','d16e1');">example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7 ○   ○ </div>
+               <div id="d16e1" class="expandableContents">
                   <div class="containerIndicator">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" id="example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7">
-                        <div class="nameValueTable">
-                           <table class="one-column-emphasis indicator-sub-table">
-                              <colgroup>
-                                 <col class="oce-first-obs heading-column">
-                                 <col class="details-column">
-                              </colgroup>
-                              <tbody>
-                                 <tr>
-                                    <td>Title</td>
-                                    <td>
-                                       <indicator:Title xmlns:ciq="urn:oasis:names:tc:ciq:xpil:3" xmlns:n="urn:oasis:names:tc:ciq:xnl:3" xmlns:AddressObj="http://cybox.mitre.org/objects#AddressObject-2" xmlns:FileObj="http://cybox.mitre.org/objects#FileObject-2" xmlns:URIObj="http://cybox.mitre.org/objects#URIObject-2" xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2" xmlns:example="http://example.com/">"US-China" Phishing Indicator</indicator:Title>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
                         <div class="nameValueTable">
                            <table class="one-column-emphasis indicator-sub-table">
                               <colgroup>
@@ -2426,17 +2441,11 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                  <tr>
                                     <td>Observable</td>
                                     <td>
-                                       <div class="container cyboxPropertiesContainer cyboxProperties">
-                                          <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Observable</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesValue"></span><div class="cyboxPropertiesLink"></div>
-                                          </div>
-                                          <div class="contents cyboxPropertiesContents cyboxProperties">
-                                             <div class="idOrIdrefInsideCyboxProperties">
-                                                <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474">
-                                                   <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474','d13e24a1963');">  ○ "example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474" </div>
-                                                   <div class="expandableContents" id="d13e24a1963"></div>
-                                                </div>
-                                             </div>
-                                          </div>
+                                       <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474">
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474','d16e24a1963');"><span class="clickableIdref">[no title] ○ 
+                                                
+                                                Object/Email Message ○ example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474</span></div>
+                                          <div class="expandableContents" id="d16e24a1963"></div>
                                        </div>
                                     </td>
                                  </tr>
@@ -2456,58 +2465,10 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                        <div>
                                           <div>
                                              				
-                                             <div>
-                                                <div id="">
-                                                   <div class="nameValueTable">
-                                                      <table class="one-column-emphasis indicator-sub-table">
-                                                         <colgroup>
-                                                            <col class="oce-first-obs heading-column">
-                                                            <col class="details-column">
-                                                         </colgroup>
-                                                         <tbody>
-                                                            <tr>
-                                                               <td>Behavior</td>
-                                                               <td>
-                                                                  <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                                     <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Behavior</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                                                           						
-                                                                           					</span><div class="cyboxPropertiesLink"></div>
-                                                                     </div>
-                                                                     <div class="contents cyboxPropertiesContents cyboxProperties">
-                                                                        <div class="idOrIdrefInsideCyboxProperties"></div>
-                                                                        <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                                           <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Attack_Patterns</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                                                                 							
-                                                                                 						</span><div class="cyboxPropertiesLink"></div>
-                                                                           </div>
-                                                                           <div class="contents cyboxPropertiesContents cyboxProperties">
-                                                                              <div class="idOrIdrefInsideCyboxProperties"></div>
-                                                                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                                                 <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Attack_Pattern</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [capec_id=CAPEC-98]</span></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                                                                       								
-                                                                                       							</span><div class="cyboxPropertiesLink"></div>
-                                                                                 </div>
-                                                                                 <div class="contents cyboxPropertiesContents cyboxProperties">
-                                                                                    <div class="idOrIdrefInsideCyboxProperties"></div>
-                                                                                    <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                                                       <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Description</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">Phishing</span><div class="cyboxPropertiesLink"></div>
-                                                                                       </div>
-                                                                                       <div class="contents cyboxPropertiesContents cyboxProperties">
-                                                                                          <div class="idOrIdrefInsideCyboxProperties"></div>
-                                                                                       </div>
-                                                                                    </div>
-                                                                                 </div>
-                                                                              </div>
-                                                                           </div>
-                                                                        </div>
-                                                                     </div>
-                                                                  </div>
-                                                               </td>
-                                                            </tr>
-                                                         </tbody>
-                                                      </table>
-                                                   </div>
-                                                </div>
+                                             <div class="debug">DEBUG kill chain phase w/ idref</div>
+                                             <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="AUTO_GENERATED_ID_d14e88">
+                                                <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'AUTO_GENERATED_ID_d14e88','d16e28');"><span class="clickableIdref">[no title] ○ AUTO_GENERATED_ID_d14e88</span></div>
+                                                <div class="expandableContents" id="d16e28"></div>
                                              </div>
                                              			
                                           </div>
@@ -2531,8 +2492,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                           <div>
                                              				
                                              <div class="debug">DEBUG kill chain phase w/ idref</div>
-                                             <div class="objectReference nonexpandableContainer"> <span class="externalLinkWarning">[external]</span>  ○ "example:TTP-79a0e041-9d5f-49bb-ada4-8322622b162d" 
-                                             </div>
+                                             <div class="objectReference nonexpandableContainer">example:TTP-79a0e041-9d5f-49bb-ada4-8322622b162d <span class="externalLinkWarning">[external]</span></div>
                                              			
                                           </div>
                                        </div>
@@ -2552,7 +2512,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                     <td>Confidence</td>
                                     <td>
                                        <div class="container cyboxPropertiesContainer cyboxProperties">
-                                          <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Confidence</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [timestamp=2012-12-01T09:30:47Z]</span></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
+                                          <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Confidence</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [timestamp=2012-12-01T09:30:47Z]</span></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">
                                                 				
                                                 				
                                                 			</span><div class="cyboxPropertiesLink"></div>
@@ -2560,14 +2520,14 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                           <div class="contents cyboxPropertiesContents cyboxProperties">
                                              <div class="idOrIdrefInsideCyboxProperties"></div>
                                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Value</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [vocab_reference=someURLtoConfidenceModelDescription.foo.com]</span></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">High</span><div class="cyboxPropertiesLink"></div>
+                                                <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Value</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [vocab_reference=someURLtoConfidenceModelDescription.foo.com]</span></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">High</span><div class="cyboxPropertiesLink"></div>
                                                 </div>
                                                 <div class="contents cyboxPropertiesContents cyboxProperties">
                                                    <div class="idOrIdrefInsideCyboxProperties"></div>
                                                 </div>
                                              </div>
                                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                                <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Source</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">MITRE</span><div class="cyboxPropertiesLink"></div>
+                                                <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Source</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">MITRE</span><div class="cyboxPropertiesLink"></div>
                                                 </div>
                                                 <div class="contents cyboxPropertiesContents cyboxProperties">
                                                    <div class="idOrIdrefInsideCyboxProperties"></div>
@@ -2616,50 +2576,50 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-346075c3-f3a4-48db-8e71-31b053f7838a">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-346075c3-f3a4-48db-8e71-31b053f7838a','d13e53');">  ○ "example:COA-346075c3-f3a4-48db-8e71-31b053f7838a" </div>
-                                          <div class="expandableContents" id="d13e53"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-346075c3-f3a4-48db-8e71-31b053f7838a','d16e40');"><span class="clickableIdref">[no title] ○ Email Block ○ example:COA-346075c3-f3a4-48db-8e71-31b053f7838a</span></div>
+                                          <div class="expandableContents" id="d16e40"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-a157f596-e1bf-4599-9dad-748511d68c3a">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a157f596-e1bf-4599-9dad-748511d68c3a','d13e58');">  ○ "example:COA-a157f596-e1bf-4599-9dad-748511d68c3a" </div>
-                                          <div class="expandableContents" id="d13e58"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a157f596-e1bf-4599-9dad-748511d68c3a','d16e45');"><span class="clickableIdref">[no title] ○ Web Link Block ○ example:COA-a157f596-e1bf-4599-9dad-748511d68c3a</span></div>
+                                          <div class="expandableContents" id="d16e45"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-0ac78ae1-661d-4845-ace1-a460c6075080">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-0ac78ae1-661d-4845-ace1-a460c6075080','d13e63');">  ○ "example:COA-0ac78ae1-661d-4845-ace1-a460c6075080" </div>
-                                          <div class="expandableContents" id="d13e63"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-0ac78ae1-661d-4845-ace1-a460c6075080','d16e50');"><span class="clickableIdref">[no title] ○ Domain Traffic Block ○ example:COA-0ac78ae1-661d-4845-ace1-a460c6075080</span></div>
+                                          <div class="expandableContents" id="d16e50"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162','d13e68');">  ○ "example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162" </div>
-                                          <div class="expandableContents" id="d13e68"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162','d16e55');"><span class="clickableIdref">[no title] ○ Malicous Email Cleanup ○ example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162</span></div>
+                                          <div class="expandableContents" id="d16e55"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef','d13e73');">  ○ "example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef" </div>
-                                          <div class="expandableContents" id="d13e73"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef','d16e60');"><span class="clickableIdref">[no title] ○ Phishing Target Identification ○ example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef</span></div>
+                                          <div class="expandableContents" id="d16e60"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300','d13e79');">  ○ "example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300" </div>
-                                          <div class="expandableContents" id="d13e79"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300','d16e66');"><span class="clickableIdref">[no title] ○ Phishing Target Notification ○ example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300</span></div>
+                                          <div class="expandableContents" id="d16e66"></div>
                                        </div>
                                        				
                                        				
                                        					
                                        <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d">
-                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d','d13e84');">  ○ "example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d" </div>
-                                          <div class="expandableContents" id="d13e84"></div>
+                                          <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d','d16e71');"><span class="clickableIdref">[no title] ○ Super Secret Proprietary Response ○ example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d</span></div>
+                                          <div class="expandableContents" id="d16e71"></div>
                                        </div>
                                        				
                                        			
@@ -2679,18 +2639,19 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                                     <td>Handling</td>
                                     <td>
                                        <div>name: Indicator</div>
+                                       <div class="cyboxPropertiesConstraints">WARNING: Handling of marking data is not fully supported in stix-to-html yet.</div>
                                        				
                                        <div class="">
                                           <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Marking-88501eee-135a-429b-9848-9a992456bd91">
-                                             <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-88501eee-135a-429b-9848-9a992456bd91','d13e90');">  ○ "example:Marking-88501eee-135a-429b-9848-9a992456bd91" </div>
-                                             <div class="expandableContents" id="d13e90"></div>
+                                             <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-88501eee-135a-429b-9848-9a992456bd91','d16e77');"><span class="clickableIdref">[no title] ○ example:Marking-88501eee-135a-429b-9848-9a992456bd91</span></div>
+                                             <div class="expandableContents" id="d16e77"></div>
                                           </div>
                                        </div>
                                        				
                                        <div class="">
                                           <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61">
-                                             <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61','d13e92');">  ○ "example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61" </div>
-                                             <div class="expandableContents" id="d13e92"></div>
+                                             <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61','d16e79');"><span class="clickableIdref">[no title] ○ example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61</span></div>
+                                             <div class="expandableContents" id="d16e79"></div>
                                           </div>
                                        </div>
                                        			
@@ -2724,8 +2685,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474','d13e125');">example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474 ○   ○ </div>
-               <div id="d13e125" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474','d16e112');">example:Observable-Pattern-5f1dedd3-ece3-4007-94cd-7d52784c1474 ○   ○ </div>
+               <div id="d16e112" class="expandableContents">
                   <div class="containerObservable">
                      <div xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:campaign="http://stix.mitre.org/Campaign-1" class="nameValueTable">
                         <table class="one-column-emphasis indicator-sub-table">
@@ -2736,8 +2697,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                               <tr>
                                  <td>
                                     <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Object-3a7aa9db-d082-447c-a422-293b78e24238">
-                                       <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Object-3a7aa9db-d082-447c-a422-293b78e24238','d13e127');"> EmailMessageObjectType ○ "example:Object-3a7aa9db-d082-447c-a422-293b78e24238" </div>
-                                       <div class="expandableContents" id="d13e127"></div>
+                                       <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Object-3a7aa9db-d082-447c-a422-293b78e24238','d16e114');"><span class="clickableIdref">Email Message ○ example:Object-3a7aa9db-d082-447c-a422-293b78e24238</span></div>
+                                       <div class="expandableContents" id="d16e114"></div>
                                     </div>
                                  </td>
                               </tr>
@@ -2748,100 +2709,126 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:campaign="http://stix.mitre.org/Campaign-1" id="example:Object-3a7aa9db-d082-447c-a422-293b78e24238" class="expandableContainer expandableSeparate collapsed">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Object-3a7aa9db-d082-447c-a422-293b78e24238','d13e129');">example:Object-3a7aa9db-d082-447c-a422-293b78e24238 ○  EmailMessageObjectType ○ </div>
-               <div id="d13e129" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Object-3a7aa9db-d082-447c-a422-293b78e24238','d16e116');">example:Object-3a7aa9db-d082-447c-a422-293b78e24238 ○  EmailMessageObjectType ○ </div>
+               <div id="d16e116" class="expandableContents">
                   <div class="debug">NOT THERE</div>
                   <div class="container objectContainer object">
                      <div class="contents objectContents object">
                         <div>
-                           <fieldset>
-                              <legend>cybox properties
-                                 (type: EmailMessageObjectType)
-                                 
-                              </legend>
-                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                 <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Header</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                       							
-                                       						</span><div class="cyboxPropertiesLink"></div>
-                                 </div>
-                                 <div class="contents cyboxPropertiesContents cyboxProperties">
-                                    <div class="idOrIdrefInsideCyboxProperties"></div>
-                                    <div class="container cyboxPropertiesContainer cyboxProperties">
-                                       <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">From</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [category=e-mail]</span></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                             								
-                                             							</span><div class="cyboxPropertiesLink"></div>
-                                       </div>
-                                       <div class="contents cyboxPropertiesContents cyboxProperties">
-                                          <div class="idOrIdrefInsideCyboxProperties"></div>
-                                          Address Contains: 
-                                          @state.gov
+                           <div class="cyboxPropertiesStyleContainer">
+                              <div class="cyboxPropertiesStyleConstraints"></div>
+                              <div class="cyboxPropertiesStyleDetails">
+                                 <div class="container cyboxPropertiesContainer cyboxProperties">
+                                    <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Header</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">
+                                          							
+                                          						</span><div class="cyboxPropertiesLink"></div>
+                                    </div>
+                                    <div class="contents cyboxPropertiesContents cyboxProperties">
+                                       <div class="idOrIdrefInsideCyboxProperties"></div>
+                                       <div class="container cyboxPropertiesContainer cyboxProperties">
+                                          <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">From</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [category=e-mail]</span></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">
+                                                								
+                                                							</span><div class="cyboxPropertiesLink"></div>
+                                          </div>
+                                          <div class="contents cyboxPropertiesContents cyboxProperties">
+                                             <div class="idOrIdrefInsideCyboxProperties"></div>
+                                             <div class="container cyboxPropertiesContainer cyboxProperties">
+                                                <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Address_Value</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [condition=Contains]</span></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">@state.gov</span><div class="cyboxPropertiesLink"></div>
+                                                </div>
+                                                <div class="contents cyboxPropertiesContents cyboxProperties">
+                                                   <div class="idOrIdrefInsideCyboxProperties"></div>
+                                                </div>
+                                             </div>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
                               </div>
-                           </fieldset>
+                           </div>
                         </div>
                         <div class="container relatedObjects">
                            <div class="heading relatedObjects">Related Objects
                               
                            </div>
                            <div class="contents relatedObjects">
-                              <div class="expandableContainer expandableSeparate collapsed" data-stix-content-id="d11e56">
-                                 <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'd11e56','d13e145');">Contains ○  FileObjectType ○ [No ID] </div>
-                                 <div class="expandableContents" id="d13e145"></div>
+                              <div class="debug">
+                                 <div>BEFORE</div>
+                                 <div>IDREF: </div>
+                                 <div>REFERENCE COUNT: 1</div>
+                                 <div>R COUNT: 0</div>
+                                 <div>CURRENT NAME: Related_Object</div>
+                                 <div>CONTEXT CHILD NAMES: cybox:Properties, cybox:Relationship</div>
+                                 <div>R CHILD NAMES: </div>
+                                 <div>ONE: Contains</div>
+                                 <div>TWO: </div>
                               </div>
+                              <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">Relationship: Contains</div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:campaign="http://stix.mitre.org/Campaign-1" id="d11e56" class="expandableContainer expandableSeparate collapsed">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'd11e56','d13e148');">d11e56 ○ Contains ○  FileObjectType ○ </div>
-               <div id="d13e148" class="expandableContents">
-                  <div class="debug">NOT THERE</div>
-                  <div class="container relatedObjectContainer relatedObject">
-                     <div class="contents relatedObjectContents relatedObject">
-                        <div>
-                           <fieldset>
-                              <legend>cybox properties
-                                 (type: FileObjectType)
-                                 
-                              </legend>
-                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                 <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">File_Extension</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">pdf</span><div class="cyboxPropertiesLink"></div>
-                                 </div>
-                                 <div class="contents cyboxPropertiesContents cyboxProperties">
-                                    <div class="idOrIdrefInsideCyboxProperties"></div>
-                                 </div>
-                              </div>
-                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                 <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Size_In_Bytes</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">87022</span><div class="cyboxPropertiesLink"></div>
-                                 </div>
-                                 <div class="contents cyboxPropertiesContents cyboxProperties">
-                                    <div class="idOrIdrefInsideCyboxProperties"></div>
-                                 </div>
-                              </div>
-                              <div class="container cyboxPropertiesContainer cyboxProperties">
-                                 <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Hashes</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> → </span><span class="cyboxPropertiesValue">
-                                       									
-                                       								</span><div class="cyboxPropertiesLink"></div>
-                                 </div>
-                                 <div class="contents cyboxPropertiesContents cyboxProperties">
-                                    <div class="idOrIdrefInsideCyboxProperties"></div>
-                                    <div xmlns:http="http://cybox.mitre.org/objects#HTTPSessionObject-2" class="container cyboxPropertiesContainer cyboxProperties"><span class="cyboxPropertiesName">Hash</span><span class="cyboxPropertiesValue">MD5 = 
-                                          cf2b3ad32a8a4cfb05e9dfc45875bd70</span></div>
-                                 </div>
-                              </div>
-                           </fieldset>
+            <div xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:campaign="http://stix.mitre.org/Campaign-1" id="d13e56" class="expandableContainer expandableSeparate collapsed">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'd13e56','d16e160');">d13e56 ○ Contains ○  FileObjectType ○ </div>
+               <div id="d16e160" class="expandableContents">
+                  <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">Relationship: Contains</div>
+               </div>
+            </div>
+            <div id="AUTO_GENERATED_ID_d14e88" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="AUTO_GENERATED_ID_d14e88">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'AUTO_GENERATED_ID_d14e88','d16e186');">AUTO_GENERATED_ID_d14e88 ○   ○ </div>
+               <div id="d16e186" class="expandableContents">
+                  <div class="containerTtp">
+                     <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
+                        <div id="AUTO_GENERATED_ID_d14e88">
+                           <div class="nameValueTable">
+                              <table class="one-column-emphasis indicator-sub-table">
+                                 <colgroup>
+                                    <col class="oce-first-obs heading-column">
+                                    <col class="details-column">
+                                 </colgroup>
+                                 <tbody>
+                                    <tr>
+                                       <td>Behavior</td>
+                                       <td>
+                                          <div class="container cyboxPropertiesContainer cyboxProperties">
+                                             <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Attack_Patterns</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">
+                                                   							
+                                                   						</span><div class="cyboxPropertiesLink"></div>
+                                             </div>
+                                             <div class="contents cyboxPropertiesContents cyboxProperties">
+                                                <div class="idOrIdrefInsideCyboxProperties"></div>
+                                                <div class="container cyboxPropertiesContainer cyboxProperties">
+                                                   <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Attack_Pattern</span><span class="cyboxPropertiesConstraints"><span class="cyboxPropertiesSingleConstraint"> [capec_id=CAPEC-98]</span></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">
+                                                         								
+                                                         							</span><div class="cyboxPropertiesLink"></div>
+                                                   </div>
+                                                   <div class="contents cyboxPropertiesContents cyboxProperties">
+                                                      <div class="idOrIdrefInsideCyboxProperties"></div>
+                                                      <div class="container cyboxPropertiesContainer cyboxProperties">
+                                                         <div class="heading cyboxPropertiesHeading cyboxProperties"><span class="cyboxPropertiesName">Description</span><span class="cyboxPropertiesConstraints"></span><span class="cyboxPropertiesNameValueSeparator"> : </span><span class="cyboxPropertiesValue">Phishing</span><div class="cyboxPropertiesLink"></div>
+                                                         </div>
+                                                         <div class="contents cyboxPropertiesContents cyboxProperties">
+                                                            <div class="idOrIdrefInsideCyboxProperties"></div>
+                                                         </div>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
             <div id="example:COA-346075c3-f3a4-48db-8e71-31b053f7838a" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-346075c3-f3a4-48db-8e71-31b053f7838a">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-346075c3-f3a4-48db-8e71-31b053f7838a','d13e174');">example:COA-346075c3-f3a4-48db-8e71-31b053f7838a ○   ○ </div>
-               <div id="d13e174" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-346075c3-f3a4-48db-8e71-31b053f7838a','d16e200');">example:COA-346075c3-f3a4-48db-8e71-31b053f7838a ○   ○ </div>
+               <div id="d16e200" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-346075c3-f3a4-48db-8e71-31b053f7838a">
@@ -2916,8 +2903,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-a157f596-e1bf-4599-9dad-748511d68c3a" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-a157f596-e1bf-4599-9dad-748511d68c3a">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a157f596-e1bf-4599-9dad-748511d68c3a','d13e191');">example:COA-a157f596-e1bf-4599-9dad-748511d68c3a ○   ○ </div>
-               <div id="d13e191" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a157f596-e1bf-4599-9dad-748511d68c3a','d16e217');">example:COA-a157f596-e1bf-4599-9dad-748511d68c3a ○   ○ </div>
+               <div id="d16e217" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-a157f596-e1bf-4599-9dad-748511d68c3a">
@@ -2989,8 +2976,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-0ac78ae1-661d-4845-ace1-a460c6075080" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-0ac78ae1-661d-4845-ace1-a460c6075080">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-0ac78ae1-661d-4845-ace1-a460c6075080','d13e208');">example:COA-0ac78ae1-661d-4845-ace1-a460c6075080 ○   ○ </div>
-               <div id="d13e208" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-0ac78ae1-661d-4845-ace1-a460c6075080','d16e234');">example:COA-0ac78ae1-661d-4845-ace1-a460c6075080 ○   ○ </div>
+               <div id="d16e234" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-0ac78ae1-661d-4845-ace1-a460c6075080">
@@ -3064,8 +3051,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162','d13e225');">example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162 ○   ○ </div>
-               <div id="d13e225" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162','d16e251');">example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162 ○   ○ </div>
+               <div id="d16e251" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-a09c17a4-d05e-48f3-b629-7de9a8c42162">
@@ -3140,8 +3127,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef','d13e242');">example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef ○   ○ </div>
-               <div id="d13e242" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef','d16e268');">example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef ○   ○ </div>
+               <div id="d16e268" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-98cf40a2-e2be-448e-8474-c6e8c02628ef">
@@ -3216,8 +3203,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300','d13e259');">example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300 ○   ○ </div>
-               <div id="d13e259" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300','d16e285');">example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300 ○   ○ </div>
+               <div id="d16e285" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-d470b8d7-3717-4a42-a3bc-3b57f1b2c300">
@@ -3292,8 +3279,8 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d','d13e276');">example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d ○   ○ </div>
-               <div id="d13e276" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d','d16e303');">example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d ○   ○ </div>
+               <div id="d16e303" class="expandableContents">
                   <div class="containerCourseOfAction">
                      <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1">
                         <div id="example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d">
@@ -3349,21 +3336,31 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                </div>
             </div>
             <div id="example:Marking-88501eee-135a-429b-9848-9a992456bd91" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Marking-88501eee-135a-429b-9848-9a992456bd91">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-88501eee-135a-429b-9848-9a992456bd91','d13e288');">example:Marking-88501eee-135a-429b-9848-9a992456bd91 ○   ○ </div>
-               <div id="d13e288" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-88501eee-135a-429b-9848-9a992456bd91','d16e314');">example:Marking-88501eee-135a-429b-9848-9a992456bd91 ○   ○ </div>
+               <div id="d16e314" class="expandableContents">
                   <div class="containerMarking">
-                     <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" class="tlpgreen">
-                        Traffic Light Protocol (TLP): GREEN
+                     <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" class="marking">
+                        <div class="markingControlStructure cyboxPropertiesConstraints">
+                           marking for (xpath): ancestor-or-self::stix:Indicator//node()
+                        </div>
+                        <div class="tlpgreen">
+                           Traffic Light Protocol (TLP): GREEN
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
             <div id="example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61" class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61">
-               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61','d13e295');">example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61 ○   ○ </div>
-               <div id="d13e295" class="expandableContents">
+               <div class="expandableToggle objectReference" onclick="embedObject(this.parentElement, 'example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61','d16e321');">example:Marking-d50a3e6b-142e-4b8e-92ab-2bb61a273d61 ○   ○ </div>
+               <div id="d16e321" class="expandableContents">
                   <div class="containerMarking">
-                     <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" class="tlpred">
-                        Traffic Light Protocol (TLP): RED
+                     <div xmlns:cybox="http://cybox.mitre.org/cybox-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:campaign="http://stix.mitre.org/Campaign-1" xmlns:incident="http://stix.mitre.org/Incident-1" xmlns:ta="http://stix.mitre.org/ThreatActor-1" xmlns:et="http://stix.mitre.org/ExploitTarget-1" xmlns:simpleMarking="http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1" xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1" xmlns:ttp="http://stix.mitre.org/TTP-1" class="marking">
+                        <div class="markingControlStructure cyboxPropertiesConstraints">
+                           marking for (xpath): ancestor-or-self::stix:Indicator//indicator:SuggestedCOAs/indicator:SuggestedCOA/stixCommon:Course_Of_Action[@id="example:COA-e46d2565-754e-4ac3-9f44-2de1bfb1e71d"]
+                        </div>
+                        <div class="tlpred">
+                           Traffic Light Protocol (TLP): RED
+                        </div>
                      </div>
                   </div>
                </div>
@@ -3389,7 +3386,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                   <tbody class="expandableContainer expandableSeparate collapsed" data-stix-content-id="example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7">
                      <tr>
                         <td>
-                           <div class="expandableToggle objectReference" onclick="embedObject(this.parentNode.parentNode.parentNode, 'example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7','d12e11');"> "US-China" Phishing Indicator</div>
+                           <div class="expandableToggle objectReference" onclick="embedObject(this.parentNode.parentNode.parentNode, 'example:Indicator-19e5d914-cc0e-478f-a523-b099a34383f7','d15e11');"> "US-China" Phishing Indicator</div>
                         </td>
                         <td>Malicious
                            				E-mail
@@ -3398,7 +3395,7 @@ N(a);c=[];for(var e=O(d);e;e=O(d))c.push(e instanceof A?e.a:e);this.snapshotLeng
                      </tr>
                      <tr>
                         <td colspan="3">
-                           <div id="d12e11" class="expandableContents">
+                           <div id="d15e11" class="expandableContents">
                               EXPANDABLE CONTENT HERE
                               
                            </div>
