@@ -226,6 +226,7 @@
       ExclusiveBetween, they are ranges and should be labeled as such.
   -->
   <xsl:template match="cybox:Properties//text()[fn:contains(., '##comma##')]" mode="cyboxProperties">
+    <xsl:param name="includeConstraints" select="fn:true()" tunnel="yes" />
     <xsl:variable name="text" select="fn:data(.)" />
     <xsl:variable name="tokens" select="fn:tokenize($text, '##comma##')" />
     
@@ -243,10 +244,11 @@
       
       <!-- otherwise, this is just a tokenized list, not a range -->
       <xsl:otherwise>
-        <xsl:variable name="condition" select="if (../@condition) then (fn:data(../@condition)) else ('Equals')" />
-        <xsl:variable name="applyCondition" select="if (../@apply_condition) then (fn:data(../@apply_condition)) else ('Any')" />
-        
-        <div class="conditionClause"><xsl:value-of select="concat($condition, ' ', $applyCondition, ':')"/></div>
+        <xsl:if test="$includeConstraints">
+          <div class="cyboxPropertiesConstraints">
+            <xsl:apply-templates select="@*" mode="#current" />
+          </div>
+        </xsl:if>
         <!--
         <div class="cyboxPropertiesTokenizedList">
           <xsl:value-of select="fn:string-join($tokens, ',')" />
@@ -306,15 +308,17 @@
       </span>
       -->
       <xsl:value-of select="./Common:Type" />
-      <span class="cyboxPropertiesConstraints">
-        <xsl:apply-templates select="(./Common:Type/@*[not(fn:node-name(.) = fn:QName('http://www.w3.org/2001/XMLSchema-instance', 'type'))])" mode="#current" />
-      </span>
       <xsl:apply-templates select="*[not(self::Common:Type)]" mode="#current" />
     </div>
   </xsl:template>
   
   <xsl:template match="Common:Simple_Hash_Value" mode="cyboxProperties">
-    <xsl:apply-templates select="text()" mode="#current" />
+    <div class="cyboxPropertiesConstraints">
+      <xsl:apply-templates select="@*" mode="#current" />
+    </div>
+    <xsl:apply-templates select="text()" mode="#current">
+      <xsl:with-param name="includeConstraints" select="fn:false()" tunnel="yes" />
+    </xsl:apply-templates>
   </xsl:template>
   
   <!--
