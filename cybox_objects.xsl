@@ -321,22 +321,5 @@
     </xsl:apply-templates>
   </xsl:template>
   
-  <!--
-    Output Port value without unnecessary nested schema tree structure.
-    
-    note: This only applies within cyboxProperties styled output.
-  -->
-  <xsl:template match="*:Port[contains(@xsi:type,'PortObjectType')]|*:Port[./*:Port_Value]" mode="cyboxProperties">
-    <div class="container cyboxPropertiesContainer cyboxProperties">
-      <div class="heading cyboxPropertiesHeading cyboxProperties">
-        Port <xsl:choose>
-          <xsl:when test="@condition!=''"><xsl:value-of select="Common:ConditionType(@condition)" /></xsl:when>
-          <xsl:otherwise> = </xsl:otherwise>
-        </xsl:choose>
-        <xsl:value-of select="." />
-      </div>
-    </div>
-  </xsl:template>
-  
   
 </xsl:stylesheet>
