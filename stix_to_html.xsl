@@ -258,6 +258,11 @@ mdunn@mitre.org
       </xsl:apply-templates>
     </xsl:variable>
     <xsl:message>DONE creating reference.</xsl:message>
+    
+    <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
+    <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>
+    
+    
     <xsl:message>processing main...</xsl:message>
 
     <html>
@@ -585,6 +590,18 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capabilities"
+    mode="printReference">
+    <xsl:param name="reference" select="()"/>
+    <xsl:param name="normalized" select="()"/>
+    
+    <xsl:call-template name="printObjectForReferenceList">
+      <xsl:with-param name="reference" select="$reference"/>
+      <xsl:with-param name="normalized" select="$normalized"/>
+    </xsl:call-template>
+  </xsl:template>
+  
   <!--
     Print one of the "items" (Obserbale, Indicator, TTP, etc) for the "reference" list.
     
