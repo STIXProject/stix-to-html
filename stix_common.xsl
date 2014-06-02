@@ -35,6 +35,7 @@
     xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1"
 
     xmlns:ttp='http://stix.mitre.org/TTP-1'
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
     >
     
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
@@ -49,7 +50,7 @@
       metadata table).
     -->
     <xsl:template name="processHeader">
-        <xsl:for-each select="//stix:STIX_Package/stix:STIX_Header">        
+      <xsl:for-each select="//stix:STIX_Package/stix:STIX_Header|/maecBundle:MAEC_Bundle/maecBundle:Malware_Instance_Object_Attributes">        
             <div class="stixHeader">
               <table class="grid topLevelCategory tablesorter" cellspacing="0">
                     <colgroup>
@@ -89,7 +90,7 @@
         <xsl:param name="evenOrOdd" />
         <tr><xsl:attribute name="class"><xsl:value-of select="$evenOrOdd" /></xsl:attribute>
                 <td class="Stix{local-name()}Name">
-                  <xsl:value-of select="fn:local-name(.)"/>
+                  <xsl:value-of select="if(../self::maecBundle:Malware_Instance_Object_Attributes) then 'Malware Instance Object Attributes' else fn:local-name(.)"/>
                 </td>
                 <td class="Stix{local-name()}Value">
                     <xsl:variable name="class" select="if (self::stix:Description) then ('longText expandableContainer expandableToggle expandableContents expandableSame collapsed') else ('') " />
@@ -121,6 +122,9 @@
                           <xsl:when test="self::*[@structuring_format='HTML5']">
                             <xsl:variable name="content" select="./text()" />
                             <div class="htmlContainer" data-stix-content="{$content}" />
+                          </xsl:when>
+                          <xsl:when test="self::cybox:Properties">
+                            <xsl:apply-templates select="." mode="cyboxProperties" />
                           </xsl:when>
                           <xsl:otherwise>
                             <xsl:value-of select="self::node()[text()]"/>

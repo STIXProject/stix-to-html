@@ -2,6 +2,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:incident="http://stix.mitre.org/Incident-1"
+  xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+  
   exclude-result-prefixes="xs"
   version="2.0">
   
@@ -35,5 +37,9 @@
       <xsl:apply-templates select="@*|node()" mode="#current"/>
     </xsl:copy>
   </xsl:template>
+  
+  <xsl:template match="maecBundle:MAEC_Bundle/@id" mode="identifyAnonymousItems">
+  </xsl:template>
+  
   
 </xsl:stylesheet>

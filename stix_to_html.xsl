@@ -46,6 +46,7 @@ mdunn@mitre.org
   xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2"
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+  xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
   <xsl:import href="icons.xsl"/>
@@ -104,7 +105,8 @@ mdunn@mitre.org
   
   <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
   <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />
-
+  <xsl:variable name="isRootMaec" select="fn:exists(/(maecBundle:MAEC_Bundle))" />
+  
   <!--
     This prints out the header at the top of the page.
     
@@ -131,6 +133,7 @@ mdunn@mitre.org
       <h1>
         <xsl:if test="$isRootStix">STIX</xsl:if>
         <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+        <xsl:if test="$isRootMaec">MAEC</xsl:if>
         Report
       </h1>
     </div>
@@ -226,13 +229,28 @@ mdunn@mitre.org
 
     <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
-      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables)" mode="createNormalized"/>
+      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*)" mode="createNormalized"/>
     </xsl:variable>
     <xsl:message>DONE normalizing input.</xsl:message>
+    
+    <xsl:variable name="identifiedChildrenList" select="fn:string-join((for $n in $identifiedInput/* return local-name($n)), '###')" />
+    <xsl:message>identified children: <xsl:value-of select="$identifiedChildrenList" /></xsl:message>
+    <xsl:variable name="identifiedGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/* return local-name($n)), '###')" />
+    <xsl:message>identified grandchildren: <xsl:value-of select="$identifiedGrandChildrenList" /></xsl:message>
+    <xsl:variable name="identifiedGreatGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/*/* return local-name($n)), '###')" />
+    <xsl:message>identified greatgrandchildren: <xsl:value-of select="$identifiedGreatGrandChildrenList" /></xsl:message>
+    
+    <xsl:variable name="normalizedChildrenList" select="fn:string-join((for $n in $normalized/* return local-name($n)), '###')" />
+    <xsl:message>normalized children: <xsl:value-of select="$normalizedChildrenList" /></xsl:message>
+    <xsl:variable name="normalizedGrandChildrenList" select="fn:string-join((for $n in $normalized/*/* return local-name($n)), '###')" />
+    <xsl:message>normalized grandchildren: <xsl:value-of select="$normalizedGrandChildrenList" /></xsl:message>
+    <xsl:variable name="normalizedGreatGrandChildrenList" select="fn:string-join((for $n in $normalized/*/*/* return local-name($n)), '###')" />
+    <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
+    
     <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
+        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
             or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
@@ -247,6 +265,7 @@ mdunn@mitre.org
         <title>
           <xsl:if test="$isRootStix">STIX</xsl:if>
           <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+          <xsl:if test="$isRootMaec">MAEC</xsl:if>
           Report
           Output
         </title>
@@ -397,6 +416,46 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   </xsl:if>
                 </div>
               </a>
+              <a href="#maecMalwareInstanceObjectAttributesTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:Malware_Instance_Object_Attributes/*">
+                    [icon: malware instance object attribs]
+                    <!-- <xsl:call-template name="iconMaecMalwareInstanceObjectAttributes"/> -->
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecActionsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:Actions/*">
+                    [icon: maec actions]
+                    <!-- <xsl:call-template name="iconMaecActions"/> -->
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecObjectsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:Objects/*">
+                    [icon: maec objects]
+                    <!-- <xsl:call-template name="iconMaecObjects"/> -->
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecBehaviorsTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:Behaviors/*">
+                    [icon: maec behaviors]
+                    <!-- <xsl:call-template name="iconMaecBehaviors"/> -->
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecCapabilitiesTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:Capabilities/*">
+                    [icon: maec capabilities]
+                    <!-- <xsl:call-template name="iconMaecCapabilities"/> -->
+                  </xsl:if>
+                </div>
+              </a>
               
               <!-- no links to "marking" yet -->
               <div class="documentContentsItem">
@@ -408,11 +467,12 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
             </div> <!-- end of div class="documentContentsList" -->
 
           </xsl:if>
-          <xsl:if test="$includeStixHeader and $isRootStix">
+          <xsl:if test="$includeStixHeader and ($isRootStix or $isRootMaec)">
             <h2>
               <a name="analysis">
                 <xsl:if test="$isRootStix">STIX</xsl:if>
                 <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+                <xsl:if test="$isRootMaec">MAEC</xsl:if>
                 Header
               </a>
             </h2>

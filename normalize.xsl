@@ -7,7 +7,10 @@
     xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:stix="http://stix.mitre.org/stix-1"
     xmlns:stixCommon="http://stix.mitre.org/common-1" xmlns:cybox="http://cybox.mitre.org/cybox-2"
-    xmlns:ttp="http://stix.mitre.org/TTP-1" exclude-result-prefixes="xs xd" version="2.0"
+    xmlns:ttp="http://stix.mitre.org/TTP-1"
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+    
+    exclude-result-prefixes="xs xd" version="2.0"
     xmlns:saxon="http://saxon.sf.net/">
 
     <!-- 
@@ -100,7 +103,10 @@
         <xsl:attribute name="idref" select="fn:data(.)"/>
     </xsl:template>
 
-    <!--
+   <xsl:template match="maecBundle:MAEC_Bundle/@id" mode="createNormalized" priority="10.0">
+   </xsl:template>
+   
+   <!--
         recursively copy all nodes, except stop copying when an element with an id
         attribute comes up and for that element, change the id to an idref (and all
         of its children are left off, as they will be listed as their own reference

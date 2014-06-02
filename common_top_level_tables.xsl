@@ -26,6 +26,7 @@
   xmlns:AddressObject='http://cybox.mitre.org/objects#AddressObject-2'
   xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+  xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
   >
 
@@ -119,6 +120,47 @@
         <xsl:with-param name="categoryLabel" select="'Threat Actors'"/>
         <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
       </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Actions"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Actions'"/>
+        <xsl:with-param name="categoryIdentifier" select="'actions'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Objects"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Objects'"/>
+        <xsl:with-param name="categoryIdentifier" select="'objects'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Behaviors"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Behaviors'"/>
+        <xsl:with-param name="categoryIdentifier" select="'behaviors'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Capabilities"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Capabilities'"/>
+        <xsl:with-param name="categoryIdentifier" select="'capabilities'"/>
+      </xsl:call-template>
+      
     </div>
   </xsl:template>
   
