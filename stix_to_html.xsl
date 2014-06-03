@@ -596,7 +596,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
     
-    <xsl:call-template name="printObjectForReferenceList">
+    <xsl:call-template name="printGenericItemForReferenceList">
       <xsl:with-param name="reference" select="$reference"/>
       <xsl:with-param name="normalized" select="$normalized"/>
     </xsl:call-template>
@@ -729,6 +729,44 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                     <xsl:apply-templates select="." />
                 </div>
               </xsl:when>
+              <xsl:when test="self::stix:Incident|self::stixCommon:Incident">
+                <div class="containerIncident">
+                  <xsl:call-template name="processIncidentContents"/>
+                </div>
+              </xsl:when>
+              <!-- maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective -->
+              <xsl:when test="self::maecBundle:Action">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecActionContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Object">
+                <div class="containermaecObject">
+                  <xsl:call-template name="processMaecObjectContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Behavior">
+                <div class="containerMaecBehavior">
+                  <xsl:call-template name="processMaecBehaviorContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Capability">
+                <div class="containerMaecCapability">
+                  <xsl:call-template name="processMaecCapabilityContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Strategic_Objective">
+                <div class="containerMaecStrategicObjective">
+                  <xsl:call-template name="processMaecStrategicObjectiveContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Tactical_Objective">
+                <div class="containerMaecTacticalObjective">
+                  <xsl:call-template name="processMaecTacticalObjectiveContents"/>
+                </div>
+              </xsl:when>
+              
+              
             </xsl:choose>
           </div>
         </div>
@@ -736,6 +774,49 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     </xsl:choose>
 
   </xsl:template>
+  
+  
+  <xsl:template name="processMaecCapabilityContents">
+    <xsl:if test="maecBundle:Strategic_Objective">
+      <xsl:variable name="contents">
+        <xsl:for-each select="maecBundle:Strategic_Objective">
+          <xsl:apply-templates select="." mode="cyboxProperties" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Strategic Objective', $contents)" />
+    </xsl:if>  
+    <xsl:if test="maecBundle:Tactical_Objective">
+      <xsl:variable name="contents">
+        <xsl:for-each select="maecBundle:Tactical_Objective">
+          <xsl:apply-templates select="." mode="cyboxProperties" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Tactical Objective', $contents)" />
+    </xsl:if>  
+  </xsl:template>
+  
+  <xsl:template name="processMaecStrategicObjectiveContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
 
-
+  <xsl:template name="processMaecTacticalObjectiveContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecBehaviorContents">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template name="processMaecObjectContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecActionContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Strategic_Objective|maecBundle:Tactical_Objective">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
 </xsl:stylesheet>
