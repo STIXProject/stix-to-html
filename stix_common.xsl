@@ -333,9 +333,15 @@
       
       <xsl:if test="incident:Time">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Time/incident:Incident_Reported" />
+          <xsl:apply-templates select="incident:Time/*" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Time', $contents)" />
+      </xsl:if>
+      <xsl:if test="incident:External_ID">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:External_ID" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('External ID', $contents)" />
       </xsl:if>
       <xsl:if test="incident:Description">
         <xsl:variable name="contents">
@@ -368,17 +374,17 @@
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Coordinator', $contents)" />
       </xsl:if>
-      <xsl:if test="incident:Victim/*">
-        <xsl:variable name="label" select="if (count(incident:Victim/*) ge 2) then ('Victims') else ('Victim')" />
+      <xsl:if test="incident:Victim">
+        <xsl:variable name="label" select="if (count(incident:Victim) ge 2) then ('Victims') else ('Victim')" />
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Victim/*" />
+          <xsl:apply-templates select="incident:Victim" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable($label, $contents)" />
       </xsl:if>
 
       <xsl:if test="incident:Affected_Assets">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Affected_Assets" />
+          <xsl:apply-templates select="incident:Affected_Assets" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Affected Assets', $contents)" />
       </xsl:if>
