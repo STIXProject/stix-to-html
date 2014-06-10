@@ -1215,6 +1215,10 @@
   <xsl:template match="incident:Victim">
     <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
+
+  <xsl:template match="ta:Identity|stixCommon:Identity">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
   
 </xsl:stylesheet>
 
