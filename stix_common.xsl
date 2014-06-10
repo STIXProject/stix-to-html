@@ -1212,5 +1212,9 @@
     </div>
   </xsl:template>
   
+  <xsl:template match="incident:Victim">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
 </xsl:stylesheet>
 
