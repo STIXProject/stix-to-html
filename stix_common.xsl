@@ -1220,5 +1220,9 @@
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template match="ttp:Attack_Pattern">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
 </xsl:stylesheet>
 
