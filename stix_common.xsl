@@ -392,7 +392,7 @@
         <xsl:variable name="contents">
           <xsl:apply-templates select="incident:Impact_Assessment" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Impact_Assessment', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Impact Assessment', $contents)" />
       </xsl:if>
       <xsl:if test="incident:Status">
         <xsl:copy-of select="stix:printNameValueTable('Status', incident:Status)" />
@@ -433,7 +433,7 @@
         <xsl:variable name="contents">
           <xsl:apply-templates select="incident:Security_Compromise" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Security_Compromise', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Security Compromise', $contents)" />
       </xsl:if>
       <xsl:if test="incident:Discovery_Method">
         <xsl:variable name="contents">
@@ -635,7 +635,7 @@
         <xsl:variable name="contents">
           <xsl:apply-templates select="et:Information_Source" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Information_Source', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Information Source', $contents)" />
       </xsl:if>
       <xsl:if test="et:Handling">
         <xsl:variable name="contents">
@@ -1016,7 +1016,7 @@
           <xsl:variable name="contents">
             <xsl:apply-templates select="COA:Structured_COA" />
           </xsl:variable>
-          <xsl:copy-of select="stix:printNameValueTable('Structured_COA', $contents)" />
+          <xsl:copy-of select="stix:printNameValueTable('Structured COA', $contents)" />
         </xsl:if>
         <xsl:if test="COA:Impact">
           <xsl:variable name="contents">
@@ -1221,6 +1221,9 @@
   </xsl:template>
   
   <xsl:template match="ttp:Attack_Pattern">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  <xsl:template match="ttp:Attack_Pattern[@id]" mode="cyboxProperties">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
   

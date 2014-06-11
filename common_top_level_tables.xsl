@@ -616,5 +616,14 @@
     
     <xsl:value-of select="$humanReadable" />
   </xsl:function>
+
+  <xsl:function name="stix:convertElementNameToLabel">
+    <xsl:param name="elementName" as="xs:string" />
+    
+    <xsl:variable name="humanReadable" select="fn:normalize-space(fn:replace($elementName, '_', ' '))" />
+    
+    <xsl:value-of select="$humanReadable" />
+  </xsl:function>
   
+
 </xsl:stylesheet>
