@@ -657,7 +657,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               </xsl:when>
               <xsl:when test="self::ta:Identity|stixCommon:Identity">
                 <div class="containerIdentity">
-                  <xsl:apply-templates select="." />
+                  <xsl:apply-templates select="*" />
                 </div>
               </xsl:when>
               <xsl:when test="self::incident:Victim">
