@@ -47,6 +47,8 @@ mdunn@mitre.org
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+  xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
+  
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
   <xsl:import href="icons.xsl"/>
@@ -229,7 +231,7 @@ mdunn@mitre.org
 
     <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
-      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*)" mode="createNormalized"/>
+      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*|maecPackage:MAEC_Package/*)" mode="createNormalized"/>
     </xsl:variable>
     <xsl:message>DONE normalizing input.</xsl:message>
     
@@ -250,7 +252,7 @@ mdunn@mitre.org
     <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
+        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
             or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
@@ -418,6 +420,22 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                 <div class="documentContentsItem">
                   <xsl:if test="//stix:Threat_Actors">
                     <xsl:call-template name="iconThreatActors"/>
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecPackageTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecPackage:MAEC_Package/*">
+                    [icon: maec package]
+                    <!-- <xsl:call-template name="iconMaecPackage"/> -->
+                  </xsl:if>
+                </div>
+              </a>
+              <a href="#maecBundleTopLevelCategoryContainer">
+                <div class="documentContentsItem">
+                  <xsl:if test="//maecBundle:MAEC_Bundle/*">
+                    [icon: maec bundle]
+                    <!-- <xsl:call-template name="iconMaecBundle"/> -->
                   </xsl:if>
                 </div>
               </a>
@@ -591,7 +609,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -735,6 +753,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                 </div>
               </xsl:when>
               <!-- maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective -->
+              <xsl:when test="self::maecPackage:Malware_Subject">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecSubjectContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Action">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecActionContents"/>
@@ -812,6 +835,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template name="processMaecActionContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecSubjectContents">
     <xsl:apply-templates select="." />
   </xsl:template>
   

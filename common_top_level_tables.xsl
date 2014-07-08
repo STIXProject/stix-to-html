@@ -27,6 +27,8 @@
   xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+  xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
+  
   exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
   >
 
@@ -119,6 +121,26 @@
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Threat Actors'"/>
         <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:MAEC_Bundle"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Bundles'"/>
+        <xsl:with-param name="categoryIdentifier" select="'bundles'"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecPackage:Malware_Subjects"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Subjects'"/>
+        <xsl:with-param name="categoryIdentifier" select="'subjects'"/>
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
