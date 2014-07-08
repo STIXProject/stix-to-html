@@ -376,6 +376,10 @@
       <xsl:when test="$actualItem[self::stixCommon:Kill_Chain|self::stixCommon:Kill_Chain_Phase]">
         <xsl:sequence select="cybox:calculateAllColumnsKillChainOrKillChainPhase($actualItem, $reference)" />
       </xsl:when>
+      
+      <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
+      </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
       </xsl:otherwise>
@@ -646,6 +650,24 @@
     
     <xsl:sequence select="$column1,$column2,$column3" />
   </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecSubject">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/maecPackage:Label) then (fn:string-join($actualItem/maecPackage:Label, ', ')) else '[no label]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  
   
   <!--
       Shared function to convert CamelCaseText to standard word formatting.
