@@ -36,6 +36,7 @@
 
     xmlns:ttp='http://stix.mitre.org/TTP-1'
     xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+    xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
     >
     
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
@@ -1049,6 +1050,66 @@
       </div>
     </div>
   </xsl:template>
+  
+  
+  <xsl:template name="processMaecSubjectContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <!--
+      <xsl:attribute name="class">
+        <xsl:if test="@id">container baseobj</xsl:if>
+      </xsl:attribute>
+      -->
+      
+      <xsl:if test="maecPackage:Malware_Instance_Object_Attributes">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Malware_Instance_Object_Attributes" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Instance Object Attributes', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Analyses/maecPackage:Analysis">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Analyses/maecPackage:Analysis" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Analyses', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Findings_Bundles/maecPackage:Bundle">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Findings_Bundles/maecPackage:Bundle" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Finding Bundles', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Relationships/maecPackage:Relationship">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Relationships/maecPackage:Relationship" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Relationships', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecMIOAContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <!--
+      <xsl:attribute name="class">
+        <xsl:if test="@id">container baseobj</xsl:if>
+      </xsl:attribute>
+      -->
+      
+      <xsl:apply-templates select="*" />
+      
+      
+    </div>
+  </xsl:template>
+  
+  
     
   <!--
     Print out the root kill chain and its child kill chain phases.
@@ -1139,7 +1200,7 @@
     
     See also the similar template in cybox_common.xsl.
   -->
-  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]">
+  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]">
     <div class="debug">DEBUG kill chain phase w/ idref</div>
     <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
@@ -1208,6 +1269,10 @@
     <div class="stixCommonName">
       <xsl:value-of select="$name" />
     </div>
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Malware_Instance_Object_Attributes">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
 </xsl:stylesheet>

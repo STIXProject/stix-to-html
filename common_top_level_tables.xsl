@@ -364,7 +364,7 @@
       <xsl:when test="$actualItem[self::*:Threat_Actor]">
         <xsl:sequence select="cybox:calculateAllColumnsThreatActor($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object]">
+      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object|self::maecPackage:Malware_Instance_Object_Attributes]">
         <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
       </xsl:when>
       <xsl:when test="$actualItem[self::cybox:Event]">
