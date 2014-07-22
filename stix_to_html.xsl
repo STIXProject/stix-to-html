@@ -609,7 +609,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -768,6 +768,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecActionContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecBundle:Analysis">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecAnalysisContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Object">
                 <div class="containermaecObject">
                   <xsl:call-template name="processMaecObjectContents"/>
@@ -842,6 +847,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   <xsl:template name="processMaecActionContents">
     <xsl:apply-templates select="." />
   </xsl:template>
+
+  <xsl:template name="processMaecAnalysisContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
   
   <!--
   <xsl:template name="processMaecSubjectContents">
@@ -854,6 +863,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template match="maecPackage:Malware_Instance_Object_Attributes">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Analysis">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
   
