@@ -609,7 +609,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -768,9 +768,14 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecActionContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::maecBundle:Analysis">
+              <xsl:when test="self::maecPackage:Analysis">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecAnalysisContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Tool">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecToolContents"/>
                 </div>
               </xsl:when>
               <xsl:when test="self::maecBundle:Object">
@@ -849,7 +854,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template name="processMaecAnalysisContents">
-    <xsl:apply-templates select="." />
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template name="processMaecToolContents">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
   <!--
@@ -870,4 +879,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template match="maecPackage:Tool">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+
 </xsl:stylesheet>
