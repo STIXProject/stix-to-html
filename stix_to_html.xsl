@@ -609,7 +609,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -788,6 +788,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecBundleContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecPackage:Action_Equivalence">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecActionEquivalenceContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Object">
                 <div class="containermaecObject">
                   <xsl:call-template name="processMaecObjectContents"/>
@@ -879,6 +884,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template name="processMaecActionEquivalenceContents">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+  
   <!--
   <xsl:template name="processMaecSubjectContents">
     <xsl:apply-templates select="." />
@@ -912,6 +921,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   <xsl:template match="maecPackage:Meta_Analysis">
     ### META ANALYSIS ###
     <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Action_Equivalence">
+    <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
   
 </xsl:stylesheet>
