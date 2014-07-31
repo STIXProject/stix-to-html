@@ -48,6 +48,7 @@ mdunn@mitre.org
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
+  xmlns:maecInstance="http://stix.mitre.org/extensions/Malware#MAEC4.0-1"
   
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
@@ -609,7 +610,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -828,7 +829,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecCollectionContents"/>
                 </div>
               </xsl:when>
-              
+              <xsl:when test="self::maecInstance:MAEC">
+                <div class="containerMaecInstanceInsideStix">
+                  <xsl:call-template name="processMaecInstanceInsideStixContents"/>
+                </div>
+              </xsl:when>
               
             </xsl:choose>
           </div>
@@ -905,6 +910,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   <xsl:template name="processMaecActionEquivalenceContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
+
+  <xsl:template name="processMaecInstanceInsideStixContents">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
   
   <!--
   <xsl:template name="processMaecSubjectContents">
@@ -942,6 +951,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template match="maecPackage:Action_Equivalence">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecInstance:MAEC">
     <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
   
