@@ -609,7 +609,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -818,9 +818,14 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecTacticalObjectiveContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::maecBundle:Root_Process|maecBundle:Spawned_Process">
+              <xsl:when test="self::maecBundle:Root_Process|self::maecBundle:Spawned_Process">
                 <div class="containerMaecProcess">
                   <xsl:call-template name="processMaecProcessContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Object_Collection|self::maecBundle:Action_Collection">
+                <div class="containerMaecCollection">
+                  <xsl:call-template name="processMaecCollectionContents"/>
                 </div>
               </xsl:when>
               
@@ -862,7 +867,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template name="processMaecProcessContents">
-    !!!PROCESS!!!
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template name="processMaecCollectionContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
