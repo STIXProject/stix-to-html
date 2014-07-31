@@ -1271,9 +1271,5 @@
     </div>
   </xsl:template>
   
-  <xsl:template match="maecPackage:Malware_Instance_Object_Attributes">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  
 </xsl:stylesheet>
 
