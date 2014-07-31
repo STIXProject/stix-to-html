@@ -98,6 +98,11 @@ mdunn@mitre.org
     usually the answer is true(), but if you want a more concise display, set to false().
   -->
   <xsl:param name="displayConstraints" select="true()"/>
+  
+  <!--
+    run in debug mode? boolean.  prints additional information to the console as processing occurs.
+  -->
+  <xsl:param name="debug" as="xs:boolean" select="false()" />
 
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="normalize.xsl"/>
@@ -236,19 +241,22 @@ mdunn@mitre.org
     </xsl:variable>
     <xsl:message>DONE normalizing input.</xsl:message>
     
-    <xsl:variable name="identifiedChildrenList" select="fn:string-join((for $n in $identifiedInput/* return local-name($n)), '###')" />
-    <xsl:message>identified children: <xsl:value-of select="$identifiedChildrenList" /></xsl:message>
-    <xsl:variable name="identifiedGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/* return local-name($n)), '###')" />
-    <xsl:message>identified grandchildren: <xsl:value-of select="$identifiedGrandChildrenList" /></xsl:message>
-    <xsl:variable name="identifiedGreatGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/*/* return local-name($n)), '###')" />
-    <xsl:message>identified greatgrandchildren: <xsl:value-of select="$identifiedGreatGrandChildrenList" /></xsl:message>
+    <xsl:if test="$debug">
+      <xsl:variable name="identifiedChildrenList" select="fn:string-join((for $n in $identifiedInput/* return local-name($n)), '###')" />
+      <xsl:message>identified children: <xsl:value-of select="$identifiedChildrenList" /></xsl:message>
+      <xsl:variable name="identifiedGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/* return local-name($n)), '###')" />
+      <xsl:message>identified grandchildren: <xsl:value-of select="$identifiedGrandChildrenList" /></xsl:message>
+      <xsl:variable name="identifiedGreatGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/*/* return local-name($n)), '###')" />
+      <xsl:message>identified greatgrandchildren: <xsl:value-of select="$identifiedGreatGrandChildrenList" /></xsl:message>
+      
+      <xsl:variable name="normalizedChildrenList" select="fn:string-join((for $n in $normalized/* return local-name($n)), '###')" />
+      <xsl:message>normalized children: <xsl:value-of select="$normalizedChildrenList" /></xsl:message>
+      <xsl:variable name="normalizedGrandChildrenList" select="fn:string-join((for $n in $normalized/*/* return local-name($n)), '###')" />
+      <xsl:message>normalized grandchildren: <xsl:value-of select="$normalizedGrandChildrenList" /></xsl:message>
+      <xsl:variable name="normalizedGreatGrandChildrenList" select="fn:string-join((for $n in $normalized/*/*/* return local-name($n)), '###')" />
+      <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
+    </xsl:if>
     
-    <xsl:variable name="normalizedChildrenList" select="fn:string-join((for $n in $normalized/* return local-name($n)), '###')" />
-    <xsl:message>normalized children: <xsl:value-of select="$normalizedChildrenList" /></xsl:message>
-    <xsl:variable name="normalizedGrandChildrenList" select="fn:string-join((for $n in $normalized/*/* return local-name($n)), '###')" />
-    <xsl:message>normalized grandchildren: <xsl:value-of select="$normalizedGrandChildrenList" /></xsl:message>
-    <xsl:variable name="normalizedGreatGrandChildrenList" select="fn:string-join((for $n in $normalized/*/*/* return local-name($n)), '###')" />
-    <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
     
     <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
@@ -262,8 +270,10 @@ mdunn@mitre.org
     </xsl:variable>
     <xsl:message>DONE creating reference.</xsl:message>
     
-    <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
-    <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>
+    <xsl:if test="$debug">
+      <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
+      <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>
+    </xsl:if>
     
     
     <xsl:message>processing main...</xsl:message>
