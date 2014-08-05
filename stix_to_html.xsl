@@ -113,7 +113,7 @@ mdunn@mitre.org
   
   <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
   <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />
-  <xsl:variable name="isRootMaec" select="fn:exists(/(maecBundle:MAEC_Bundle))" />
+  <xsl:variable name="isRootMaec" select="fn:exists(/(maecBundle:MAEC_Bundle|maecPackage:MAEC_Package))" />
   
   <!--
     This prints out the header at the top of the page.
@@ -374,7 +374,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               </table>
             </div>
             <!-- TODO: Toggle this in customization settings -->
-            <xsl:if test="$isRootMaec">
+            <xsl:if test="not($isRootMaec)">
               <h2>
                 <a name="docContents">Document Contents</a>
               </h2>
@@ -503,12 +503,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
             </xsl:if>
 
           </xsl:if>
-          <xsl:if test="$includeStixHeader and ($isRootStix or $isRootMaec)">
+          <xsl:if test="$includeStixHeader and $isRootStix">
             <h2>
               <a name="analysis">
                 <xsl:if test="$isRootStix">STIX</xsl:if>
                 <xsl:if test="$isRootCybox">CYBOX</xsl:if>
-                <xsl:if test="$isRootMaec">MAEC</xsl:if>
                 Header
               </a>
             </h2>
