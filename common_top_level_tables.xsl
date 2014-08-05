@@ -2,7 +2,7 @@
 <xsl:stylesheet
   version="2.0"
   xmlns:cybox="http://cybox.mitre.org/cybox-2"
-  xmlns:Common="http://cybox.mitre.org/common-2"
+  xmlns:cyboxCommon="http://cybox.mitre.org/common-2"
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   
   xmlns:indicator="http://stix.mitre.org/Indicator-2"
@@ -29,7 +29,7 @@
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
   
-  exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
+  exclude-result-prefixes="cybox cyboxCommon xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
   >
 
   <xsl:template name="processAllTopLevelTables">
@@ -181,6 +181,16 @@
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Capabilities'"/>
         <xsl:with-param name="categoryIdentifier" select="'capabilities'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:AV_Classifications"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'AV Classifications'"/>
+        <xsl:with-param name="categoryIdentifier" select="'avClassifications'"/>
       </xsl:call-template>
       
     </div>
@@ -380,6 +390,10 @@
       <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
         <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
       </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
+      </xsl:when>
+      
       <xsl:otherwise>
         <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
       </xsl:otherwise>
@@ -666,6 +680,23 @@
     
     <xsl:sequence select="$column1,$column2,$column3" />
   </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecAvClassification">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/cyboxCommon:Name) then ($actualItem/cyboxCommon:Name) else '[no name]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
   
   
   

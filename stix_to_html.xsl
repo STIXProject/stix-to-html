@@ -621,7 +621,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC|maecBundle:AV_Classification"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
