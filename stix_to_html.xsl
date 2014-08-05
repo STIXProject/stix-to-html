@@ -775,6 +775,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecMIOAContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecBundle:AV_Classification">
+                <div class="containerMaecAvClassification">
+                  <xsl:call-template name="processMaecAvClassificationContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Action">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecActionContents"/>
