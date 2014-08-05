@@ -1109,6 +1109,20 @@
     </div>
   </xsl:template>
   
+  <xsl:template name="processMaecAvClassificationContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Classification_Name">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Classification_Name" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Classification Name', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
   
     
   <!--
