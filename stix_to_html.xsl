@@ -374,131 +374,133 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               </table>
             </div>
             <!-- TODO: Toggle this in customization settings -->
-            <h2>
-              <a name="docContents">Document Contents</a>
-            </h2>
-            <div class="documentContentsList">
-              <a href="#observablesTopLevelCategoryContainer">
+            <xsl:if test="$isRootMaec">
+              <h2>
+                <a name="docContents">Document Contents</a>
+              </h2>
+              <div class="documentContentsList">
+                <a href="#observablesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Observables|//cybox:Observables">
+                      <xsl:call-template name="iconObservables"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#indicatorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Indicators">
+                      <xsl:call-template name="iconIndicators"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#ttpsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:TTPs">
+                      <xsl:call-template name="iconTTPs"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#exploitTargetsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Exploit_Targets">
+                      <xsl:call-template name="iconExploitTargets"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#incidentsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Incidents">
+                      <xsl:call-template name="iconIncidents"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#coursesOfActionTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Courses_Of_Action">
+                      <xsl:call-template name="iconCOAs"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#campaignsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Campaigns">
+                      <xsl:call-template name="iconCampaigns"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#threatActorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Threat_Actors">
+                      <xsl:call-template name="iconThreatActors"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecPackageTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecPackage:MAEC_Package/*">
+                      [icon: maec package]
+                      <!-- <xsl:call-template name="iconMaecPackage"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecBundleTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:MAEC_Bundle/*">
+                      [icon: maec bundle]
+                      <!-- <xsl:call-template name="iconMaecBundle"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecMalwareInstanceObjectAttributesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Malware_Instance_Object_Attributes/*">
+                      [icon: malware instance object attribs]
+                      <!-- <xsl:call-template name="iconMaecMalwareInstanceObjectAttributes"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecActionsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Actions/*">
+                      [icon: maec actions]
+                      <!-- <xsl:call-template name="iconMaecActions"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecObjectsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Objects/*">
+                      [icon: maec objects]
+                      <!-- <xsl:call-template name="iconMaecObjects"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecBehaviorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Behaviors/*">
+                      [icon: maec behaviors]
+                      <!-- <xsl:call-template name="iconMaecBehaviors"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecCapabilitiesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Capabilities/*">
+                      [icon: maec capabilities]
+                      <!-- <xsl:call-template name="iconMaecCapabilities"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                
+                <!-- no links to "marking" yet -->
                 <div class="documentContentsItem">
-                  <xsl:if test="//stix:Observables|//cybox:Observables">
-                    <xsl:call-template name="iconObservables"/>
+                  <xsl:if test="//marking:Marking">
+                    <xsl:call-template name="iconDataMarkings"/>
                   </xsl:if>
                 </div>
-              </a>
-              <a href="#indicatorsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Indicators">
-                    <xsl:call-template name="iconIndicators"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#ttpsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:TTPs">
-                    <xsl:call-template name="iconTTPs"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#exploitTargetsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Exploit_Targets">
-                    <xsl:call-template name="iconExploitTargets"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#incidentsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Incidents">
-                    <xsl:call-template name="iconIncidents"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#coursesOfActionTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Courses_Of_Action">
-                    <xsl:call-template name="iconCOAs"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#campaignsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Campaigns">
-                    <xsl:call-template name="iconCampaigns"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#threatActorsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Threat_Actors">
-                    <xsl:call-template name="iconThreatActors"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecPackageTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecPackage:MAEC_Package/*">
-                    [icon: maec package]
-                    <!-- <xsl:call-template name="iconMaecPackage"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecBundleTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:MAEC_Bundle/*">
-                    [icon: maec bundle]
-                    <!-- <xsl:call-template name="iconMaecBundle"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecMalwareInstanceObjectAttributesTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:Malware_Instance_Object_Attributes/*">
-                    [icon: malware instance object attribs]
-                    <!-- <xsl:call-template name="iconMaecMalwareInstanceObjectAttributes"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecActionsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:Actions/*">
-                    [icon: maec actions]
-                    <!-- <xsl:call-template name="iconMaecActions"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecObjectsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:Objects/*">
-                    [icon: maec objects]
-                    <!-- <xsl:call-template name="iconMaecObjects"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecBehaviorsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:Behaviors/*">
-                    [icon: maec behaviors]
-                    <!-- <xsl:call-template name="iconMaecBehaviors"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#maecCapabilitiesTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//maecBundle:Capabilities/*">
-                    [icon: maec capabilities]
-                    <!-- <xsl:call-template name="iconMaecCapabilities"/> -->
-                  </xsl:if>
-                </div>
-              </a>
-              
-              <!-- no links to "marking" yet -->
-              <div class="documentContentsItem">
-                <xsl:if test="//marking:Marking">
-                  <xsl:call-template name="iconDataMarkings"/>
-                </xsl:if>
-              </div>
-              
-            </div> <!-- end of div class="documentContentsList" -->
+                
+              </div> <!-- end of div class="documentContentsList" -->
+            </xsl:if>
 
           </xsl:if>
           <xsl:if test="$includeStixHeader and ($isRootStix or $isRootMaec)">
