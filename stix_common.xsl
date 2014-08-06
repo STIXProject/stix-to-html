@@ -1120,6 +1120,20 @@
         <xsl:copy-of select="stix:printNameValueTable('Classification Name', $contents)" />
       </xsl:if>
       
+      <xsl:if test="maecBundle:Engine_Version">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Engine_Version" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Engine Version', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Definition_Version">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Definition_Version" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Definition Version', $contents)" />
+      </xsl:if>
+      
     </div>
   </xsl:template>
   
