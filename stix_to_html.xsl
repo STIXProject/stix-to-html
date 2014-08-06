@@ -359,9 +359,12 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                         <xsl:variable name="cyboxRoot" select="/cybox:Observables" />
                         <xsl:value-of select="fn:string-join(($cyboxRoot/@cybox_major_version, $cyboxRoot/@cybox_minor_version, $cyboxRoot/@cybox_update_version), '.')" />
                       </xsl:when>
-                      <xsl:otherwise>
+                      <xsl:when test="$isRootStix">
                         <xsl:value-of select="//stix:STIX_Package/@version"/>
-                      </xsl:otherwise>
+                      </xsl:when>
+                      <xsl:when test="$isRootMaec">
+                        <xsl:value-of select="//(maecPackage:MAEC_Package|maecBundle:MAEC_Bundle)/@schema_version"/>
+                      </xsl:when>
                     </xsl:choose>
                   </td>
                   <td>
