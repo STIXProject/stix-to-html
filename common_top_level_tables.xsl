@@ -137,7 +137,7 @@
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecPackage:Malware_Subjects"/>
-        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingLabels" select="('Label', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Subjects'"/>
         <xsl:with-param name="categoryIdentifier" select="'subjects'"/>
