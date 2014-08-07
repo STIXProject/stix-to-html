@@ -1228,7 +1228,7 @@
     
     See also the similar template in cybox_common.xsl.
   -->
-  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundles[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]">
+  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundles[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]|maecBundle:Behavior[@idref]|maecBundle:Action[@idref]">
     <div class="debug">DEBUG kill chain phase w/ idref</div>
     <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
@@ -1297,6 +1297,10 @@
     <div class="stixCommonName">
       <xsl:value-of select="$name" />
     </div>
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Capability|maecBundle:Behavior|maecBundle:Action" mode="cyboxProperties">
+    <xsl:apply-templates select="." mode="#default" />
   </xsl:template>
   
 </xsl:stylesheet>
