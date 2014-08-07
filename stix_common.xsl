@@ -1289,100 +1289,93 @@
     <div>
       <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
       
-      <xsl:if test="cybox:Name">
+      <xsl:if test="cyboxCommon:Type">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Name" />
-        </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Name', $contents)" />
-      </xsl:if>
-
-      <xsl:if test="cybox:Type">
-        <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Type" />
+          <xsl:apply-templates select="cyboxCommon:Type" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Type', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Description">
+      <xsl:if test="cyboxCommon:Description">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Description" />
+          <xsl:apply-templates select="cyboxCommon:Description" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:References">
+      <xsl:if test="cyboxCommon:References">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:References" />
+          <xsl:apply-templates select="cyboxCommon:References" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('References', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Vendor">
+      <xsl:if test="cyboxCommon:Vendor">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Vendor" />
+          <xsl:apply-templates select="cyboxCommon:Vendor" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Vendor', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Version">
+      <xsl:if test="cyboxCommon:Version">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Version" />
+          <xsl:apply-templates select="cyboxCommon:Version" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Version', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Service_Pack">
+      <xsl:if test="cyboxCommon:Service_Pack">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Service_Pack" />
+          <xsl:apply-templates select="cyboxCommon:Service_Pack" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Service Pack', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Tool_Specific_Data">
+      <xsl:if test="cyboxCommon:Tool_Specific_Data">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Tool_Specific_Data" />
+          <xsl:apply-templates select="cyboxCommon:Tool_Specific_Data" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Tool Specific Data', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Tool_Hashes">
+      <xsl:if test="cyboxCommon:Tool_Hashes">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Tool_Hashes" />
+          <xsl:apply-templates select="cyboxCommon:Tool_Hashes" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Tool Hashes', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Tool_Configuration">
+      <xsl:if test="cyboxCommon:Tool_Configuration">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Tool_Configuration" />
+          <xsl:apply-templates select="cyboxCommon:Tool_Configuration" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Tool Configuration', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Execution_Environment">
+      <xsl:if test="cyboxCommon:Execution_Environment">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Execution_Environment" />
+          <xsl:apply-templates select="cyboxCommon:Execution_Environment" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Execution Environment', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:ErrorsType">
+      <xsl:if test="cyboxCommon:ErrorsType">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:ErrorsType" />
+          <xsl:apply-templates select="cyboxCommon:ErrorsType" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Errors Type', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:MetadataType">
+      <xsl:if test="cyboxCommon:MetadataType">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:MetadataType" />
+          <xsl:apply-templates select="cyboxCommon:MetadataType" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Metadata Type', $contents)" />
       </xsl:if>
       
-      <xsl:if test="cybox:Compensation_Model">
+      <xsl:if test="cyboxCommon:Compensation_Model">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="cybox:Compensation_Model" />
+          <xsl:apply-templates select="cyboxCommon:Compensation_Model" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Compensation Model', $contents)" />
       </xsl:if>
