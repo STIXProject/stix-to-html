@@ -390,6 +390,9 @@
       <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
         <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
       </xsl:when>
+      <xsl:when test="$actualItem[self::maecPackage:Analysis]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecAnalysis($actualItem, $reference)" />
+      </xsl:when>
       <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
         <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
       </xsl:when>
@@ -671,6 +674,22 @@
     
     <xsl:variable name="column1">
       <xsl:value-of select="if ($actualItem/maecPackage:Label) then (fn:string-join($actualItem/maecPackage:Label, ', ')) else '[no label]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecAnalysis">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/(@method|@type)) then (concat($actualItem/@method, '/', $actualItem/@type)) else '[DEBUG: NO METHOD OR TYPE]'" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
