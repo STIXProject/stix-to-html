@@ -190,7 +190,7 @@
     </xsl:template>
     -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1B -->
-    <xsl:template match="@object_reference|@action_id|@behavior_idref|@malware_subject_idref" mode="createReference" priority="20.0">
+    <xsl:template match="@object_reference|@action_id|@behavior_idref|@malware_subject_idref|@bundle_idref" mode="createReference" priority="20.0">
         <xsl:attribute name="idref" select="fn:data(.)"/>
     </xsl:template>
 

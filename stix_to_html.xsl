@@ -915,13 +915,17 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="." />
   </xsl:template>
 
+  <!--
   <xsl:template name="processMaecAnalysisContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
+  -->
   
+  <!--
   <xsl:template name="processMaecToolContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
+  -->
   
   <xsl:template name="processMaecFindingBundlesContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
