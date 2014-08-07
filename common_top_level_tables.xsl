@@ -396,6 +396,9 @@
       <xsl:when test="$actualItem[self::maecPackage:Bundle]">
         <xsl:sequence select="cybox:calculateAllColumnsMaecBundle($actualItem, $reference)" />
       </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:Behavior]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecBehavior($actualItem, $reference)" />
+      </xsl:when>
       <xsl:when test="$actualItem[self::maecBundle:Capability]">
         <xsl:sequence select="cybox:calculateAllColumnsMaecCapability($actualItem, $reference)" />
       </xsl:when>
@@ -722,6 +725,22 @@
     <xsl:sequence select="$column1,$column2,$column3" />
   </xsl:function>
   
+  <xsl:function name="cybox:calculateAllColumnsMaecBehavior">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="''" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+
   <xsl:function name="cybox:calculateAllColumnsMaecCapability">
     <xsl:param name="actualItem" />
     <xsl:param name="reference" />
