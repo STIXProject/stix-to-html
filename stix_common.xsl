@@ -1137,6 +1137,76 @@
     </div>
   </xsl:template>
   
+  <xsl:template name="processMaecBundleContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Malware_Instance_Object_Attributes">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Malware_Instance_Object_Attributes" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Instance Object Attributes', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:AV_Classifications">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:AV_Classifications" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('AV Classifications', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Process_Tree">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Process_Tree" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Process Tree', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Capabilities">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Capabilities" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Capabilities', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Behaviors">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Behaviors" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Behaviors', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Actions">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Actions" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Actions', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Objects">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Objects" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Objects', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Candidate_Indicators">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Candidate_Indicators" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Candidate Indicators', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Collections">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Collections" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Collections', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
   
     
   <!--

@@ -783,6 +783,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecAvClassificationContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecBundle:Bundle">
+                <div class="containerMaecBundle">
+                  <xsl:call-template name="processMaecBundleContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Action">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecActionContents"/>
@@ -922,9 +927,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <!--
   <xsl:template name="processMaecBundleContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
+  -->
   
   <xsl:template name="processMaecActionEquivalenceContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
