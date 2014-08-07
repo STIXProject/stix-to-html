@@ -61,6 +61,7 @@ ikirillov@mitre.org
     xmlns:AddressObject='http://cybox.mitre.org/objects#AddressObject-2'
     xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
     xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
     exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et">
 
 
@@ -762,7 +763,7 @@ ikirillov@mitre.org
     </xsl:template>
   
     <!-- REFERENCE: HELP_UPDATE_STEP_2 -->
-    <xsl:template match="cybox:Action">
+    <xsl:template match="cybox:Action|maecBundle:Action">
         <xsl:variable name="localName" select="local-name()"/>
         <xsl:variable name="identifierName" select="'action'"/>
         <xsl:variable name="friendlyName" select="fn:replace($localName, '_', ' ')"/>
