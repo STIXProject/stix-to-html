@@ -222,8 +222,10 @@ mdunn@mitre.org
           These two variables will become the main inputs to the primary transform.
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
-    <xsl:message>cleaning up input...</xsl:message>
+
     <xsl:variable name="root" select="/" />
+    
+    <xsl:message>cleaning up input...</xsl:message>
     <xsl:variable name="cleanedInput">
       <xsl:apply-templates select="$root" mode="cleanup" />
     </xsl:variable>
@@ -234,7 +236,14 @@ mdunn@mitre.org
       <xsl:apply-templates select="$cleanedInput" mode="identifyAnonymousItems" />
     </xsl:variable>
     <xsl:message>DONE identifying input.</xsl:message>
-
+    
+    <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$cleanedInput//cybox:Associated_Object" />
+    </xsl:message>
+    <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
+    
+    
     <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
       <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*|maecPackage:MAEC_Package/*)" mode="createNormalized"/>

@@ -663,10 +663,23 @@ ikirillov@mitre.org
     </xsl:template>
   
     <xsl:template match="cybox:Related_Object">
+      <div>TEMPLATE1</div>
       <xsl:apply-templates select="cybox:Relationship" />
       <xsl:apply-templates select="cybox:Object" />
     </xsl:template>
 
+    <xsl:template match="cybox:Associated_Object">
+      <div>TEMPLATE2</div>
+      <xsl:apply-templates select="cybox:Association_Type" />
+      <xsl:apply-templates select="cybox:Object" />
+    </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object" mode="cyboxProperties">
+    <div>TEMPLATE3</div>
+    <xsl:apply-templates select="cybox:Association_Type" />
+    <xsl:apply-templates select="cybox:Object" />
+  </xsl:template>
+  
   <!--
     Template to turn any items with an idref into an expandable content toggle.
     
@@ -677,6 +690,24 @@ ikirillov@mitre.org
   <!-- REFERENCE: HELP_UPDATE_STEP_3 -->
   <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|et:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
+    
+      <div>REFERENCE: HELP_UPDATE_STEP_3</div>
+      <xsl:choose>
+        <xsl:when test="self::cybox:Related_Object">
+          <div><xsl:value-of select="cybox:Relationship"></xsl:value-of></div>
+        </xsl:when>
+        <xsl:when test="self::cybox:Associated_Object">
+          <div>###</div>
+          <div><xsl:value-of select="cybox:Association_Type"></xsl:value-of></div>
+          
+          <xsl:message>INSIDE TEMPLATE</xsl:message>
+          <xsl:message>-----</xsl:message>
+          <xsl:message>
+            <xsl:copy-of select="." />
+          </xsl:message>
+          <xsl:message>-----</xsl:message>
+        </xsl:when>
+      </xsl:choose>
     
       <xsl:variable name="idGen">
           <xsl:choose>

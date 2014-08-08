@@ -261,6 +261,41 @@
     </cybox:Related_Object>
   </xsl:template>
   
+  <xsl:template match="cybox:Associated_Object[@idref]" mode="cleanup">
+    <xsl:variable name="idref" select="fn:data(@idref)" />
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object idref="{$idref}">
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object[@id]" mode="cleanup">
+    <xsl:variable name="id" select="fn:data(@id)" />
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object id="{$id}">
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object[not(@id) and not(@idref)]" mode="cleanup">
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object>
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
   <xsl:template match="/node()" mode="cleanup">
     <xsl:variable name="e" select="." />
     <xsl:copy copy-namespaces="no">
