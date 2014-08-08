@@ -156,7 +156,7 @@
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Actions"/>
-        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Actions'"/>
         <xsl:with-param name="categoryIdentifier" select="'actions'"/>
@@ -166,7 +166,7 @@
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Objects"/>
-        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingLabels" select="('Type', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Objects'"/>
         <xsl:with-param name="categoryIdentifier" select="'objects'"/>
@@ -176,7 +176,7 @@
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Behaviors"/>
-        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingLabels" select="('Description', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Behaviors'"/>
         <xsl:with-param name="categoryIdentifier" select="'behaviors'"/>
@@ -186,7 +186,7 @@
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Capabilities"/>
-        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
         <xsl:with-param name="categoryLabel" select="'Capabilities'"/>
         <xsl:with-param name="categoryIdentifier" select="'capabilities'"/>
