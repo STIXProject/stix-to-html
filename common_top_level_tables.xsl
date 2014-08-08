@@ -739,7 +739,7 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="''" />
+      <xsl:value-of select="fn:data(($actualItem/maecBundle:Description,'[no description]')[1])" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
