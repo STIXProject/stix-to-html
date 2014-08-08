@@ -134,7 +134,7 @@
             </xsl:if>
             
             <xsl:variable name="cutOff" select="$isTopLevel or self::cybox:Object or self::cybox:Event 
-                or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action or self::cybox:Associated_Object" />
+                or self::cybox:Action_Reference or self::cybox:Action" />
 
             <!-- pull in all the attributes -->
             <xsl:apply-templates select="@*" mode="createReference">
@@ -257,7 +257,7 @@
       <cybox:Object idref="{$idref}">
         <xsl:apply-templates select="node()[not(self::cybox:Relationship)]" mode="cleanup" />
       </cybox:Object>
-      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
     </cybox:Related_Object>
   </xsl:template>
   
@@ -269,7 +269,7 @@
       <cybox:Object idref="{$idref}">
         <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
       </cybox:Object>
-      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
     </cybox:Associated_Object>
   </xsl:template>
   
@@ -281,7 +281,7 @@
       <cybox:Object id="{$id}">
         <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
       </cybox:Object>
-      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
     </cybox:Associated_Object>
   </xsl:template>
   
@@ -292,7 +292,7 @@
       <cybox:Object>
         <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
       </cybox:Object>
-      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
     </cybox:Associated_Object>
   </xsl:template>
   

@@ -236,10 +236,11 @@ mdunn@mitre.org
       <xsl:apply-templates select="$cleanedInput" mode="identifyAnonymousItems" />
     </xsl:variable>
     <xsl:message>DONE identifying input.</xsl:message>
-    
+
     <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
     <xsl:message>
-      <xsl:copy-of select="$identifiedInput//cybox:Associated_Object" />
+      <!-- <xsl:copy-of select="$identifiedInput//cybox:Associated_Object" /> -->
+      <xsl:copy-of select="$identifiedInput" />
     </xsl:message>
     <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
     
@@ -266,19 +267,53 @@ mdunn@mitre.org
       <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
     </xsl:if>
     
+    <!--
+    <xsl:message>***** NORMALIZED (associated object) *****</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$normalized//cybox:Associated_Object" />
+    </xsl:message>
+    <xsl:message>***** NORMALIZED (associated object) *****</xsl:message>
+    <xsl:message>***** NORMALIZED (object) *****</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$normalized//cybox:Object" />
+    </xsl:message>
+    <xsl:message>***** NORMALIZED (object) *****</xsl:message>
+    -->
     
     <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
-            or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
+        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or ./self::cybox:Object or ./self::cybox:Event 
+            or ./self::cybox:Related_Object or ./self::cybox:Associated_Object or ./self::cybox:Action_Reference or ./self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
         <xsl:with-param name="isRoot" select="fn:true()"/>
       </xsl:apply-templates>
     </xsl:variable>
     <xsl:message>DONE creating reference.</xsl:message>
+
+    <!--
+    <xsl:message>***** REFERENCE *****</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$reference" />
+    </xsl:message>
+    <xsl:message>***** REFERENCE *****</xsl:message>
+    -->
     
+    <xsl:message>***** REFERENCE (associated object) *****</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$reference//cybox:Associated_Object" />
+    </xsl:message>
+    <xsl:message>***** REFERENCE (associated object) *****</xsl:message>
+    <xsl:message>***** REFERENCE (object) *****</xsl:message>
+    <xsl:message>
+      <xsl:copy-of select="$reference//cybox:Object" />
+    </xsl:message>
+    <!--
+    <xsl:message>***** REFERENCE (object) *****</xsl:message>
+    -->
+    
+
     <xsl:if test="$debug">
       <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
       <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>

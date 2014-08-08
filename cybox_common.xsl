@@ -662,23 +662,22 @@ ikirillov@mitre.org
         </div>
     </xsl:template>
   
-    <xsl:template match="cybox:Related_Object">
-      <div>TEMPLATE1</div>
+    <xsl:template match="cybox:Related_Object" priority="5000">
       <xsl:apply-templates select="cybox:Relationship" />
       <xsl:apply-templates select="cybox:Object" />
     </xsl:template>
 
-    <xsl:template match="cybox:Associated_Object">
-      <div>TEMPLATE2</div>
+    <xsl:template match="cybox:Associated_Object" priority="5000">
       <xsl:apply-templates select="cybox:Association_Type" />
       <xsl:apply-templates select="cybox:Object" />
     </xsl:template>
   
+  <!--
   <xsl:template match="cybox:Associated_Object" mode="cyboxProperties">
-    <div>TEMPLATE3</div>
     <xsl:apply-templates select="cybox:Association_Type" />
     <xsl:apply-templates select="cybox:Object" />
   </xsl:template>
+  -->
   
   <!--
     Template to turn any items with an idref into an expandable content toggle.
@@ -691,21 +690,21 @@ ikirillov@mitre.org
   <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|et:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
-      <div>REFERENCE: HELP_UPDATE_STEP_3</div>
       <xsl:choose>
         <xsl:when test="self::cybox:Related_Object">
           <div><xsl:value-of select="cybox:Relationship"></xsl:value-of></div>
         </xsl:when>
         <xsl:when test="self::cybox:Associated_Object">
-          <div>###</div>
           <div><xsl:value-of select="cybox:Association_Type"></xsl:value-of></div>
           
+          <!--
           <xsl:message>INSIDE TEMPLATE</xsl:message>
-          <xsl:message>-----</xsl:message>
+          <xsl:message>*****</xsl:message>
           <xsl:message>
             <xsl:copy-of select="." />
           </xsl:message>
-          <xsl:message>-----</xsl:message>
+          <xsl:message>*****</xsl:message>
+          -->
         </xsl:when>
       </xsl:choose>
     
@@ -848,6 +847,8 @@ ikirillov@mitre.org
                     -->
                     <xsl:if test="cybox:Associated_Objects/cybox:Associated_Object">
                         <xsl:variable name="contents">
+                            <xsl:message>template should match...</xsl:message>
+                            <xsl:message><xsl:copy-of select="cybox:Associated_Objects/cybox:Associated_Object" /></xsl:message>
                             <xsl:apply-templates select="cybox:Associated_Objects/cybox:Associated_Object"/>
                         </xsl:variable>
                         <xsl:copy-of select="stix:printNameValueTable('Associated Objects', $contents)"/>
