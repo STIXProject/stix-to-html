@@ -436,11 +436,11 @@ ikirillov@mitre.org
             <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
             
             <span class="clickableIdref">
-              <xsl:value-of select="$threeColumns[1]" />
-              <xsl:if test="fn:normalize-space($threeColumns[2])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
-              <xsl:value-of select="$threeColumns[2]" />
-              <xsl:if test="fn:normalize-space($threeColumns[3])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
-              <xsl:value-of select="$threeColumns[3]" />
+              <!-- the next step converts $threeColumns into a list of space-normalized strings (removed leading and trailing space) -->
+              <xsl:variable name="threeColumnsNormalized" select="for $i in $threeColumns return fn:normalize-space(xs:string($i))" />
+              <!-- then only output the those of the three fields that are available, and separate them with $separator. -->
+              <xsl:variable name="reducedColumns" select="for $n in $threeColumnsNormalized  return (if ($n != '') then $n else ())" />
+              <xsl:value-of select="fn:string-join($reducedColumns, concat(' ', $separator, ' '))" />
             </span>
           </xsl:when>
           
