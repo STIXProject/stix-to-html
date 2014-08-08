@@ -296,6 +296,13 @@
     </cybox:Associated_Object>
   </xsl:template>
   
+  <xsl:template match="maecBundle:Malware_Instance_Object_Attributes/cybox:Properties" mode="cleanup">
+    
+    <cybox:Object>
+      <xsl:apply-templates select="." mode="verbatim" />
+    </cybox:Object>
+  </xsl:template>
+  
   <xsl:template match="/node()" mode="cleanup">
     <xsl:variable name="e" select="." />
     <xsl:copy copy-namespaces="no">

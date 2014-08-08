@@ -126,6 +126,15 @@
       <xsl:call-template name="processTopLevelCategory">
         <xsl:with-param name="reference" select="$reference"/>
         <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Malware_Instance_Object_Attributes"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Instance Object Attributes'"/>
+        <xsl:with-param name="categoryIdentifier" select="'instanceObjectAttributes'"/>
+      </xsl:call-template>
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:MAEC_Bundle"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
