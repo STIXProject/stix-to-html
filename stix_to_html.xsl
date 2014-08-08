@@ -239,7 +239,7 @@ mdunn@mitre.org
     
     <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
     <xsl:message>
-      <xsl:copy-of select="$cleanedInput//cybox:Associated_Object" />
+      <xsl:copy-of select="$identifiedInput//cybox:Associated_Object" />
     </xsl:message>
     <xsl:message>@@@ PIPELINE after identifying @@@</xsl:message>
     
