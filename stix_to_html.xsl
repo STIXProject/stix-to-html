@@ -1051,4 +1051,23 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates />
   </xsl:template>
   
+  <xsl:template match="maecBundle:Initiated_Actions" mode="cyboxProperties">
+    <div>Initiated Actions:</div>
+    <xsl:apply-templates mode="#default" />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Action_Reference[@idref]|maecBundle:Injected_Process[@idref]">
+    <xsl:call-template name="headerAndExpandableContent">
+      <xsl:with-param name="targetId" select="fn:data(@idref)" />
+      <xsl:with-param name="relationshipOrAssociationType" select="()" />
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Spawned_Process[@idref]">
+    <xsl:call-template name="headerAndExpandableContent">
+      <xsl:with-param name="targetId" select="fn:data(@idref)" />
+      <xsl:with-param name="relationshipOrAssociationType" select="()" />
+    </xsl:call-template>
+  </xsl:template>
+  
 </xsl:stylesheet>
