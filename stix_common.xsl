@@ -1113,11 +1113,11 @@
     <div>
       <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
       
-      <xsl:if test="maecBundle:Classification_Name">
+      <xsl:if test="maecBundle:Classification_Name and cyboxCommon:Name">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="maecBundle:Classification_Name" />
+          <xsl:apply-templates select="cyboxCommon:Name" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Classification Name', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Name', $contents)" />
       </xsl:if>
       
       <xsl:if test="cyboxCommon:Vendor">

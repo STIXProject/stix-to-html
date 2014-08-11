@@ -771,7 +771,7 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="if ($actualItem/cyboxCommon:Name) then ($actualItem/cyboxCommon:Name) else '[no name]'" />
+      <xsl:value-of select="if ($actualItem/maecBundle:Classification_Name) then ($actualItem/maecBundle:Classification_Name) else if ($actualItem/cyboxCommon:Name) then ($actualItem/cyboxCommon:Name) else '[no name]'" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
