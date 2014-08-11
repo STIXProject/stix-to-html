@@ -1120,6 +1120,13 @@
         <xsl:copy-of select="stix:printNameValueTable('Classification Name', $contents)" />
       </xsl:if>
       
+      <xsl:if test="cyboxCommon:Vendor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Vendor" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Vendor', $contents)" />
+      </xsl:if>
+      
       <xsl:if test="maecBundle:Engine_Version">
         <xsl:variable name="contents">
           <xsl:apply-templates select="maecBundle:Engine_Version" />
