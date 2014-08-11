@@ -872,6 +872,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecBehaviorContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecBundle:Action_Collection|self::maecBundle:Behavior_Collection|self::maecBundle:Object_Collection">
+                <div class="containerMaecBehavior">
+                  <xsl:call-template name="processMaecAnyCollectionContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecBundle:Capability">
                 <div class="containerMaecCapability">
                   <xsl:call-template name="processMaecCapabilityContents"/>
@@ -892,11 +897,13 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecProcessContents"/>
                 </div>
               </xsl:when>
+              <!--
               <xsl:when test="self::maecBundle:Object_Collection|self::maecBundle:Action_Collection">
                 <div class="containerMaecCollection">
                   <xsl:call-template name="processMaecCollectionContents"/>
                 </div>
               </xsl:when>
+              -->
               <xsl:when test="self::maecInstance:MAEC">
                 <div class="containerMaecInstanceInsideStix">
                   <xsl:call-template name="processMaecInstanceInsideStixContents"/>
@@ -943,9 +950,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <!--
   <xsl:template name="processMaecCollectionContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
+  -->
   
   <xsl:template name="processMaecBehaviorContents">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
@@ -972,7 +981,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   -->
   
   <xsl:template name="processMaecFindingBundlesContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
+    <xsl:apply-templates select="." />
   </xsl:template>
   
   <!--
@@ -1030,6 +1039,16 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   
   <xsl:template match="maecInstance:MAEC">
     <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Object_Collections">
+    <div>Object Collections:</div>
+    <xsl:apply-templates />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Action_Collections">
+    <div>Action Collections:</div>
+    <xsl:apply-templates />
   </xsl:template>
   
 </xsl:stylesheet>

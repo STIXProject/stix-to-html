@@ -1213,7 +1213,35 @@
       
     </div>
   </xsl:template>
-  
+
+
+  <xsl:template name="processMaecAnyCollectionContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Action_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Action_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Action List', $contents)" />
+      </xsl:if>
+
+      <xsl:if test="maecBundle:Behavior_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Behavior_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Behavior List', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Object_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Object_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Object List', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
   
   <xsl:template name="processMaecAnalysisContents">
     <div>
@@ -1479,7 +1507,7 @@
     
     See also the similar template in cybox_common.xsl.
   -->
-  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundle[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]|maecBundle:Behavior[@idref]|maecBundle:Action[@idref]|maecPackage:Findings_Bundle_Reference[@idref]|maecBundle:Object[@idref]|maecBundle:Root_Process[@idref]|maecBundle:Action_Collection[@idref]">
+  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundle[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]|maecBundle:Behavior[@idref]|maecBundle:Action[@idref]|maecPackage:Findings_Bundle_Reference[@idref]|maecBundle:Object[@idref]|maecBundle:Root_Process[@idref]|maecBundle:Action_Collection[@idref]|maecBundle:Object_Collection[@idref]|maecBundle:Behavior_Collection[@idref]">
     <div class="debug">DEBUG kill chain phase w/ idref</div>
     <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
