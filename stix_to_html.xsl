@@ -668,7 +668,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC|maecBundle:AV_Classification"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Injected_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC|maecBundle:AV_Classification"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -892,7 +892,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processMaecTacticalObjectiveContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::maecBundle:Root_Process|self::maecBundle:Spawned_Process">
+              <xsl:when test="self::maecBundle:Root_Process|self::maecBundle:Spawned_Process|self::maecBundle:Injected_Process">
                 <div class="containerMaecProcess">
                   <xsl:call-template name="processMaecProcessContents"/>
                 </div>
@@ -947,7 +947,7 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template name="processMaecProcessContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
   
   <!--
