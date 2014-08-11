@@ -847,8 +847,6 @@ ikirillov@mitre.org
                     -->
                     <xsl:if test="cybox:Associated_Objects/cybox:Associated_Object">
                         <xsl:variable name="contents">
-                            <xsl:message>template should match...</xsl:message>
-                            <xsl:message><xsl:copy-of select="cybox:Associated_Objects/cybox:Associated_Object" /></xsl:message>
                             <xsl:apply-templates select="cybox:Associated_Objects/cybox:Associated_Object"/>
                         </xsl:variable>
                         <xsl:copy-of select="stix:printNameValueTable('Associated Objects', $contents)"/>
