@@ -768,7 +768,6 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
               </xsl:when>
-              <!-- maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective -->
               <xsl:when test="self::maecPackage:Malware_Subject">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecSubjectContents"/>
@@ -907,12 +906,6 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
   
-  <!--
-  <xsl:template name="processMaecCollectionContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  -->
-  
   <xsl:template name="processMaecBehaviorContents">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
@@ -925,27 +918,9 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     <xsl:apply-templates select="." />
   </xsl:template>
 
-  <!--
-  <xsl:template name="processMaecAnalysisContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  -->
-  
-  <!--
-  <xsl:template name="processMaecToolContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  -->
-  
   <xsl:template name="processMaecFindingBundlesContents">
     <xsl:apply-templates select="." />
   </xsl:template>
-  
-  <!--
-  <xsl:template name="processMaecBundleContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  -->
   
   <xsl:template name="processMaecActionEquivalenceContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
@@ -954,12 +929,6 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   <xsl:template name="processMaecInstanceInsideStixContents">
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
-  
-  <!--
-  <xsl:template name="processMaecSubjectContents">
-    <xsl:apply-templates select="." />
-  </xsl:template>
-  -->
   
   <xsl:template match="maecBundle:Strategic_Objective|maecBundle:Tactical_Objective">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
