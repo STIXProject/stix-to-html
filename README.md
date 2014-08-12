@@ -13,11 +13,13 @@ THE STIX XML to HTML TRANSFORM.
 For more information, please refer to the terms.txt file.
 ~~~
 
-## STIX XML to HTML transform v1.0beta4
-Compatible with STIX v1.0.1
+## STIX XML to HTML transform v1.0b5 alpha
+Compatible with STIX v1.1
 
 This is an xslt to transform a stix 1.0/1.0.1/1.1 document containing metadata and
 different categories of top level items into html for easy viewing.
+
+In addition to stix documents, cybox and maec documents are also supported.
 
 The first two tables on the output html page are 1) a metadata table
 showing information about the input document and when the content was
@@ -130,6 +132,22 @@ Currently we support the following top level entities and sub-entities:
   - Handling
   - Confidence
   - Information_Source
+- **MAEC Bundle**
+  - Malware_Object_Instance_Attributes
+  - AV_Classification
+  - Object\
+  - 
+    
+  - dd
+  
+  
+- **MAEC Package**
+  - Malware_Subject
+    - Malware_Object_Instance_Attributes
+    - Label
+    - Analyses
+    - Finding_Bundles
+- 
 
 Each category of top level "items" is turned into a main table on the page.
 The item itself is expandable and other nested content pointing to other
