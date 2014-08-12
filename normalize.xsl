@@ -7,7 +7,10 @@
     xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xmlns:stix="http://stix.mitre.org/stix-1"
     xmlns:stixCommon="http://stix.mitre.org/common-1" xmlns:cybox="http://cybox.mitre.org/cybox-2"
-    xmlns:ttp="http://stix.mitre.org/TTP-1" exclude-result-prefixes="xs xd" version="2.0"
+    xmlns:ttp="http://stix.mitre.org/TTP-1"
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+    
+    exclude-result-prefixes="xs xd" version="2.0"
     xmlns:saxon="http://saxon.sf.net/">
 
     <!-- 
@@ -100,7 +103,10 @@
         <xsl:attribute name="idref" select="fn:data(.)"/>
     </xsl:template>
 
-    <!--
+   <xsl:template match="maecBundle:MAEC_Bundle/@id" mode="createNormalized" priority="10.0">
+   </xsl:template>
+   
+   <!--
         recursively copy all nodes, except stop copying when an element with an id
         attribute comes up and for that element, change the id to an idref (and all
         of its children are left off, as they will be listed as their own reference
@@ -128,7 +134,7 @@
             </xsl:if>
             
             <xsl:variable name="cutOff" select="$isTopLevel or self::cybox:Object or self::cybox:Event 
-                or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action or self::cybox:Associated_Object" />
+                or self::cybox:Action_Reference or self::cybox:Action" />
 
             <!-- pull in all the attributes -->
             <xsl:apply-templates select="@*" mode="createReference">
@@ -184,7 +190,7 @@
     </xsl:template>
     -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1B -->
-    <xsl:template match="@object_reference|@action_id" mode="createReference" priority="20.0">
+    <xsl:template match="@object_reference|@action_id|@behavior_idref|@malware_subject_idref|@bundle_idref" mode="createReference" priority="20.0">
         <xsl:attribute name="idref" select="fn:data(.)"/>
     </xsl:template>
 
@@ -251,8 +257,50 @@
       <cybox:Object idref="{$idref}">
         <xsl:apply-templates select="node()[not(self::cybox:Relationship)]" mode="cleanup" />
       </cybox:Object>
-      <xsl:apply-templates select="$relationshipElement" mode="createReference" />
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
     </cybox:Related_Object>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object[@idref]" mode="cleanup">
+    <xsl:variable name="idref" select="fn:data(@idref)" />
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object idref="{$idref}">
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object[@id]" mode="cleanup">
+    <xsl:variable name="id" select="fn:data(@id)" />
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object id="{$id}">
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
+  <xsl:template match="cybox:Associated_Object[not(@id) and not(@idref)]" mode="cleanup">
+    <xsl:variable name="relationshipElement" select="cybox:Association_Type" />
+    
+    <cybox:Associated_Object>
+      <cybox:Object>
+        <xsl:apply-templates select="node()[not(self::cybox:Association_Type)]" mode="cleanup" />
+      </cybox:Object>
+      <xsl:apply-templates select="$relationshipElement" mode="cleanup" />
+    </cybox:Associated_Object>
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Malware_Instance_Object_Attributes/cybox:Properties" mode="cleanup">
+    
+    <cybox:Object>
+      <xsl:apply-templates select="." mode="verbatim" />
+    </cybox:Object>
   </xsl:template>
   
   <xsl:template match="/node()" mode="cleanup">

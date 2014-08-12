@@ -49,6 +49,10 @@ mdunn@mitre.org
   xmlns:cyboxVocabs="http://cybox.mitre.org/default_vocabularies-2"
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+  xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+  xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
+  xmlns:maecInstance="http://stix.mitre.org/extensions/Malware#MAEC4.0-1"
+  
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
   <xsl:import href="icons.xsl"/>
@@ -97,6 +101,11 @@ mdunn@mitre.org
     usually the answer is true(), but if you want a more concise display, set to false().
   -->
   <xsl:param name="displayConstraints" select="true()"/>
+  
+  <!--
+    run in debug mode? boolean.  prints additional information to the console as processing occurs.
+  -->
+  <xsl:param name="debug" as="xs:boolean" select="false()" />
 
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="normalize.xsl"/>
@@ -107,7 +116,8 @@ mdunn@mitre.org
   
   <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
   <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />
-
+  <xsl:variable name="isRootMaec" select="fn:exists(/(maecBundle:MAEC_Bundle|maecPackage:MAEC_Package))" />
+  
   <!--
     This prints out the header at the top of the page.
     
@@ -134,6 +144,7 @@ mdunn@mitre.org
       <h1>
         <xsl:if test="$isRootStix">STIX</xsl:if>
         <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+        <xsl:if test="$isRootMaec">MAEC</xsl:if>
         Report
       </h1>
     </div>
@@ -214,8 +225,10 @@ mdunn@mitre.org
           These two variables will become the main inputs to the primary transform.
         -->
     <!-- REFERENCE: HELP_UPDATE_STEP_1A -->
-    <xsl:message>cleaning up input...</xsl:message>
+
     <xsl:variable name="root" select="/" />
+    
+    <xsl:message>cleaning up input...</xsl:message>
     <xsl:variable name="cleanedInput">
       <xsl:apply-templates select="$root" mode="cleanup" />
     </xsl:variable>
@@ -229,20 +242,44 @@ mdunn@mitre.org
 
     <xsl:message>normalizing input...</xsl:message>
     <xsl:variable name="normalized">
-      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables)" mode="createNormalized"/>
+      <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*|maecPackage:MAEC_Package/*)" mode="createNormalized"/>
     </xsl:variable>
     <xsl:message>DONE normalizing input.</xsl:message>
+    
+    <xsl:if test="$debug">
+      <xsl:variable name="identifiedChildrenList" select="fn:string-join((for $n in $identifiedInput/* return local-name($n)), '###')" />
+      <xsl:message>identified children: <xsl:value-of select="$identifiedChildrenList" /></xsl:message>
+      <xsl:variable name="identifiedGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/* return local-name($n)), '###')" />
+      <xsl:message>identified grandchildren: <xsl:value-of select="$identifiedGrandChildrenList" /></xsl:message>
+      <xsl:variable name="identifiedGreatGrandChildrenList" select="fn:string-join((for $n in $identifiedInput/*/*/* return local-name($n)), '###')" />
+      <xsl:message>identified greatgrandchildren: <xsl:value-of select="$identifiedGreatGrandChildrenList" /></xsl:message>
+      
+      <xsl:variable name="normalizedChildrenList" select="fn:string-join((for $n in $normalized/* return local-name($n)), '###')" />
+      <xsl:message>normalized children: <xsl:value-of select="$normalizedChildrenList" /></xsl:message>
+      <xsl:variable name="normalizedGrandChildrenList" select="fn:string-join((for $n in $normalized/*/* return local-name($n)), '###')" />
+      <xsl:message>normalized grandchildren: <xsl:value-of select="$normalizedGrandChildrenList" /></xsl:message>
+      <xsl:variable name="normalizedGreatGrandChildrenList" select="fn:string-join((for $n in $normalized/*/*/* return local-name($n)), '###')" />
+      <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
+    </xsl:if>
+    
     <xsl:message>creating reference...</xsl:message>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or self::cybox:Object or self::cybox:Event 
-            or self::cybox:Related_Object or self::cybox:Associated_Object or self::cybox:Action_Reference or self::cybox:Action]"
+        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or ./self::cybox:Object or ./self::cybox:Event 
+            or ./self::cybox:Related_Object or ./self::cybox:Associated_Object or ./self::cybox:Action_Reference or ./self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
         <xsl:with-param name="isRoot" select="fn:true()"/>
       </xsl:apply-templates>
     </xsl:variable>
     <xsl:message>DONE creating reference.</xsl:message>
+
+    <xsl:if test="$debug">
+      <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
+      <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>
+    </xsl:if>
+    
+    
     <xsl:message>processing main...</xsl:message>
 
     <html>
@@ -250,6 +287,7 @@ mdunn@mitre.org
         <title>
           <xsl:if test="$isRootStix">STIX</xsl:if>
           <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+          <xsl:if test="$isRootMaec">MAEC</xsl:if>
           Report
           Output
         </title>
@@ -325,9 +363,12 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                         <xsl:variable name="cyboxRoot" select="/cybox:Observables" />
                         <xsl:value-of select="fn:string-join(($cyboxRoot/@cybox_major_version, $cyboxRoot/@cybox_minor_version, $cyboxRoot/@cybox_update_version), '.')" />
                       </xsl:when>
-                      <xsl:otherwise>
+                      <xsl:when test="$isRootStix">
                         <xsl:value-of select="//stix:STIX_Package/@version"/>
-                      </xsl:otherwise>
+                      </xsl:when>
+                      <xsl:when test="$isRootMaec">
+                        <xsl:value-of select="//(maecPackage:MAEC_Package|maecBundle:MAEC_Bundle)/@schema_version"/>
+                      </xsl:when>
                     </xsl:choose>
                   </td>
                   <td>
@@ -340,75 +381,133 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
               </table>
             </div>
             <!-- TODO: Toggle this in customization settings -->
-            <h2>
-              <a name="docContents">Document Contents</a>
-            </h2>
-            <div class="documentContentsList">
-              <a href="#observablesTopLevelCategoryContainer">
+            <xsl:if test="not($isRootMaec)">
+              <h2>
+                <a name="docContents">Document Contents</a>
+              </h2>
+              <div class="documentContentsList">
+                <a href="#observablesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Observables|//cybox:Observables">
+                      <xsl:call-template name="iconObservables"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#indicatorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Indicators">
+                      <xsl:call-template name="iconIndicators"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#ttpsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:TTPs">
+                      <xsl:call-template name="iconTTPs"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#exploitTargetsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Exploit_Targets">
+                      <xsl:call-template name="iconExploitTargets"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#incidentsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Incidents">
+                      <xsl:call-template name="iconIncidents"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#coursesOfActionTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Courses_Of_Action">
+                      <xsl:call-template name="iconCOAs"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#campaignsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Campaigns">
+                      <xsl:call-template name="iconCampaigns"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#threatActorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//stix:Threat_Actors">
+                      <xsl:call-template name="iconThreatActors"/>
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecPackageTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecPackage:MAEC_Package/*">
+                      [icon: maec package]
+                      <!-- <xsl:call-template name="iconMaecPackage"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecBundleTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:MAEC_Bundle/*">
+                      [icon: maec bundle]
+                      <!-- <xsl:call-template name="iconMaecBundle"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecMalwareInstanceObjectAttributesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Malware_Instance_Object_Attributes/*">
+                      [icon: malware instance object attribs]
+                      <!-- <xsl:call-template name="iconMaecMalwareInstanceObjectAttributes"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecActionsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Actions/*">
+                      [icon: maec actions]
+                      <!-- <xsl:call-template name="iconMaecActions"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecObjectsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Objects/*">
+                      [icon: maec objects]
+                      <!-- <xsl:call-template name="iconMaecObjects"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecBehaviorsTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Behaviors/*">
+                      [icon: maec behaviors]
+                      <!-- <xsl:call-template name="iconMaecBehaviors"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                <a href="#maecCapabilitiesTopLevelCategoryContainer">
+                  <div class="documentContentsItem">
+                    <xsl:if test="//maecBundle:Capabilities/*">
+                      [icon: maec capabilities]
+                      <!-- <xsl:call-template name="iconMaecCapabilities"/> -->
+                    </xsl:if>
+                  </div>
+                </a>
+                
+                <!-- no links to "marking" yet -->
                 <div class="documentContentsItem">
-                  <xsl:if test="//stix:Observables|//cybox:Observables">
-                    <xsl:call-template name="iconObservables"/>
+                  <xsl:if test="//marking:Marking">
+                    <xsl:call-template name="iconDataMarkings"/>
                   </xsl:if>
                 </div>
-              </a>
-              <a href="#indicatorsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Indicators">
-                    <xsl:call-template name="iconIndicators"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#ttpsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:TTPs">
-                    <xsl:call-template name="iconTTPs"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#exploitTargetsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Exploit_Targets">
-                    <xsl:call-template name="iconExploitTargets"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#incidentsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Incidents">
-                    <xsl:call-template name="iconIncidents"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#coursesOfActionTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Courses_Of_Action">
-                    <xsl:call-template name="iconCOAs"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#campaignsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Campaigns">
-                    <xsl:call-template name="iconCampaigns"/>
-                  </xsl:if>
-                </div>
-              </a>
-              <a href="#threatActorsTopLevelCategoryContainer">
-                <div class="documentContentsItem">
-                  <xsl:if test="//stix:Threat_Actors">
-                    <xsl:call-template name="iconThreatActors"/>
-                  </xsl:if>
-                </div>
-              </a>
-              
-              <!-- no links to "marking" yet -->
-              <div class="documentContentsItem">
-                <xsl:if test="//marking:Marking">
-                  <xsl:call-template name="iconDataMarkings"/>
-                </xsl:if>
-              </div>
-              
-            </div> <!-- end of div class="documentContentsList" -->
+                
+              </div> <!-- end of div class="documentContentsList" -->
+            </xsl:if>
 
           </xsl:if>
           <xsl:if test="$includeStixHeader and $isRootStix">
@@ -528,6 +627,18 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Injected_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC|maecBundle:AV_Classification"
+    mode="printReference">
+    <xsl:param name="reference" select="()"/>
+    <xsl:param name="normalized" select="()"/>
+    
+    <xsl:call-template name="printGenericItemForReferenceList">
+      <xsl:with-param name="reference" select="$reference"/>
+      <xsl:with-param name="normalized" select="$normalized"/>
+    </xsl:call-template>
+  </xsl:template>
+  
   <!--
     Print one of the "items" (Obserbale, Indicator, TTP, etc) for the "reference" list.
     
@@ -670,6 +781,114 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:apply-templates select="." />
                 </div>
               </xsl:when>
+              <xsl:when test="self::stix:Incident|self::stixCommon:Incident">
+                <div class="containerIncident">
+                  <xsl:call-template name="processIncidentContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecInstance:MAEC">
+                <div class="containerMaecPackage">
+                  <xsl:call-template name="processMaecPackageContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Malware_Subject">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecSubjectContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Malware_Instance_Object_Attributes">
+                <div class="containerMaecMIOA">
+                  <xsl:call-template name="processMaecMIOAContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:AV_Classification">
+                <div class="containerMaecAvClassification">
+                  <xsl:call-template name="processMaecAvClassificationContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Bundle">
+                <div class="containerMaecBundle">
+                  <xsl:call-template name="processMaecBundleContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Action">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecActionContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Analysis">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecAnalysisContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Tool">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecToolContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Finding_Bundles">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecFindingBundlesContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Bundle">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecBundleContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecPackage:Action_Equivalence">
+                <div class="containerMaecAction">
+                  <xsl:call-template name="processMaecActionEquivalenceContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Object">
+                <div class="containermaecObject">
+                  <xsl:call-template name="processMaecObjectContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Behavior">
+                <div class="containerMaecBehavior">
+                  <xsl:call-template name="processMaecBehaviorContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Action_Collection|self::maecBundle:Behavior_Collection|self::maecBundle:Object_Collection">
+                <div class="containerMaecBehavior">
+                  <xsl:call-template name="processMaecAnyCollectionContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Capability">
+                <div class="containerMaecCapability">
+                  <xsl:call-template name="processMaecCapabilityContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Strategic_Objective">
+                <div class="containerMaecStrategicObjective">
+                  <xsl:call-template name="processMaecStrategicObjectiveContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Tactical_Objective">
+                <div class="containerMaecTacticalObjective">
+                  <xsl:call-template name="processMaecTacticalObjectiveContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::maecBundle:Root_Process|self::maecBundle:Spawned_Process|self::maecBundle:Injected_Process">
+                <div class="containerMaecProcess">
+                  <xsl:call-template name="processMaecProcessContents"/>
+                </div>
+              </xsl:when>
+              <!--
+              <xsl:when test="self::maecBundle:Object_Collection|self::maecBundle:Action_Collection">
+                <div class="containerMaecCollection">
+                  <xsl:call-template name="processMaecCollectionContents"/>
+                </div>
+              </xsl:when>
+              -->
+              <xsl:when test="self::maecInstance:MAEC">
+                <div class="containerMaecInstanceInsideStix">
+                  <xsl:call-template name="processMaecInstanceInsideStixContents"/>
+                </div>
+              </xsl:when>
+              
             </xsl:choose>
           </div>
         </div>
@@ -677,6 +896,127 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
     </xsl:choose>
 
   </xsl:template>
+  
+  
+  <xsl:template name="processMaecCapabilityContents">
+    <xsl:if test="maecBundle:Strategic_Objective">
+      <xsl:variable name="contents">
+        <xsl:for-each select="maecBundle:Strategic_Objective">
+          <xsl:apply-templates select="." mode="cyboxProperties" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Strategic Objective', $contents)" />
+    </xsl:if>  
+    <xsl:if test="maecBundle:Tactical_Objective">
+      <xsl:variable name="contents">
+        <xsl:for-each select="maecBundle:Tactical_Objective">
+          <xsl:apply-templates select="." mode="cyboxProperties" />
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:copy-of select="stix:printNameValueTable('Tactical Objective', $contents)" />
+    </xsl:if>  
+  </xsl:template>
+  
+  <xsl:template name="processMaecStrategicObjectiveContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
 
+  <xsl:template name="processMaecTacticalObjectiveContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecProcessContents">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template name="processMaecBehaviorContents">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template name="processMaecObjectContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecActionContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
 
+  <xsl:template name="processMaecFindingBundlesContents">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
+  <xsl:template name="processMaecActionEquivalenceContents">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+
+  <xsl:template name="processMaecInstanceInsideStixContents">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Strategic_Objective|maecBundle:Tactical_Objective">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Malware_Instance_Object_Attributes">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Analysis">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Tool">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+
+  <xsl:template match="maecPackage:Finding_Bundles">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Bundle">
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Meta_Analysis">
+    ### META ANALYSIS ###
+    <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Action_Equivalence">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecInstance:MAEC">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Object_Collections">
+    <div>Object Collections:</div>
+    <xsl:apply-templates />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Action_Collections">
+    <div>Action Collections:</div>
+    <xsl:apply-templates />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Initiated_Actions" mode="cyboxProperties">
+    <div>Initiated Actions:</div>
+    <xsl:apply-templates mode="#default" />
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Action_Reference[@idref]|maecBundle:Injected_Process[@idref]">
+    <xsl:call-template name="headerAndExpandableContent">
+      <xsl:with-param name="targetId" select="fn:data(@idref)" />
+      <xsl:with-param name="relationshipOrAssociationType" select="()" />
+    </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="maecBundle:Spawned_Process[@idref]">
+    <xsl:call-template name="headerAndExpandableContent">
+      <xsl:with-param name="targetId" select="fn:data(@idref)" />
+      <xsl:with-param name="relationshipOrAssociationType" select="()" />
+    </xsl:call-template>
+  </xsl:template>
+  
 </xsl:stylesheet>

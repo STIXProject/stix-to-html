@@ -35,6 +35,8 @@
     xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1"
 
     xmlns:ttp='http://stix.mitre.org/TTP-1'
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+    xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
     >
     
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
@@ -49,7 +51,7 @@
       metadata table).
     -->
     <xsl:template name="processHeader">
-        <xsl:for-each select="//stix:STIX_Package/stix:STIX_Header">        
+      <xsl:for-each select="//stix:STIX_Package/stix:STIX_Header|/maecBundle:MAEC_Bundle/maecBundle:Malware_Instance_Object_Attributes">        
             <div class="stixHeader">
               <table class="grid topLevelCategory tablesorter" cellspacing="0">
                     <colgroup>
@@ -89,7 +91,7 @@
         <xsl:param name="evenOrOdd" />
         <tr><xsl:attribute name="class"><xsl:value-of select="$evenOrOdd" /></xsl:attribute>
                 <td class="Stix{local-name()}Name">
-                  <xsl:value-of select="fn:local-name(.)"/>
+                  <xsl:value-of select="if(../self::maecBundle:Malware_Instance_Object_Attributes) then 'Malware Instance Object Attributes' else fn:local-name(.)"/>
                 </td>
                 <td class="Stix{local-name()}Value">
                     <xsl:variable name="class" select="if (self::stix:Description) then ('longText expandableContainer expandableToggle expandableContents expandableSame collapsed') else ('') " />
@@ -121,6 +123,9 @@
                           <xsl:when test="self::*[@structuring_format='HTML5']">
                             <xsl:variable name="content" select="./text()" />
                             <div class="htmlContainer" data-stix-content="{$content}" />
+                          </xsl:when>
+                          <xsl:when test="self::cybox:Properties">
+                            <xsl:apply-templates select="." mode="cyboxProperties" />
                           </xsl:when>
                           <xsl:otherwise>
                             <xsl:value-of select="self::node()[text()]"/>
@@ -1051,6 +1056,387 @@
       </div>
     </div>
   </xsl:template>
+  
+  <xsl:template name="processMaecPackageContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecPackage:Malware_Subjects/maecPackage:Malware_Subject">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Malware_Subjects" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Subjects', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  
+  <xsl:template name="processMaecSubjectContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <!--
+      <xsl:attribute name="class">
+        <xsl:if test="@id">container baseobj</xsl:if>
+      </xsl:attribute>
+      -->
+      
+      <xsl:if test="maecPackage:Malware_Instance_Object_Attributes">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Malware_Instance_Object_Attributes" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Instance Object Attributes', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Analyses/maecPackage:Analysis">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Analyses/maecPackage:Analysis" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Analyses', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Findings_Bundles/(maecPackage:Bundle|maecPackage:Meta_Analysis)">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Findings_Bundles" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Finding Bundles', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Relationships/maecPackage:Relationship">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Relationships/maecPackage:Relationship" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Relationships', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecMIOAContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <!--
+      <xsl:attribute name="class">
+        <xsl:if test="@id">container baseobj</xsl:if>
+      </xsl:attribute>
+      -->
+      
+      <xsl:apply-templates select="*" />
+      
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecAvClassificationContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Classification_Name and cyboxCommon:Name">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Name" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Name', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Vendor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Vendor" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Vendor', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Engine_Version">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Engine_Version" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Engine Version', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Definition_Version">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Definition_Version" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Definition Version', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecBundleContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Malware_Instance_Object_Attributes">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Malware_Instance_Object_Attributes" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Instance Object Attributes', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:AV_Classifications">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:AV_Classifications" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('AV Classifications', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Process_Tree">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Process_Tree" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Process Tree', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Capabilities">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Capabilities" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Capabilities', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Behaviors">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Behaviors" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Behaviors', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Actions">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Actions" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Actions', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Objects">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Objects" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Objects', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Candidate_Indicators">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Candidate_Indicators" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Candidate Indicators', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Collections">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Collections" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Collections', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+
+
+  <xsl:template name="processMaecAnyCollectionContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecBundle:Action_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Action_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Action List', $contents)" />
+      </xsl:if>
+
+      <xsl:if test="maecBundle:Behavior_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Behavior_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Behavior List', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecBundle:Object_List/*">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecBundle:Object_List/*" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Object List', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecAnalysisContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="maecPackage:Summary">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Summary" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Summary', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:SourceType">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:SourceType" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Source Type', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Analysts">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Analysts" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Analysts', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:StructuredTextType">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:StructuredTextType" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Structured Text Type', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Comments">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Comments" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Comments', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Findings_Bundle_Reference">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Findings_Bundle_Reference" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Findings Bundle Reference', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Tools">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Tools" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Tools', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Dynamic_Analysis_Metadata">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Dynamic_Analysis_Metadata" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Dynamic Analysis Metadata', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Analysis_Environment">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Analysis_Environment" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Analysis Environment', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Report">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Report" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Report', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
+  
+  <xsl:template name="processMaecToolContents">
+    <div>
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      
+      <xsl:if test="cyboxCommon:Type">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Type" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Type', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:References">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:References" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('References', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Vendor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Vendor" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Vendor', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Version">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Version" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Version', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Service_Pack">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Service_Pack" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Service Pack', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Tool_Specific_Data">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Tool_Specific_Data" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Tool Specific Data', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Tool_Hashes">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Tool_Hashes" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Tool Hashes', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Tool_Configuration">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Tool_Configuration" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Tool Configuration', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Execution_Environment">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Execution_Environment" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Execution Environment', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:ErrorsType">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:ErrorsType" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Errors Type', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:MetadataType">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:MetadataType" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Metadata Type', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="cyboxCommon:Compensation_Model">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="cyboxCommon:Compensation_Model" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Compensation Model', $contents)" />
+      </xsl:if>
+      
+    </div>
+  </xsl:template>
     
   <!--
     Print out the root kill chain and its child kill chain phases.
@@ -1141,7 +1527,7 @@
     
     See also the similar template in cybox_common.xsl.
   -->
-  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]">
+  <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|stixCommon:Incident[@idref]|stixCommon:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundle[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]|maecBundle:Behavior[@idref]|maecBundle:Action[@idref]|maecPackage:Findings_Bundle_Reference[@idref]|maecBundle:Object[@idref]|maecBundle:Root_Process[@idref]|maecBundle_Spawned_Process[@idref]|maecBundle:Injected_Process[@idref]|maecBundle:Action_Collection[@idref]|maecBundle:Object_Collection[@idref]|maecBundle:Behavior_Collection[@idref]|maecPackage:Malware_Subject[@idref]">
     <div class="debug">DEBUG kill chain phase w/ idref</div>
     <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
@@ -1225,6 +1611,9 @@
   </xsl:template>
   <xsl:template match="ttp:Attack_Pattern[@id]" mode="cyboxProperties">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
+  </xsl:template>
+  <xsl:template match="maecBundle:Capability|maecBundle:Behavior|maecBundle:Action" mode="cyboxProperties">
+    <xsl:apply-templates select="." mode="#default" />
   </xsl:template>
   
 </xsl:stylesheet>

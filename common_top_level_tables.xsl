@@ -2,7 +2,7 @@
 <xsl:stylesheet
   version="2.0"
   xmlns:cybox="http://cybox.mitre.org/cybox-2"
-  xmlns:Common="http://cybox.mitre.org/common-2"
+  xmlns:cyboxCommon="http://cybox.mitre.org/common-2"
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   
   xmlns:indicator="http://stix.mitre.org/Indicator-2"
@@ -26,7 +26,10 @@
   xmlns:AddressObject='http://cybox.mitre.org/objects#AddressObject-2'
   xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
-  exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
+  xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
+  xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
+  
+  exclude-result-prefixes="cybox cyboxCommon xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
   >
 
   <xsl:template name="processAllTopLevelTables">
@@ -119,6 +122,86 @@
         <xsl:with-param name="categoryLabel" select="'Threat Actors'"/>
         <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
       </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Malware_Instance_Object_Attributes"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Instance Object Attributes'"/>
+        <xsl:with-param name="categoryIdentifier" select="'instanceObjectAttributes'"/>
+      </xsl:call-template>
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:MAEC_Bundle"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Bundles'"/>
+        <xsl:with-param name="categoryIdentifier" select="'bundles'"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecPackage:Malware_Subjects"/>
+        <xsl:with-param name="headingLabels" select="('Label', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Subjects'"/>
+        <xsl:with-param name="categoryIdentifier" select="'subjects'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Actions"/>
+        <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Actions'"/>
+        <xsl:with-param name="categoryIdentifier" select="'actions'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Objects"/>
+        <xsl:with-param name="headingLabels" select="('Type', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Objects'"/>
+        <xsl:with-param name="categoryIdentifier" select="'objects'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Behaviors"/>
+        <xsl:with-param name="headingLabels" select="('Description', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Behaviors'"/>
+        <xsl:with-param name="categoryIdentifier" select="'behaviors'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Capabilities"/>
+        <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Capabilities'"/>
+        <xsl:with-param name="categoryIdentifier" select="'capabilities'"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference"/>
+        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:AV_Classifications"/>
+        <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'AV Classifications'"/>
+        <xsl:with-param name="categoryIdentifier" select="'avClassifications'"/>
+      </xsl:call-template>
+      
     </div>
   </xsl:template>
   
@@ -270,7 +353,14 @@
       </tr>
     </tbody>
   </xsl:template>
+
   
+  <!--
+    the following functions calculate the fields used in the top level tables and in expandable links.
+    
+    cybox:calculateAllColumns() dispatches to the appropriate function based on the input element type.
+  -->
+
   <xsl:function name="cybox:calculateAllColumns">
     <xsl:param name="actualItem" />
     <xsl:param name="reference" />
@@ -300,7 +390,7 @@
       <xsl:when test="$actualItem[self::*:Threat_Actor]">
         <xsl:sequence select="cybox:calculateAllColumnsThreatActor($actualItem, $reference)" />
       </xsl:when>
-      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object]">
+      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object|self::maecPackage:Malware_Instance_Object_Attributes]">
         <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
       </xsl:when>
       <xsl:when test="$actualItem[self::cybox:Event]">
@@ -312,6 +402,29 @@
       <xsl:when test="$actualItem[self::stixCommon:Kill_Chain|self::stixCommon:Kill_Chain_Phase]">
         <xsl:sequence select="cybox:calculateAllColumnsKillChainOrKillChainPhase($actualItem, $reference)" />
       </xsl:when>
+      
+      <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecPackage:Analysis]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecAnalysis($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecPackage:Bundle]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecBundle($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:Behavior]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecBehavior($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:Capability]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecCapability($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:Action_Collection|self::maecBundle:Behavior_Collection|self::maecBundle:Candidate_Indicator_Collection|self::maecBundle:Object_Collection]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecCollection($actualItem, $reference)" />
+      </xsl:when>
+      <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
+        <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
+      </xsl:when>
+      
       <xsl:otherwise>
         <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
       </xsl:otherwise>
@@ -582,6 +695,121 @@
     
     <xsl:sequence select="$column1,$column2,$column3" />
   </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecSubject">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/maecPackage:Label) then (fn:string-join($actualItem/maecPackage:Label, ', ')) else '[no label]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecAnalysis">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/(@method|@type)) then (concat($actualItem/@method, '/', $actualItem/@type)) else ''" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecBundle">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/@content_type) then ($actualItem/@content_type) else ''" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecBehavior">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="fn:data(($actualItem/maecBundle:Description,'[no description]')[1])" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+
+  <xsl:function name="cybox:calculateAllColumnsMaecCapability">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/@name) then ($actualItem/@name) else ''" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecCollection">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/@name) then ($actualItem/@name) else '[no name]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  <xsl:function name="cybox:calculateAllColumnsMaecAvClassification">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/maecBundle:Classification_Name) then ($actualItem/maecBundle:Classification_Name) else if ($actualItem/cyboxCommon:Name) then ($actualItem/cyboxCommon:Name) else '[no name]'" />
+    </xsl:variable>
+    <xsl:variable name="column2" />
+    
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+  </xsl:function>
+  
+  
+  
   
   <!--
       Shared function to convert CamelCaseText to standard word formatting.

@@ -61,6 +61,7 @@ ikirillov@mitre.org
     xmlns:AddressObject='http://cybox.mitre.org/objects#AddressObject-2'
     xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
     xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
+    xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
     exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et">
 
 
@@ -435,11 +436,11 @@ ikirillov@mitre.org
             <xsl:variable name="threeColumns" select="cybox:calculateAllColumns($targetObject, $reference)" />
             
             <span class="clickableIdref">
-              <xsl:value-of select="$threeColumns[1]" />
-              <xsl:if test="fn:normalize-space($threeColumns[2])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
-              <xsl:value-of select="$threeColumns[2]" />
-              <xsl:if test="fn:normalize-space($threeColumns[3])"><xsl:value-of select="concat(' ', $separator, ' ')" /></xsl:if>
-              <xsl:value-of select="$threeColumns[3]" />
+              <!-- the next step converts $threeColumns into a list of space-normalized strings (removed leading and trailing space) -->
+              <xsl:variable name="threeColumnsNormalized" select="for $i in $threeColumns return fn:normalize-space(xs:string($i))" />
+              <!-- then only output the those of the three fields that are available, and separate them with $separator. -->
+              <xsl:variable name="reducedColumns" select="for $n in $threeColumnsNormalized  return (if ($n != '') then $n else ())" />
+              <xsl:value-of select="fn:string-join($reducedColumns, concat(' ', $separator, ' '))" />
             </span>
           </xsl:when>
           
@@ -661,11 +662,23 @@ ikirillov@mitre.org
         </div>
     </xsl:template>
   
-    <xsl:template match="cybox:Related_Object">
+    <xsl:template match="cybox:Related_Object" priority="5000">
       <xsl:apply-templates select="cybox:Relationship" />
       <xsl:apply-templates select="cybox:Object" />
     </xsl:template>
 
+    <xsl:template match="cybox:Associated_Object" priority="5000">
+      <xsl:apply-templates select="cybox:Association_Type" />
+      <xsl:apply-templates select="cybox:Object" />
+    </xsl:template>
+  
+  <!--
+  <xsl:template match="cybox:Associated_Object" mode="cyboxProperties">
+    <xsl:apply-templates select="cybox:Association_Type" />
+    <xsl:apply-templates select="cybox:Object" />
+  </xsl:template>
+  -->
+  
   <!--
     Template to turn any items with an idref into an expandable content toggle.
     
@@ -676,6 +689,24 @@ ikirillov@mitre.org
   <!-- REFERENCE: HELP_UPDATE_STEP_3 -->
   <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|et:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
+    
+      <xsl:choose>
+        <xsl:when test="self::cybox:Related_Object">
+          <div><xsl:value-of select="cybox:Relationship"></xsl:value-of></div>
+        </xsl:when>
+        <xsl:when test="self::cybox:Associated_Object">
+          <div><xsl:value-of select="cybox:Association_Type"></xsl:value-of></div>
+          
+          <!--
+          <xsl:message>INSIDE TEMPLATE</xsl:message>
+          <xsl:message>*****</xsl:message>
+          <xsl:message>
+            <xsl:copy-of select="." />
+          </xsl:message>
+          <xsl:message>*****</xsl:message>
+          -->
+        </xsl:when>
+      </xsl:choose>
     
       <xsl:variable name="idGen">
           <xsl:choose>
@@ -762,7 +793,7 @@ ikirillov@mitre.org
     </xsl:template>
   
     <!-- REFERENCE: HELP_UPDATE_STEP_2 -->
-    <xsl:template match="cybox:Action">
+    <xsl:template match="cybox:Action|maecBundle:Action">
         <xsl:variable name="localName" select="local-name()"/>
         <xsl:variable name="identifierName" select="'action'"/>
         <xsl:variable name="friendlyName" select="fn:replace($localName, '_', ' ')"/>
