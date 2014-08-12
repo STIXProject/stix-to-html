@@ -768,6 +768,11 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
               </xsl:when>
+              <xsl:when test="self::maecInstance:MAEC">
+                <div class="containerMaecPackage">
+                  <xsl:call-template name="processMaecPackageContents"/>
+                </div>
+              </xsl:when>
               <xsl:when test="self::maecPackage:Malware_Subject">
                 <div class="containerMaecAction">
                   <xsl:call-template name="processMaecSubjectContents"/>
