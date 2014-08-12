@@ -353,7 +353,14 @@
       </tr>
     </tbody>
   </xsl:template>
+
   
+  <!--
+    the following functions calculate the fields used in the top level tables and in expandable links.
+    
+    cybox:calculateAllColumns() dispatches to the appropriate function based on the input element type.
+  -->
+
   <xsl:function name="cybox:calculateAllColumns">
     <xsl:param name="actualItem" />
     <xsl:param name="reference" />
