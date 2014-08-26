@@ -106,6 +106,8 @@ mdunn@mitre.org
     run in debug mode? boolean.  prints additional information to the console as processing occurs.
   -->
   <xsl:param name="debug" as="xs:boolean" select="false()" />
+  
+  <xsl:param name="showIds" as="xs:boolean" select="false()" />
 
   <xsl:include href="stix_common.xsl"/>
   <xsl:include href="normalize.xsl"/>
