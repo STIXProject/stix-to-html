@@ -285,21 +285,28 @@ mdunn@mitre.org
     
     <xsl:message>processing main...</xsl:message>
     
-    <xsl:variable name="genericTitle">
-      <xsl:if test="$isRootStix">STIX</xsl:if>
-      <xsl:if test="$isRootCybox">CYBOX</xsl:if>
-      <xsl:if test="$isRootMaec">MAEC</xsl:if>
-      Report
-      Output
+    <xsl:variable name="genericTitle" as="xs:string">
+      <xsl:choose>
+        <xsl:when test="$isRootStix">STIX Report Output</xsl:when>
+        <xsl:when test="$isRootCybox">CYBOX Report Output</xsl:when>
+        <xsl:when test="$isRootMaec">MAEC Report Output</xsl:when>
+      </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="documentTitle">
-      <xsl:if test="$isRootStix"><xsl:value-of select="/stix:STIX_Package/stix:STIX_Header/stix:Title" /></xsl:if>
-      <xsl:if test="$isRootCybox"><xsl:value-of select="''" /></xsl:if>
-      <xsl:if test="$isRootMaec"><xsl:value-of select="''" /></xsl:if>
+    <xsl:variable name="documentTitle" as="xs:string">
+      <xsl:choose>
+      <xsl:when test="$isRootStix"><xsl:value-of select="/stix:STIX_Package/stix:STIX_Header/stix:Title" /></xsl:when>
+      <xsl:when test="$isRootCybox"><xsl:value-of select="''" /></xsl:when>
+      <xsl:when test="$isRootMaec"><xsl:value-of select="''" /></xsl:when>
+      </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="completeTitle">
+    <xsl:variable name="completeTitle" as="xs:string">
+      <xsl:value-of>
       <xsl:value-of select="$genericTitle" />
-      <xsl:if test="$documentTitle"><xsl:text> — </xsl:text><xsl:value-of select="$documentTitle"/></xsl:if>
+      <xsl:if test="$documentTitle">
+        <xsl:text> — </xsl:text>
+        <xsl:value-of select="$documentTitle"/>
+      </xsl:if>
+      </xsl:value-of>
     </xsl:variable>
 
     <html>
