@@ -141,13 +141,14 @@ mdunn@mitre.org
     template.
   -->
   <xsl:template name="customTitle">
+    <xsl:param name="genericTitle" />
+    <xsl:param name="documentTitle" />
+    <xsl:param name="completeTitle" />
+    
     <div class="customTitle">
       <xsl:comment>no custom title provided</xsl:comment>
       <h1>
-        <xsl:if test="$isRootStix">STIX</xsl:if>
-        <xsl:if test="$isRootCybox">CYBOX</xsl:if>
-        <xsl:if test="$isRootMaec">MAEC</xsl:if>
-        Report
+        <xsl:value-of select="$completeTitle"/>
       </h1>
     </div>
   </xsl:template>
@@ -283,15 +284,28 @@ mdunn@mitre.org
     
     
     <xsl:message>processing main...</xsl:message>
+    
+    <xsl:variable name="genericTitle">
+      <xsl:if test="$isRootStix">STIX</xsl:if>
+      <xsl:if test="$isRootCybox">CYBOX</xsl:if>
+      <xsl:if test="$isRootMaec">MAEC</xsl:if>
+      Report
+      Output
+    </xsl:variable>
+    <xsl:variable name="documentTitle">
+      <xsl:if test="$isRootStix"><xsl:value-of select="/stix:STIX_Package/stix:STIX_Header/stix:Title" /></xsl:if>
+      <xsl:if test="$isRootCybox"><xsl:value-of select="''" /></xsl:if>
+      <xsl:if test="$isRootMaec"><xsl:value-of select="''" /></xsl:if>
+    </xsl:variable>
+    <xsl:variable name="completeTitle">
+      <xsl:value-of select="$genericTitle" />
+      <xsl:if test="$documentTitle"><xsl:text> — </xsl:text><xsl:value-of select="$documentTitle"/></xsl:if>
+    </xsl:variable>
 
     <html>
       <head>
         <title>
-          <xsl:if test="$isRootStix">STIX</xsl:if>
-          <xsl:if test="$isRootCybox">CYBOX</xsl:if>
-          <xsl:if test="$isRootMaec">MAEC</xsl:if>
-          Report
-          Output
+          <xsl:value-of select="$completeTitle" />
         </title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
@@ -334,12 +348,16 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
 
       </head>
       <body onload="runtimeCopyObjects(); initialize();">
-        <xsl:call-template name="customHeader"/>
+        <xsl:call-template name="customHeader" />
 
         <div id="wrapper">
           <xsl:if test="$includeFileMetadataHeader">
             <div id="header">
-              <xsl:call-template name="customTitle"/>
+              <xsl:call-template name="customTitle">
+                <xsl:with-param name="genericTitle" select="$genericTitle"/>
+                <xsl:with-param name="documentTitle" select="$documentTitle"/>
+                <xsl:with-param name="completeTitle" select="$completeTitle"/>
+              </xsl:call-template>
 
               <div class="expandAll"
                 onclick="expandAll(document.querySelector('.topLevelCategoryTables'));"
