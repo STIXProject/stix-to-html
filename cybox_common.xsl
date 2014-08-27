@@ -1101,6 +1101,10 @@ ikirillov@mitre.org
     <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template match="Common:Tools" mode="cyboxProperties">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
   
   <!--
     Simple function used all over the place to add a name/value table to the output content.
