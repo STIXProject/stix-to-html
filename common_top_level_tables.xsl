@@ -238,13 +238,13 @@
           select="$categoryLabel"/>]</div>
         <table class="topLevelCategory {$categoryIdentifier}" cellspacing="0">
           <colgroup>
-            <xsl:for-each select="$headingColumnStyles">
+            <xsl:for-each select="$headingColumnStyles[$showIds or position() lt last()]">
               <col class="{.}"/>
             </xsl:for-each>
           </colgroup>
           <thead>
             <tr>
-              <xsl:for-each select="$headingLabels">
+              <xsl:for-each select="$headingLabels[$showIds or position() lt last()]">
                 <th class="header">
                   <xsl:value-of select="."/>
                 </th>
@@ -338,11 +338,13 @@
             <xsl:copy-of select="$column2" />
           </xsl:if>
         </td>
-        <td>
-          <xsl:if test="$column3">
-            <xsl:copy-of select="$column3" />
-          </xsl:if>
-        </td>
+        <xsl:if test="$showIds">
+          <td>
+            <xsl:if test="$column3">
+              <xsl:copy-of select="$column3" />
+            </xsl:if>
+          </td>
+        </xsl:if>
       </tr>
       <tr>
         <td colspan="{$colCount}">
@@ -365,70 +367,75 @@
     <xsl:param name="actualItem" />
     <xsl:param name="reference" />
     
-    <xsl:choose>
-      <xsl:when test="$actualItem[self::*:Observable]">
-        <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Indicator]">
-        <xsl:sequence select="cybox:calculateAllColumnsIndicator($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:TTP]">
-        <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Exploit_Target]">
-        <xsl:sequence select="cybox:calculateAllColumnsExploitTarget($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Incident]">
-        <xsl:sequence select="cybox:calculateAllColumnsIncident($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Course_Of_Action]">
-        <xsl:sequence select="cybox:calculateAllColumnsCourseOfAction($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Campaign]">
-        <xsl:sequence select="cybox:calculateAllColumnsCampaign($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Threat_Actor]">
-        <xsl:sequence select="cybox:calculateAllColumnsThreatActor($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object|self::maecPackage:Malware_Instance_Object_Attributes]">
-        <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::cybox:Event]">
-        <xsl:sequence select="cybox:calculateAllColumnsEvent($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::cybox:Action]">
-        <xsl:sequence select="cybox:calculateAllColumnsAction($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::stixCommon:Kill_Chain|self::stixCommon:Kill_Chain_Phase]">
-        <xsl:sequence select="cybox:calculateAllColumnsKillChainOrKillChainPhase($actualItem, $reference)" />
-      </xsl:when>
-      
-      <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecPackage:Analysis]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecAnalysis($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecPackage:Bundle]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecBundle($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecBundle:Behavior]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecBehavior($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecBundle:Capability]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecCapability($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecBundle:Action_Collection|self::maecBundle:Behavior_Collection|self::maecBundle:Candidate_Indicator_Collection|self::maecBundle:Object_Collection]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecCollection($actualItem, $reference)" />
-      </xsl:when>
-      <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
-        <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
-      </xsl:when>
-      
-      <xsl:otherwise>
-        <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
-      </xsl:otherwise>
-    </xsl:choose>
+    <xsl:variable name="allColumns" as="xs:string*">
+      <xsl:choose>
+        <xsl:when test="$actualItem[self::*:Observable]">
+          <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Indicator]">
+          <xsl:sequence select="cybox:calculateAllColumnsIndicator($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:TTP]">
+          <xsl:sequence select="cybox:calculateAllColumnsTTP($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Exploit_Target]">
+          <xsl:sequence select="cybox:calculateAllColumnsExploitTarget($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Incident]">
+          <xsl:sequence select="cybox:calculateAllColumnsIncident($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Course_Of_Action]">
+          <xsl:sequence select="cybox:calculateAllColumnsCourseOfAction($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Campaign]">
+          <xsl:sequence select="cybox:calculateAllColumnsCampaign($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Threat_Actor]">
+          <xsl:sequence select="cybox:calculateAllColumnsThreatActor($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::*:Object|self::*:Associated_Object|self::*:Related_Object|self::maecPackage:Malware_Instance_Object_Attributes]">
+          <xsl:sequence select="cybox:calculateAllColumnsObject($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::cybox:Event]">
+          <xsl:sequence select="cybox:calculateAllColumnsEvent($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::cybox:Action]">
+          <xsl:sequence select="cybox:calculateAllColumnsAction($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::stixCommon:Kill_Chain|self::stixCommon:Kill_Chain_Phase]">
+          <xsl:sequence select="cybox:calculateAllColumnsKillChainOrKillChainPhase($actualItem, $reference)" />
+        </xsl:when>
+        
+        <xsl:when test="$actualItem[self::maecPackage:Malware_Subject]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecSubject($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecPackage:Analysis]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecAnalysis($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecPackage:Bundle]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecBundle($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecBundle:Behavior]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecBehavior($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecBundle:Capability]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecCapability($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecBundle:Action_Collection|self::maecBundle:Behavior_Collection|self::maecBundle:Candidate_Indicator_Collection|self::maecBundle:Object_Collection]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecCollection($actualItem, $reference)" />
+        </xsl:when>
+        <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
+          <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
+        </xsl:when>
+        
+        <xsl:otherwise>
+          <xsl:sequence select="cybox:calculateAllColumnsOtherItems($actualItem, $reference)" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:sequence select="($allColumns[position() != last()], if ($showIds) then ($allColumns[last()]) else () )" />
+    <!-- <xsl:sequence select="$allColumns[1], $allColumns[2], $allColumns[3]" /> -->
     
   </xsl:function>
   
