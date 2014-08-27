@@ -1097,6 +1097,11 @@ ikirillov@mitre.org
     </xsl:template>   
   
   
+  <xsl:template match="cybox:Discovery_Method">
+    <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  
   <!--
     Simple function used all over the place to add a name/value table to the output content.
     
