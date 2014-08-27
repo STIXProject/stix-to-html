@@ -238,13 +238,13 @@
           select="$categoryLabel"/>]</div>
         <table class="topLevelCategory {$categoryIdentifier}" cellspacing="0">
           <colgroup>
-            <xsl:for-each select="$headingColumnStyles">
+            <xsl:for-each select="$headingColumnStyles[$showIds or position() lt last()]">
               <col class="{.}"/>
             </xsl:for-each>
           </colgroup>
           <thead>
             <tr>
-              <xsl:for-each select="$headingLabels">
+              <xsl:for-each select="$headingLabels[$showIds or position() lt last()]">
                 <th class="header">
                   <xsl:value-of select="."/>
                 </th>
@@ -338,11 +338,13 @@
             <xsl:copy-of select="$column2" />
           </xsl:if>
         </td>
-        <td>
-          <xsl:if test="$column3">
-            <xsl:copy-of select="$column3" />
-          </xsl:if>
-        </td>
+        <xsl:if test="$showIds">
+          <td>
+            <xsl:if test="$column3">
+              <xsl:copy-of select="$column3" />
+            </xsl:if>
+          </td>
+        </xsl:if>
       </tr>
       <tr>
         <td colspan="{$colCount}">
