@@ -1103,6 +1103,21 @@
         <xsl:copy-of select="stix:printNameValueTable('Finding Bundles', $contents)" />
       </xsl:if>
       
+      <xsl:if test="maecPackage:Development_Environment">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Development_Environment" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Development Environment', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="maecPackage:Configuration_Details">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="maecPackage:Configuration_Details" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Configuration Details', $contents)" />
+      </xsl:if>
+      
+      
       <xsl:if test="maecPackage:Relationships/maecPackage:Relationship">
         <xsl:variable name="contents">
           <xsl:apply-templates select="maecPackage:Relationships/maecPackage:Relationship" />
@@ -1614,6 +1629,10 @@
   </xsl:template>
   <xsl:template match="maecBundle:Capability|maecBundle:Behavior|maecBundle:Action" mode="cyboxProperties">
     <xsl:apply-templates select="." mode="#default" />
+  </xsl:template>
+  
+  <xsl:template match="maecPackage:Development_Environment|maecPackage:Configuration_Details">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
 </xsl:stylesheet>
