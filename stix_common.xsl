@@ -1635,5 +1635,9 @@
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template match="maecPackage:Dynamic_Analysis_Metadata">
+    <xsl:apply-templates select="." mode="cyboxProperties" />
+  </xsl:template>
+  
 </xsl:stylesheet>
 
