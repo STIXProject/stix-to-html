@@ -839,7 +839,10 @@ ikirillov@mitre.org
                         <xsl:copy-of select="stix:printNameValueTable('Discovery Method', $contents)"/>
                     </xsl:if>
                     <xsl:if test="cybox:Frequency">
-                        <xsl:copy-of select="stix:printNameValueTable('Frequency', cybox:Frequency)"/>
+                      <xsl:variable name="contents">
+                        <xsl:apply-templates select="cybox:Frequency"/>
+                      </xsl:variable>
+                      <xsl:copy-of select="stix:printNameValueTable('Frequency', $contents)"/>
                     </xsl:if>
 
                     <!--
@@ -1066,6 +1069,17 @@ ikirillov@mitre.org
     </xsl:template>
 
     <!--
+      default template for printing out list of attribute values
+      (similar to the above cyboxProperties styling but without brackets)
+    -->
+    <xsl:template match="attribute()" mode="attributeList">
+      <span class="cyboxPropertiesSingleConstraint">
+        <xsl:value-of select="local-name()"/>=<xsl:value-of select="fn:data(.)"/>
+        <xsl:if test="position() != last()">, </xsl:if>
+      </span>
+    </xsl:template>
+  
+  <!--
        do not show the type on cybox:Properties entries
     -->
     <xsl:template match="@xsi:type" mode="cyboxProperties">
@@ -1103,6 +1117,10 @@ ikirillov@mitre.org
   
   <xsl:template match="Common:Tools" mode="cyboxProperties">
     <xsl:apply-templates mode="cyboxProperties" />
+  </xsl:template>
+  
+  <xsl:template match="cybox:Frequency">
+    <xsl:apply-templates select="@*" mode="attributeList" />
   </xsl:template>
   
   
