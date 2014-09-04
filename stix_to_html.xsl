@@ -969,7 +969,8 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template name="processMaecActionEquivalenceContents">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
+    <div>Action references:</div>
+    <xsl:apply-templates select="maecPackage:Action_Reference" mode="#default" />
   </xsl:template>
 
   <xsl:template name="processMaecInstanceInsideStixContents">
