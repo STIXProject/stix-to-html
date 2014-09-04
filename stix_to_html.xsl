@@ -928,17 +928,13 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   <xsl:template name="processMaecCapabilityContents">
     <xsl:if test="maecBundle:Strategic_Objective">
       <xsl:variable name="contents">
-        <xsl:for-each select="maecBundle:Strategic_Objective">
-          <xsl:apply-templates select="." mode="cyboxProperties" />
-        </xsl:for-each>
+        <xsl:apply-templates select="maecBundle:Strategic_Objective" />
       </xsl:variable>
       <xsl:copy-of select="stix:printNameValueTable('Strategic Objective', $contents)" />
     </xsl:if>  
     <xsl:if test="maecBundle:Tactical_Objective">
       <xsl:variable name="contents">
-        <xsl:for-each select="maecBundle:Tactical_Objective">
-          <xsl:apply-templates select="." mode="cyboxProperties" />
-        </xsl:for-each>
+        <xsl:apply-templates select="maecBundle:Tactical_Objective" />
       </xsl:variable>
       <xsl:copy-of select="stix:printNameValueTable('Tactical Objective', $contents)" />
     </xsl:if>  
