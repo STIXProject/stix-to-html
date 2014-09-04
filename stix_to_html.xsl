@@ -1001,8 +1001,10 @@ if(typeof document!=="undefined"&&!("classList" in document.createElement("a")))
   </xsl:template>
   
   <xsl:template match="maecPackage:Meta_Analysis">
-    ### META ANALYSIS ###
-    <xsl:apply-templates select="*" mode="cyboxProperties" />
+    <div class="metadataBlock">
+      <div class="metadataCaption">Meta Analysis</div>
+      <xsl:apply-templates select="*" mode="cyboxProperties" />
+    </div>
   </xsl:template>
   
   <xsl:template match="maecPackage:Action_Equivalence">
