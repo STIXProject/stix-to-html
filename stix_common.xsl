@@ -1639,5 +1639,9 @@
     <xsl:apply-templates select="." mode="cyboxProperties" />
   </xsl:template>
   
+  <xsl:template match="maecPackage:Action_Equivalence" mode="cyboxProperties">
+    <xsl:apply-templates select="." />
+  </xsl:template>
+  
 </xsl:stylesheet>
 
