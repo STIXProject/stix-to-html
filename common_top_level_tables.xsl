@@ -425,7 +425,10 @@
           <xsl:sequence select="cybox:calculateAllColumnsMaecCollection($actualItem, $reference)" />
         </xsl:when>
         <xsl:when test="$actualItem[self::maecBundle:AV_Classification]">
-          <xsl:sequence select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
+          <xsl:variable name="result1" select="cybox:calculateAllColumnsMaecAvClassification($actualItem, $reference)" />
+          <xsl:variable name="result2" select="($result1[position() lt last()], '___HIDDEN___')" />
+          
+          <xsl:sequence select="$result2" />
         </xsl:when>
         
         <xsl:otherwise>
@@ -435,10 +438,10 @@
     </xsl:variable>
     
     <xsl:variable name="nonIdItemsSequence" select="($allColumns[position() != last()])" />
-    <xsl:variable name="idItemSequence" select="(if ($showIds) then ($allColumns[last()]) else ())" />
+    <xsl:variable name="idItemSequence" select="if ($showIds) then ($allColumns[last()]) else ()" />
+    <xsl:variable name="idItemSequenceCleaned" select="if (fn:empty($idItemSequence)) then () else if ($idItemSequence[1] = '___HIDDEN___') then () else if (fn:starts-with($idItemSequence[1], 'AUTO_GENERATED_ID_')) then ('[No ID]') else ($idItemSequence)" />
 
-    <xsl:sequence select="($nonIdItemsSequence, $idItemSequence)" />
-    <!-- <xsl:sequence select="$allColumns[1], $allColumns[2], $allColumns[3]" /> -->
+    <xsl:sequence select="($nonIdItemsSequence, $idItemSequenceCleaned)" />
     
   </xsl:function>
   
