@@ -740,7 +740,7 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="if ($actualItem/@content_type) then ($actualItem/@content_type) else ''" />
+      <xsl:value-of select="if ($actualItem/@content_type) then ($actualItem/@content_type) else if (not($showIds)) then ('[no content type]') else ('')" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
