@@ -433,8 +433,11 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    
+    <xsl:variable name="nonIdItemsSequence" select="($allColumns[position() != last()])" />
+    <xsl:variable name="idItemSequence" select="(if ($showIds) then ($allColumns[last()]) else ())" />
 
-    <xsl:sequence select="($allColumns[position() != last()], if ($showIds) then ($allColumns[last()]) else () )" />
+    <xsl:sequence select="($nonIdItemsSequence, $idItemSequence)" />
     <!-- <xsl:sequence select="$allColumns[1], $allColumns[2], $allColumns[3]" /> -->
     
   </xsl:function>
