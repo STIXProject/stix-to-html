@@ -307,7 +307,7 @@
     <xsl:apply-templates select="campaign:Associated_Campaign/stixCommon:Campaign"/>
   </xsl:template>
   
-  <xsl:template match="stixCommon:Threat_Actor[@idref]|stixCommon:Campaign[@idref]|marking:Marking[@idref]">
+  <xsl:template match="stixCommon:Threat_Actor[@idref]|stixCommon:Campaign[@idref]|marking:Marking[@idref]|incident:Victim[@idref]">
     <div class="">
       <xsl:variable name="targetId" select="string(@idref)"/>
       <xsl:variable name="relationshipOrAssociationType" select="''" />
@@ -382,7 +382,7 @@
       <xsl:if test="incident:Victim">
         <xsl:variable name="label" select="if (count(incident:Victim) ge 2) then ('Victims') else ('Victim')" />
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Victim" mode="cyboxProperties" />
+          <xsl:apply-templates select="incident:Victim" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable($label, $contents)" />
       </xsl:if>
