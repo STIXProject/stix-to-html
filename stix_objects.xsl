@@ -11,6 +11,8 @@
   xmlns:stixCommon="http://stix.mitre.org/common-1"
   xmlns:indicator="http://stix.mitre.org/Indicator-2"
   
+  xmlns:terms="http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1"
+  
   exclude-result-prefixes="cybox Common xsi fn xs stix stixCommon indicator"
   
   version="2.0">
@@ -97,5 +99,10 @@
   </xsl:template>
   -->
   
+  <xsl:template match="terms:Terms_Of_Use">
+    <span>Terms of Use:</span>
+    <xsl:text> </xsl:text>
+    <span><xsl:apply-templates /></span>
+  </xsl:template>
     
 </xsl:stylesheet>

@@ -164,7 +164,7 @@
       </xsl:if>
       <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
         <div class="markingSimple">
-          <xsl:value-of select="marking:Marking_Structure/simpleMarking:Statement/text()"/>
+          <xsl:apply-templates select="marking:Marking_Structure/simpleMarking:Statement"/>
         </div>
       </xsl:if>
       <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
@@ -178,9 +178,15 @@
       </xsl:if>
       <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
         <div class="markingTermsOfUse">
-          <xsl:value-of select="marking:Marking_Structure/terms:Terms_Of_Use/text()"/>
+          <xsl:apply-templates select="marking:Marking_Structure/terms:Terms_Of_Use"/>
         </div>
       </xsl:if>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="simpleMarking:Statement">
+    <div>
+      <xsl:value-of select="text()" />
     </div>
   </xsl:template>
 
