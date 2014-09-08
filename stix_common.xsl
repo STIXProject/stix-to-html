@@ -389,7 +389,7 @@
 
       <xsl:if test="incident:Affected_Assets">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="incident:Affected_Assets" mode="cyboxProperties" />
+          <xsl:apply-templates select="incident:Affected_Assets" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Affected Assets', $contents)" />
       </xsl:if>
@@ -1627,6 +1627,17 @@
   <xsl:template match="ttp:Attack_Pattern[@id]" mode="cyboxProperties">
     <xsl:apply-templates select="*" mode="cyboxProperties" />
   </xsl:template>
+  
+  <!--
+    for affected assets, we do not want the whole element printed via
+    mode=cyboxProperties as this will result in the Affected_Assets and
+    Affected_Asset tags being printed, neither of which we want.  So, just
+    skip to the children of Affected_Asset.
+  -->
+  <xsl:template match="incident:Affected_Assets">
+    <xsl:apply-templates select="incident:Affected_Asset/*" mode="cyboxProperties" />
+  </xsl:template>
+  
   <xsl:template match="maecBundle:Capability|maecBundle:Behavior|maecBundle:Action" mode="cyboxProperties">
     <xsl:apply-templates select="." mode="#default" />
   </xsl:template>
