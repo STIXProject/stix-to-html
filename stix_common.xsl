@@ -1644,26 +1644,5 @@
     <xsl:apply-templates select="incident:Affected_Asset/*" mode="cyboxProperties" />
   </xsl:template>
   
-  <xsl:template match="maecBundle:Capability|maecBundle:Behavior|maecBundle:Action" mode="cyboxProperties">
-    <xsl:apply-templates select="." mode="#default" />
-  </xsl:template>
-  
-  <xsl:template match="maecPackage:Development_Environment|maecPackage:Configuration_Details">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  
-  <xsl:template match="maecPackage:Dynamic_Analysis_Metadata">
-    <xsl:apply-templates select="." mode="cyboxProperties" />
-  </xsl:template>
-  
-  <xsl:template match="maecPackage:Action_Equivalence" mode="cyboxProperties">
-    <xsl:apply-templates select="." />
-  </xsl:template>
-  
-  <xsl:template match="maecPackage:Action_Equivalence">
-    <div>Action References</div>
-    <xsl:apply-templates />
-  </xsl:template>
-  
 </xsl:stylesheet>
 
