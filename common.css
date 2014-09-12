@@ -244,8 +244,8 @@ margin-bottom: 2px;
 }
 .container
 {
-  margin-left: 1em;
-  padding-left: 0.5em;
+  /* margin-left: 1em; */
+  /* padding-left: 0.5em; */
 }
 
 .contents.actionContents, .container.actionContainer {
@@ -461,7 +461,7 @@ tbody.expandableContainer > tr > td > .expandableToggle::before
 .expandableToggle
 {
   cursor: pointer;
-  padding-left: 1.0em;
+  /*padding-left: 1.0em;*/
   text-indent: -0.5em;
 }
 
