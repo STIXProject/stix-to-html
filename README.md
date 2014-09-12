@@ -13,7 +13,7 @@ THE STIX XML to HTML TRANSFORM.
 For more information, please refer to the terms.txt file.
 ~~~
 
-## STIX XML to HTML transform v1.0b5 alpha
+## STIX XML to HTML transform v1.0b6
 Compatible with STIX v1.1
 
 This is an xslt to transform a stix 1.0/1.0.1/1.1 document containing metadata and
@@ -171,11 +171,14 @@ requirements:
 
 ## Releases
 ### current release
+ * v1.0b6
+   2014-09-??  
+   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=4&page=1&sort=updated&state=closed
+
+### previous releases
  * v1.0b5 alpha
    2014-08-11  
    https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=3&page=1&sort=updated&state=closed
-
-### previous releases
  * v1.0beta4
    2014-05-15  
    https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=2&page=1&sort=updated&state=closed
@@ -207,6 +210,7 @@ STIX - http://stix.mitre.org
  - **cybox_util.xsl**: commonly used functions
  - **icons.xsl**: stylesheet code to read in the svg icons for the main item type logos
  - **images/*.svg and *.svgz**: svg vector images for the main item type logos (the *.svg files are used and pulled in via the xsl and included in the output html inline)
+ - **maec_common.xsl**: maec specific xslt templates
  - **normalize.xsl**: used by stix
  - **stix_common.xsl**: common stix transformations used by stix_to_html.xsl.
  - **stix_objects.xsl**: stix object-specific templates
