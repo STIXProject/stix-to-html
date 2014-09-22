@@ -148,8 +148,8 @@
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecPackage:Malware_Subjects"/>
         <xsl:with-param name="headingLabels" select="('Label', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
-        <xsl:with-param name="categoryLabel" select="'Subjects'"/>
-        <xsl:with-param name="categoryIdentifier" select="'subjects'"/>
+        <xsl:with-param name="categoryLabel" select="'Malware Subjects'"/>
+        <xsl:with-param name="categoryIdentifier" select="'malwareSubjects'"/>
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
