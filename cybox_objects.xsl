@@ -137,16 +137,6 @@
       
       <!-- otherwise, this is just a tokenized list, not a range -->
       <xsl:otherwise>
-        <xsl:if test="$includeConstraints">
-          <div class="cyboxPropertiesConstraints">
-            <xsl:apply-templates select="@*" mode="#current" />
-          </div>
-        </xsl:if>
-        <!--
-        <div class="cyboxPropertiesTokenizedList">
-          <xsl:value-of select="fn:string-join($tokens, ',')" />
-        </div>
-        -->
         <ul class="cyboxPropertiesTokenizedList">
          <xsl:for-each select="$tokens">
            <li>
