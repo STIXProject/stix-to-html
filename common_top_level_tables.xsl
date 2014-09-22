@@ -762,7 +762,16 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="fn:data(($actualItem/maecBundle:Description,'[no description]')[1])" />
+      <xsl:variable name="fullDescription" select="fn:data(($actualItem/maecBundle:Description,$actualItem/maecBundle:Purpose/maecBundle:Description,'[no description]')[1])" />
+      <xsl:variable name="tokens" select="fn:tokenize($fullDescription, ' ')" />
+      <xsl:variable name="caption">
+        <xsl:choose>
+          <xsl:when test="fn:empty($fullDescription) or fn:string-length($fullDescription) = 0">[no description]</xsl:when>
+          <xsl:when test="count($tokens) le 10"><xsl:value-of select="$fullDescription" /></xsl:when>
+          <xsl:otherwise><xsl:value-of select="concat(fn:string-join($tokens[position() le 10], ' '), '...')" /></xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:value-of select="$caption" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
