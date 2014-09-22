@@ -850,7 +850,9 @@ ikirillov@mitre.org
                     -->
                     <xsl:if test="cybox:Associated_Objects/cybox:Associated_Object">
                         <xsl:variable name="contents">
-                            <xsl:apply-templates select="cybox:Associated_Objects/cybox:Associated_Object"/>
+                            <xsl:apply-templates select="cybox:Associated_Objects/cybox:Associated_Object">
+                              <xsl:sort select="fn:data(cybox:Association_Type)" />
+                            </xsl:apply-templates>
                         </xsl:variable>
                         <xsl:copy-of select="stix:printNameValueTable('Associated Objects', $contents)"/>
                     </xsl:if>
