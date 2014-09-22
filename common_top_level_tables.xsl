@@ -730,7 +730,7 @@
     <xsl:param name="reference" />
     
     <xsl:variable name="column1">
-      <xsl:value-of select="if ($actualItem/(@method|@type)) then (concat($actualItem/@method, '/', $actualItem/@type)) else ''" />
+      <xsl:value-of select="if ($actualItem/(@method|@type)) then (concat($actualItem/@method, '/', $actualItem/@type)) else '[no method or type]'" />
     </xsl:variable>
     <xsl:variable name="column2" />
     
