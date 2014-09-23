@@ -736,3 +736,8 @@ tbody.expandableSeparate.expandableContainer.collapsed > tr > td > .expandableCo
 {
   font-weight: bold;
 }
+
+.simpleMarkingStatment.container
+{
+  margin-bottom: 1em;
+}

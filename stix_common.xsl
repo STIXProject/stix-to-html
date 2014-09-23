@@ -185,8 +185,11 @@
   </xsl:template>
   
   <xsl:template match="simpleMarking:Statement">
-    <div>
-      <xsl:value-of select="text()" />
+    <div class="simpleMarkingStatment container">
+      <div class="simpleMarkingStatement heading">simple marking statement:</div>
+      <div class="simpleMarkingStatement contents">
+        <xsl:value-of select="text()" />
+      </div>
     </div>
   </xsl:template>
 
