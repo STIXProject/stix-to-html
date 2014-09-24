@@ -205,6 +205,8 @@
         <xsl:if test="lower-case(@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
         <xsl:if test="lower-case(@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
         Traffic Light Protocol (TLP): <xsl:value-of select="@color"/>
+        
+        <xsl:apply-templates select="../marking:Controlled_Structure" />
       </div>
     </xsl:if>
     <xsl:if test=".[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
