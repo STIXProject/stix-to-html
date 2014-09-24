@@ -218,7 +218,7 @@
   
   <xsl:template match="simpleMarking:Statement">
     <div class="simpleMarkingStatment container">
-      <div class="simpleMarkingStatement heading">simple marking statement <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
+      <div class="simpleMarkingStatement heading">Simple Marking Statement <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
       <div class="simpleMarkingStatement contents">
         <xsl:value-of select="text()" />
       </div>
@@ -227,7 +227,7 @@
   
   <xsl:template match="terms:Terms_Of_Use">
     <div class="simpleMarkingStatment container">
-      <div class="simpleMarkingStatement heading">terms of use <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
+      <div class="simpleMarkingStatement heading">Terms of Use <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
       <div class="simpleMarkingStatement contents">
         <xsl:apply-templates />
       </div>
