@@ -99,10 +99,4 @@
   </xsl:template>
   -->
   
-  <xsl:template match="terms:Terms_Of_Use">
-    <span>Terms of Use:</span>
-    <xsl:text> </xsl:text>
-    <span><xsl:apply-templates /></span>
-  </xsl:template>
-    
 </xsl:stylesheet>

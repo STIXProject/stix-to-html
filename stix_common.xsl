@@ -144,9 +144,10 @@
     <xsl:apply-templates />
   </xsl:template>
   
+  <!--
   <xsl:template match="marking:Marking">
     <div class="marking">
-      <!-- TODO display marking's control structure or apply to xml -->
+      <!- - TODO display marking's control structure or apply to xml - ->
       <xsl:if test="marking:Controlled_Structure">
         <div class="markingControlStructure cyboxPropertiesConstraints">
           <xsl:choose>
@@ -183,14 +184,70 @@
       </xsl:if>
     </div>
   </xsl:template>
+  -->
+  
+  <xsl:template match="marking:Marking">
+    <div class="marking">
+      <xsl:apply-templates select="marking:Marking_Structure" />
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="marking:Marking_Structure">
+    <xsl:if test=".[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
+      <div class="markingSimple">
+        <xsl:apply-templates select="simpleMarking:Statement"/>
+      </div>
+    </xsl:if>
+    <xsl:if test=".[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
+      <div class="markingTlp">
+        <xsl:if test="lower-case(@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
+        <xsl:if test="lower-case(@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
+        <xsl:if test="lower-case(@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
+        <xsl:if test="lower-case(@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
+        Traffic Light Protocol (TLP): <xsl:value-of select="@color"/>
+      </div>
+    </xsl:if>
+    <xsl:if test=".[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
+      <div class="markingTermsOfUse">
+        <xsl:apply-templates select="terms:Terms_Of_Use"/>
+      </div>
+    </xsl:if>
+  </xsl:template>
   
   <xsl:template match="simpleMarking:Statement">
     <div class="simpleMarkingStatment container">
-      <div class="simpleMarkingStatement heading">simple marking statement:</div>
+      <div class="simpleMarkingStatement heading">simple marking statement <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
       <div class="simpleMarkingStatement contents">
         <xsl:value-of select="text()" />
       </div>
     </div>
+  </xsl:template>
+  
+  <xsl:template match="terms:Terms_Of_Use">
+    <div class="simpleMarkingStatment container">
+      <div class="simpleMarkingStatement heading">terms of use <xsl:apply-templates select="../../marking:Controlled_Structure" />:</div>
+      <div class="simpleMarkingStatement contents">
+        <xsl:apply-templates />
+      </div>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="marking:Controlled_Structure">
+    <span class="markingControlStructure cyboxPropertiesConstraints">
+      [
+      <xsl:choose>
+        <xsl:when test="text() = '//node()'">
+          marking for whole document
+        </xsl:when>
+        <xsl:when test="not(text()) or (fn:normalize-space(text()) = '')">
+          no marking control structure specified
+        </xsl:when>
+        <xsl:otherwise>
+          marking for (xpath): <xsl:value-of select="." />
+        </xsl:otherwise>
+      </xsl:choose>
+      ]
+    </span>
   </xsl:template>
 
 
