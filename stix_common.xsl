@@ -236,19 +236,11 @@
   
   <xsl:template match="marking:Controlled_Structure">
     <span class="markingControlStructure cyboxPropertiesConstraints">
-      [
-      <xsl:choose>
-        <xsl:when test="text() = '//node()'">
-          marking for whole document
-        </xsl:when>
-        <xsl:when test="not(text()) or (fn:normalize-space(text()) = '')">
-          no marking control structure specified
-        </xsl:when>
-        <xsl:otherwise>
-          marking for (xpath): <xsl:value-of select="." />
-        </xsl:otherwise>
-      </xsl:choose>
-      ]
+      [<xsl:choose>
+        <xsl:when test="text() = '//node()'">marking for whole document</xsl:when>
+        <xsl:when test="not(text()) or (fn:normalize-space(text()) = '')">no marking control structure specified</xsl:when>
+        <xsl:otherwise>marking for (xpath): <xsl:value-of select="." /></xsl:otherwise>
+      </xsl:choose>]
     </span>
   </xsl:template>
 
