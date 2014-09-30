@@ -1,4 +1,4 @@
-# STIX XML -> HTML Transform v1
+# STIX XML -> HTML Transform v1.0
 
 ~~~
 Copyright (c) 2014 - The MITRE Corporation
@@ -13,7 +13,7 @@ THE STIX XML to HTML TRANSFORM.
 For more information, please refer to the terms.txt file.
 ~~~
 
-## STIX XML to HTML transform v1.0b6
+## STIX XML to HTML transform v1.0
 Compatible with STIX v1.1
 
 This is an xslt to transform a stix 1.0/1.0.1/1.1 document containing metadata and
@@ -171,8 +171,8 @@ requirements:
 
 ## Releases
 ### current release
- * v1.0b6
-   2014-09-??  
+ * v1.0
+   2014-09-30  
    https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=4&page=1&sort=updated&state=closed
 
 ### previous releases
@@ -252,7 +252,7 @@ In particular look at these two wiki pages:
 
 The header, footer, title, and css can easily be customized.
 
-NOTE: There is an example of customizing these elements in the git repo at [stix-to-html/examples/examples-custom-title-header-footer-css](https://github.com/STIXProject/stix-to-html/tree/beta3/examples/examples-custom-title-header-footer-css).
+NOTE: There is an example of customizing these elements in the git repo at [stix-to-html/examples/examples-custom-title-header-footer-css](https://github.com/STIXProject/stix-to-html/tree/master/examples/examples-custom-title-header-footer-css).
 
 
 Inside stix_to_html.xsl there are three corresponding named templates:
