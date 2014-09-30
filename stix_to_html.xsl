@@ -921,13 +921,6 @@ mdunn@mitre.org
                   <xsl:call-template name="processMaecProcessContents"/>
                 </div>
               </xsl:when>
-              <!--
-              <xsl:when test="self::maecBundle:Object_Collection|self::maecBundle:Action_Collection">
-                <div class="containerMaecCollection">
-                  <xsl:call-template name="processMaecCollectionContents"/>
-                </div>
-              </xsl:when>
-              -->
               <xsl:when test="self::maecInstance:MAEC">
                 <div class="containerMaecInstanceInsideStix">
                   <xsl:call-template name="processMaecInstanceInsideStixContents"/>
