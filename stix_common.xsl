@@ -144,48 +144,6 @@
     <xsl:apply-templates />
   </xsl:template>
   
-  <!--
-  <xsl:template match="marking:Marking">
-    <div class="marking">
-      <!- - TODO display marking's control structure or apply to xml - ->
-      <xsl:if test="marking:Controlled_Structure">
-        <div class="markingControlStructure cyboxPropertiesConstraints">
-          <xsl:choose>
-            <xsl:when test="marking:Controlled_Structure/text() = '//node()'">
-              marking for whole document:
-            </xsl:when>
-            <xsl:when test="not(marking:Controlled_Structure/text()) or (fn:normalize-space(marking:Controlled_Structure/text()) = '')">
-              no marking control structure specified:
-            </xsl:when>
-            <xsl:otherwise>
-              marking for (xpath): <xsl:value-of select="marking:Controlled_Structure" />
-            </xsl:otherwise>
-          </xsl:choose>
-        </div>
-      </xsl:if>
-      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Simple-1', 'SimpleMarkingStructureType')]">
-        <div class="markingSimple">
-          <xsl:apply-templates select="marking:Marking_Structure/simpleMarking:Statement"/>
-        </div>
-      </xsl:if>
-      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#TLP-1', 'TLPMarkingStructureType')]">
-        <div class="markingTlp">
-          <xsl:if test="lower-case(marking:Marking_Structure/@color)='red'"><xsl:attribute name="class" select="'tlpred'"/></xsl:if>
-          <xsl:if test="lower-case(marking:Marking_Structure/@color)='amber'"><xsl:attribute name="class" select="'tlpamber'"/></xsl:if>
-          <xsl:if test="lower-case(marking:Marking_Structure/@color)='green'"><xsl:attribute name="class" select="'tlpgreen'"/></xsl:if>
-          <xsl:if test="lower-case(marking:Marking_Structure/@color)='white'"><xsl:attribute name="class" select="'tlpwhite'"/></xsl:if>
-          Traffic Light Protocol (TLP): <xsl:value-of select="marking:Marking_Structure/@color"/>
-        </div>
-      </xsl:if>
-      <xsl:if test="marking:Marking_Structure[fn:resolve-QName(fn:data(@xsi:type), .)=fn:QName('http://data-marking.mitre.org/extensions/MarkingStructure#Terms_Of_Use-1', 'TermsOfUseMarkingStructureType')]">
-        <div class="markingTermsOfUse">
-          <xsl:apply-templates select="marking:Marking_Structure/terms:Terms_Of_Use"/>
-        </div>
-      </xsl:if>
-    </div>
-  </xsl:template>
-  -->
-  
   <xsl:template match="marking:Marking">
     <div class="marking">
       <xsl:apply-templates select="marking:Marking_Structure" />
