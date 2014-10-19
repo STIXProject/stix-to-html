@@ -41,10 +41,10 @@ public class App {
         XSLProcessor processor = XSLProcessor.Instance();
 
         processor.process(
-                new File(in), 
-                new File(xsl), 
-                new FileWriter(new File(out))
-                );
+            new File(in), 
+            new File(xsl), 
+            new FileWriter(new File(out))
+        );
     }
 
 
