@@ -22,7 +22,7 @@ import javax.xml.transform.stream.StreamSource;
  * @author BAKERJ
  */
 public class XSLProcessor {
-	
+
     /** The singleton instance variable. */
     private static XSLProcessor instance = null;
 
@@ -45,7 +45,7 @@ public class XSLProcessor {
      * value is the complied template
      */
     private HashMap<String, Templates> templateCache = null;
-    
+
     /** Creates a new instance of ProcessXML */
     private TransformerFactory factory;
 
