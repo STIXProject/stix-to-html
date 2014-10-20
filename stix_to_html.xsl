@@ -613,8 +613,8 @@ mdunn@mitre.org
     and building this content.
   -->
   <xsl:template name="printReference">
-    <xsl:param name="reference" select="()" tunnel="no" />
-    <xsl:param name="normalized" select="()" tunnel="no" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
 
     <div class="reference">
       <xsl:apply-templates select="$reference" mode="printReference"/>

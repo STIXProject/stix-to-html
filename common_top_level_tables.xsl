@@ -218,8 +218,8 @@
       (observables, indicators, TTPs, etc).
     -->
   <xsl:template name="processTopLevelCategory">
-    <xsl:param name="reference" select="()" tunnel="no" />
-    <xsl:param name="normalized" select="()" tunnel="no" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="categoryGroupingElement" select="()"/>
     <xsl:param name="headingLabels" select="('Type', 'ID')"/>
     <xsl:param name="headingColumnStyles" select="('typeColumn', 'idColumn')"/>
@@ -294,8 +294,8 @@
       level category tables.
     -->
   <xsl:template name="printGenericItemForTopLevelCategoryTable">
-    <xsl:param name="reference" select="()" tunnel="no" />
-    <xsl:param name="normalized" select="()" tunnel="no" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="colCount" select="2" />
     
     <xsl:variable name="originalItem" select="." />
