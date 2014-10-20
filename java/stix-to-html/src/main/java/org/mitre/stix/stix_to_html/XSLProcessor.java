@@ -3,10 +3,14 @@ package org.mitre.stix.stix_to_html;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerConfigurationException;
@@ -16,6 +20,37 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.Configuration;
+import net.sf.saxon.Controller;
+import net.sf.saxon.lib.UnparsedTextURIResolver;
+import net.sf.saxon.trans.XPathException;
+import net.sf.saxon.jaxp.TransformerImpl;
+
+
+/**
+ * Resolves URIs from XSL import directives.
+ *
+ */
+class ClasspathResourceURIResolver implements URIResolver {
+    public Source resolve(String href, String base) throws TransformerException {
+        return new StreamSource(getClass().getClassLoader().getResourceAsStream(href));
+    }
+}
+
+
+/**
+ * Resolves URIs found in unparsed-text() methods. This is a bit of a hack.
+ *
+ */
+class ClasspathResourceUnparsedTextURIResolver implements UnparsedTextURIResolver {
+    public Reader resolve(URI absoluteURI, String encoding, Configuration config) throws XPathException {
+        String strURI = absoluteURI.toString();
+        String filename = strURI.substring(strURI.lastIndexOf('/')+1, strURI.length());
+        return new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filename.toString()));
+    }
+}
+
 
 /**
  *
@@ -52,9 +87,8 @@ public class XSLProcessor {
     /** Creates a new instance of XSLProcessor */
     private XSLProcessor() {
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-
         factory = TransformerFactory.newInstance();
-
+        factory.setURIResolver(new ClasspathResourceURIResolver());
         templateCache = new HashMap<String, Templates>();
     }
 
@@ -102,6 +136,17 @@ public class XSLProcessor {
         process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(out));
     }
 
+    
+    /**
+     * Attaches a resolver for unparsed-text() URIs to the Transformer instance.
+     * @param transformer
+     */
+    private void setUnparsedTextResolver(Transformer transformer){
+        TransformerImpl impl = (TransformerImpl)transformer;
+        Controller controller = impl.getUnderlyingController();
+        controller.setUnparsedTextURIResolver(new ClasspathResourceUnparsedTextURIResolver());
+    }
+    
     /** Transform an XML source using XSLT based on a new template
      *  for the source XSL document. The resulting transformed 
      *  document is placed in the passed in <code>Result</code> 
@@ -111,6 +156,8 @@ public class XSLProcessor {
         try {
             Templates template = factory.newTemplates(xsl);
             Transformer transformer = template.newTransformer();
+            this.setUnparsedTextResolver(transformer);
+            
             transformer.transform(xml, result);
         } catch (TransformerConfigurationException tce) {
             throw new TransformerException(tce.getMessageAndLocation());
@@ -127,11 +174,11 @@ public class XSLProcessor {
     private void process(Source xml, Templates template, Result result, Map<String, Object> parameters) throws TransformerException {
         try {
             Transformer transformer = template.newTransformer();
-
+            this.setUnparsedTextResolver(transformer);
+            
             for (String name : parameters.keySet()) {
                 transformer.setParameter(name, parameters.get(name));
             }
-
             transformer.transform(xml, result);
         } catch (TransformerConfigurationException tce) {
             throw new TransformerException(tce.getMessageAndLocation());
@@ -142,7 +189,7 @@ public class XSLProcessor {
 
     /**
      * Check the cache for templates for the input file. if not found create 
-     * and cache new templaes.
+     * and cache new templates.
      * 
      * @param xslFile
      * @return

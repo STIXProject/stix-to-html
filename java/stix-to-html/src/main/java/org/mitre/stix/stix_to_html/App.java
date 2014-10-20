@@ -1,7 +1,10 @@
 package org.mitre.stix.stix_to_html;
 
 import java.lang.Exception;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.URI;
 import org.apache.commons.cli.*;
@@ -37,12 +40,12 @@ public class App {
      * @throws Exception
      */
     private static void transform(String in, String out) throws Exception {
-        URI xsl = App.class.getResource("/stix_to_html.xsl").toURI();
+        InputStream xsl = App.class.getResourceAsStream("/stix_to_html.xsl");
         XSLProcessor processor = XSLProcessor.Instance();
 
         processor.process(
-            new File(in), 
-            new File(xsl), 
+            new FileReader(new File(in)), 
+            new InputStreamReader(xsl), 
             new FileWriter(new File(out))
         );
     }
