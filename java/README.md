@@ -7,7 +7,8 @@ http://stix.mitre.org.
 ## Overview
 
 The primary goal of the Java stix-to-html application is to make it easy
-for STIX users to render HTML views of STIX content.
+for STIX users to render HTML views of STIX content. This was written and 
+tested using Java 1.7.
 
 ## Versioning
 
