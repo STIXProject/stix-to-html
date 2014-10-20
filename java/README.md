@@ -28,7 +28,7 @@ To run maven behind a proxy, you'll need to add a `<proxies>` section to your Ma
 `$HOME/.m2/settings.xml` file. More details on how to configure Maven to use a proxy
 can be found here: http://maven.apache.org/guides/mini/guide-proxies.html.
 
-## Release Usage
+## Releases
 
 Relases of stix-to-html will include a binary package containing the following files:
 
@@ -37,6 +37,8 @@ stix-to-html/
     stix-to-html.jar      # Java stix-to-html binary
     stix-to-html.bat      # Windows script for launching stix-to-html.jar
     stix-to-html.sh       # Bash script for launching stix-to-html.jar
+    LICENSE.txt           # License information
+    README.md             # This README file.
 ```
 
 ### Usage
