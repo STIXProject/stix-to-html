@@ -40,7 +40,7 @@ public class App {
      * @throws Exception
      */
     private static void transform(String in, String out) throws Exception {
-        InputStream xsl = App.class.getResourceAsStream("/stix_to_html.xsl");
+        InputStream xsl = App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl");
         XSLProcessor processor = XSLProcessor.Instance();
 
         processor.process(
