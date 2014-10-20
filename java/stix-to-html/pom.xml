@@ -41,38 +41,20 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
-            </plugin>
-            <plugin>
-               <artifactId>maven-jar-plugin</artifactId>
-               <configuration>
-                 <archive>
-                   <manifest>
-                     <addClasspath>true</addClasspath>
-                     <classpathPrefix>lib/</classpathPrefix>
-                     <mainClass>org.mitre.stix.stix_to_html.App</mainClass>
-                   </manifest>
-                 </archive>
-               </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.1</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.6</version>
                 <executions>
                   <execution>
-                    <id>copy-dependencies</id>
                     <phase>package</phase>
                     <goals>
-                      <goal>copy-dependencies</goal>
+                      <goal>shade</goal>
                     </goals>
                     <configuration>
-                      <includeScope>runtime</includeScope>
-                      <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                      <overWriteReleases>false</overWriteReleases>
-                      <overWriteSnapshots>false</overWriteSnapshots>
-                      <overWriteIfNewer>true</overWriteIfNewer>
+                      <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                          <mainClass>org.mitre.stix.stix_to_html.App</mainClass>
+                        </transformer>
+                      </transformers>
                     </configuration>
                   </execution>
                 </executions>
