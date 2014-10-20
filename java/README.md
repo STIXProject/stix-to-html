@@ -7,8 +7,22 @@ http://stix.mitre.org.
 ## Overview
 
 The primary goal of the Java stix-to-html application is to make it easy
-for STIX users to render HTML views of STIX content. This was written and 
-tested using Java 1.7.
+for STIX users to render HTML views of STIX content. The stix-to-html
+application can render single STIX documents at a time. Users wanting to
+render multiple documents or take advantage of stix-to-html 
+[customization](https://github.com/STIXProject/stix-to-html#customization)
+can leverage any XSLT 2.0 engine (e.g. [Saxon](http://saxon.sourceforge.net/))
+to do so. Please see the stix-to-html 
+[usage notes](https://github.com/STIXProject/stix-to-html#usage-notes) for
+more information about advanced uses.
+
+
+## Dependencies
+
+The Java stix-to-html application depends on a working, installed JRE 
+(Java Runtime Environment). This application has been developed and tested
+on Java 7.
+
 
 ## Versioning
 
@@ -44,6 +58,8 @@ stix-to-html/
 
 ### Usage
 
+The following commands can be used to run the Java stix-to-html application.
+
 **Windows**
 ```
 > stix-to-html -i INPUT.xml -o OUTPUT.html
@@ -58,6 +74,7 @@ $ ./stix-to-html.sh -i INPUT.xml -o OUTPUT.html
 ```
 $ java -jar stix-to-html.jar -i INPUT.xml -o OUTPUT.html
 ```
+
 
 ## Feedback
 
