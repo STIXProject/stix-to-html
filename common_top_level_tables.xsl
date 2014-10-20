@@ -42,8 +42,8 @@
     <div class="topLevelCategoryTables">
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/(stix:Observables|cybox:Observables)"/>
         <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
@@ -52,8 +52,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Indicators"/>
         <xsl:with-param name="headingLabels" select="('Title', 'Type', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
@@ -62,8 +62,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:TTPs"/>
         <xsl:with-param name="headingLabels" select="('Title', 'Intended Effect', 'ID')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
@@ -72,8 +72,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement"
           select="$normalized/stix:Exploit_Targets"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
@@ -83,8 +83,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Incidents"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'ID')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -93,8 +93,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement"
           select="$normalized/stix:Courses_Of_Action"/>
         <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
@@ -103,9 +103,9 @@
         <xsl:with-param name="categoryIdentifier" select="'coursesOfAction'"/>
       </xsl:call-template>
       
-      <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+      <xsl:call-template name="processTopLevelCategory"> 
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Campaigns"/>
         <xsl:with-param name="headingLabels" select="('Title/Name', 'Intended Effect', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'intendedEffectColumn', 'idColumn')"/>
@@ -114,8 +114,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Threat_Actors"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -123,9 +123,9 @@
         <xsl:with-param name="categoryIdentifier" select="'threatActors'"/>
       </xsl:call-template>
       
-      <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+      <xsl:call-template name="processTopLevelCategory" >
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Malware_Instance_Object_Attributes"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -133,8 +133,8 @@
         <xsl:with-param name="categoryIdentifier" select="'instanceObjectAttributes'"/>
       </xsl:call-template>
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:MAEC_Bundle"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -143,8 +143,8 @@
       </xsl:call-template>
 
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecPackage:Malware_Subjects"/>
         <xsl:with-param name="headingLabels" select="('Label', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -153,8 +153,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Actions"/>
         <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -163,8 +163,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Objects"/>
         <xsl:with-param name="headingLabels" select="('Type', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -173,8 +173,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Behaviors"/>
         <xsl:with-param name="headingLabels" select="('Description', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -183,8 +183,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:Capabilities"/>
         <xsl:with-param name="headingLabels" select="('Name', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -193,8 +193,8 @@
       </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
-        <xsl:with-param name="reference" select="$reference"/>
-        <xsl:with-param name="normalized" select="$normalized"/>
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
         <xsl:with-param name="categoryGroupingElement" select="$normalized/maecBundle:AV_Classifications"/>
         <xsl:with-param name="headingLabels" select="('Title', '', 'Id')"/>
         <xsl:with-param name="headingColumnStyles" select="('titleColumn', '', 'idColumn')"/>
@@ -218,8 +218,8 @@
       (observables, indicators, TTPs, etc).
     -->
   <xsl:template name="processTopLevelCategory">
-    <xsl:param name="reference" select="()" tunnel="no" />
-    <xsl:param name="normalized" select="()" tunnel="no" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="categoryGroupingElement" select="()"/>
     <xsl:param name="headingLabels" select="('Type', 'ID')"/>
     <xsl:param name="headingColumnStyles" select="('typeColumn', 'idColumn')"/>
@@ -255,8 +255,8 @@
             <!-- <xsl:sort select="cybox:Observable_Composition" order="descending"/> -->
             <xsl:variable name="evenOrOdd" select="if(position() mod 2 = 0) then 'even' else 'odd'"/>
             <xsl:call-template name="printGenericItemForTopLevelCategoryTable">
-              <xsl:with-param name="reference" select="$reference"/>
-              <xsl:with-param name="normalized" select="$normalized"/>
+              <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+              <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
               <xsl:with-param name="colCount" select="count($headingLabels)"/>
             </xsl:call-template>
           </xsl:for-each>
@@ -271,8 +271,8 @@
               <!-- <tr><td colspan="2">kill chain <xsl:value-of select="fn:data(./@idref)"/></td></tr> -->
               
               <xsl:call-template name="printGenericItemForTopLevelCategoryTable">
-                <xsl:with-param name="reference" select="$reference"/>
-                <xsl:with-param name="normalized" select="$normalized"/>
+                <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+                <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
                 <xsl:with-param name="colCount" select="count($headingLabels)"/>
               </xsl:call-template>
               
@@ -294,8 +294,8 @@
       level category tables.
     -->
   <xsl:template name="printGenericItemForTopLevelCategoryTable">
-    <xsl:param name="reference" select="()" tunnel="no" />
-    <xsl:param name="normalized" select="()" tunnel="no" />
+    <xsl:param name="reference" select="()" tunnel="yes" />
+    <xsl:param name="normalized" select="()" tunnel="yes" />
     <xsl:param name="colCount" select="2" />
     
     <xsl:variable name="originalItem" select="." />
