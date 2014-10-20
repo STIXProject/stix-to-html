@@ -35,7 +35,7 @@
     <build>
         <resources>
             <resource>
-                <directory>../../</directory>
+                <directory>../</directory>
                 <includes>
                     <include>*.xsl</include>
                     <include>*.js</include>
