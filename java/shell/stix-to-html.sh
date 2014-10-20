@@ -1,6 +1,8 @@
 #!/bin/sh
+# Copyright (c) 2014, The MITRE Corporation. All rights reserved.
+# See LICENSE.txt for complete terms.
 #
-# Bash launcher script.  Shortcut to calling `java -jar stix-to-html.jar -i INPUT.XML -o OUTPUT.HTML`
+# Linux/OSX launcher script.  Shortcut to calling `java -jar stix-to-html.jar -i INPUT.XML -o OUTPUT.HTML`
 #
 # Usage:
 #     stix-to-html.sh -i INPUT.XML -o OUTPUT.HTML

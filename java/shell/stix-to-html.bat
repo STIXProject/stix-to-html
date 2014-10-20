@@ -1,4 +1,7 @@
 @echo off
+rem 
+rem  Copyright (c) 2014, The MITRE Corporation. All rights reserved.
+rem  See LICENSE.txt for complete terms.
 rem
 rem Windows launcher script.  Shortcut to calling `java -jar stix-to-html.jar -i INPUT.XML -o OUTPUT.HTML`
 rem
