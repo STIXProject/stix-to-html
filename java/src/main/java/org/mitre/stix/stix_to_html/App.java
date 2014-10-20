@@ -29,9 +29,10 @@ package org.mitre.stix.stix_to_html;
 import java.lang.Exception;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.apache.commons.cli.*;
 import org.mitre.stix.stix_to_html.XSLProcessor;
 
@@ -71,9 +72,9 @@ public class App {
         XSLProcessor processor = XSLProcessor.Instance();
 
         processor.process(
-            new FileReader(new File(in)), 
+            new InputStreamReader(new FileInputStream(new File(in)), "UTF-8"), 
             new InputStreamReader(xsl), 
-            new FileWriter(new File(out))
+            new OutputStreamWriter(new FileOutputStream(new File(out)), "UTF-8")
         );
     }
 
