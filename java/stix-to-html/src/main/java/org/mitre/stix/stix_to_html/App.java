@@ -95,7 +95,7 @@ public class App {
         boolean hasInput = line.hasOption('i') || line.hasOption("input");
         boolean hasOutput = line.hasOption('o') || line.hasOption("output");
 
-        if(false == (hasInput || hasOutput)){
+        if(false == (hasInput && hasOutput)){
             throw new InvalidArgumentException("Must supply both an input and output filename");
         }
 
