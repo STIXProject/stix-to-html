@@ -568,7 +568,7 @@ mdunn@mitre.org
               <!-- REFERENCE: HELP_UPDATE_STEP_1C -->
               <xsl:call-template name="printReference">
                 <xsl:with-param name="reference" select="$reference" tunnel="yes" />
-                <xsl:with-param name="normalized" select="$normalized" />
+                <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
               </xsl:call-template>
               
               <xsl:call-template name="processAllTopLevelTables">
