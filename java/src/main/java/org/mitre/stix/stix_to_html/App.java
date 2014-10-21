@@ -73,7 +73,7 @@ public class App {
      * @param out Output HTML filename
      * @throws Exception
      */
-    private static void _transform(String in, String out, boolean printDebug) throws Exception {
+    private static void _transformFile(String in, String out, boolean printDebug) throws Exception {
         InputStreamReader xsl = new InputStreamReader(
             App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl")
         );
@@ -278,7 +278,7 @@ public class App {
         if(_isProcessFile(line)){
             String inFile = _getInputFilename(line);
             String outFile = _getOutputFilename(line);
-            _transform(inFile, outFile, isDebug);
+            _transformFile(inFile, outFile, isDebug);
         }
         
         if(_isProcessDir(line)){
