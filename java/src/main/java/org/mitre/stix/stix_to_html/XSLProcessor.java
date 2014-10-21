@@ -58,7 +58,7 @@ import net.sf.saxon.jaxp.TransformerImpl;
  * Resolves URIs from XSL import directives.
  *
  */
-class ClasspathResourceURIResolver implements URIResolver {
+class ResourceURIResolver implements URIResolver {
     public Source resolve(String href, String base) throws TransformerException {
         return new StreamSource(getClass().getClassLoader().getResourceAsStream(href));
     }
@@ -69,10 +69,10 @@ class ClasspathResourceURIResolver implements URIResolver {
  * Resolves URIs found in unparsed-text() methods. This is a bit of a hack.
  *
  */
-class ClasspathResourceUnparsedTextURIResolver implements UnparsedTextURIResolver {
+class ResourceUnparsedTextURIResolver implements UnparsedTextURIResolver {
     public Reader resolve(URI absoluteURI, String encoding, Configuration config) throws XPathException {
         String strURI = absoluteURI.toString();
-        String filename = strURI.substring(strURI.lastIndexOf('/')+1, strURI.length());
+        String filename = strURI.substring((strURI.lastIndexOf('/') + 1), strURI.length());
         return new InputStreamReader(getClass().getClassLoader().getResourceAsStream(filename.toString()));
     }
 }
@@ -80,171 +80,123 @@ class ClasspathResourceUnparsedTextURIResolver implements UnparsedTextURIResolve
 
 /**
  *
- * @author BAKERJ
+ * @author BAKERJ & bworrell
  */
 public class XSLProcessor {
-
-    /** The singleton instance variable. */
-    private static XSLProcessor instance = null;
-
+    private Transformer _transformer;
+    
     /**
-     * This class is a singelton. 
-     * 
-     * @return the singleton instance.
+     * Constructor for XSLProcessor. Performs XSL transforms against XML documents.
+     * @param xsl The XSL file to use when processing XML documents.
+     * @throws IOException
+     * @throws TransformerConfigurationException
      */
-    public static XSLProcessor Instance() {
-
-        if (XSLProcessor.instance == null) {
-            XSLProcessor.instance = new XSLProcessor();
-        }
-
-        return XSLProcessor.instance;
+    public XSLProcessor(Reader xsl) throws IOException, TransformerConfigurationException {
+        this(xsl, new HashMap<String, Object>());
     }
-    /** 
-     * A map of cached stylesheets 
-     * key is xsl file name
-     * value is the complied template
+    
+    
+    /**
+     * Constructor for XSLProcessor. Performs XSL transforms against XML documents.
+     * @param xsl The XSL file to use when processing XML documents
+     * @param parameters XSL parameter map
+     * @throws IOException
+     * @throws TransformerConfigurationException
      */
-    private HashMap<String, Templates> templateCache = null;
-
-    /** Creates a new instance of ProcessXML */
-    private TransformerFactory factory;
-
-    /** Creates a new instance of XSLProcessor */
-    private XSLProcessor() {
+    public XSLProcessor(Reader xsl, Map<String, Object> parameters) 
+        throws IOException, TransformerConfigurationException {
+        
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-        factory = TransformerFactory.newInstance();
-        factory.setURIResolver(new ClasspathResourceURIResolver());
-        templateCache = new HashMap<String, Templates>();
+        _initTransformer(xsl, parameters);
+       
     }
 
-    /** Transform an XML and XSL document as <code>Reader</code>s,
-     *  placing the resulting transformed document in a 
-     *  <code>Writer</code>. Convenient for handling an XML 
-     *  document as a String (<code>StringReader</code>) residing
-     * in memory, not on disk. The output document could easily be
-     *  handled as a String (<code>StringWriter</code>) or as a
-     *  <code>JSPWriter</code> in a JavaServer page.
+
+    /**
+     * Initializes the private instance <code>_transfomer</code> attribute.
+     * @param xsl
+     * @param parameters
+     * @throws IOException
+     * @throws TransformerConfigurationException
      */
-    public void process(Reader xmlFile, Reader xslFile, Writer output) throws TransformerException {
-        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output), new HashMap<String, Object>());
+    private void _initTransformer(Reader xsl, Map<String, Object> parameters)
+        throws IOException, TransformerConfigurationException {
+        
+        Templates template = _getNewTemplates(xsl);
+        _transformer = template.newTransformer();
+        _setUnparsedTextResolver(_transformer);
+        _setParameters(_transformer, parameters);
     }
-
     
-    public void process(Reader xmlFile, Reader xslFile, Writer output, Map<String, Object> parameters) throws TransformerException {
-        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output), parameters);
-    }
-    
-    
-    /** Transform an XML and XSL document as <code>File</code>s,
-     *  placing the resulting transformed document in a 
-     *  <code>Writer</code>. The output document could easily 
-     *  be handled as a String (<code>StringWriter</code)> or as 
-     *  a <code>JSPWriter</code> in a JavaServer page.
-     */
-    public void processWithCache(Reader xmlFile, File xslFile, Writer output, Map<String, Object> parameters) throws TransformerException, IOException {
-
-        process(new StreamSource(xmlFile), this.getTemplatesForXslFile(xslFile), new StreamResult(output), parameters);
-    }
-
-    /** Transform an XML and XSL document as <code>File</code>s,
-     *  placing the resulting transformed document in a 
-     *  <code>Writer</code>. The output document could easily 
-     *  be handled as a String (<code>StringWriter</code)> or as 
-     *  a <code>JSPWriter</code> in a JavaServer page.
-     */
-    public void process(File xmlFile, File xslFile, Writer output) throws TransformerException {
-        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output));
-    }
-
-    /** Transform an XML <code>File</code> based on an XSL 
-     *  <code>File</code>, placing the resulting transformed 
-     *  document in a <code>OutputStream</code>. Convenient for 
-     *  handling the result as a <code>FileOutputStream</code> or 
-     *  <code>ByteArrayOutputStream</code>.
-     */
-    public void process(File xmlFile, File xslFile, OutputStream out) throws TransformerException {
-        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(out));
-    }
-
     
     /**
-     * Attaches a resolver for unparsed-text() URIs to the Transformer instance.
+     * Returns a <code>Tempaltes</code> instance for the <code>xsl</code> stylesheet.
+     * Called by <code>_initTransformer()</code>.
+     * @param xsl
+     * @return
+     * @throws IOException
+     * @throws TransformerConfigurationException
+     */
+    private Templates _getNewTemplates(Reader xsl) 
+        throws IOException, TransformerConfigurationException {
+        
+        TransformerFactory factory = TransformerFactory.newInstance();
+        factory.setURIResolver(new ResourceURIResolver());
+        Templates template = factory.newTemplates(new StreamSource(xsl));
+        
+        return template;
+    }
+    
+
+    /**
+     * Sets the <code>unparsed-text()</code> uri resolver for the <code>transformer</code>.
+     * This is needed when operating from within a jar file.
      * @param transformer
      */
-    private void setUnparsedTextResolver(Transformer transformer){
+    private void _setUnparsedTextResolver(Transformer transformer){
         TransformerImpl impl = (TransformerImpl)transformer;
         Controller controller = impl.getUnderlyingController();
-        controller.setUnparsedTextURIResolver(new ClasspathResourceUnparsedTextURIResolver());
+        controller.setUnparsedTextURIResolver(new ResourceUnparsedTextURIResolver());
     }
     
     
-    public void process(Source xml, Source xsl, Result result) throws TransformerException {
-        process(xml, xsl, result, new HashMap<String, Object>());
-    }
-    
-    
-    private void setParameters(Transformer transformer, Map<String, Object> parameters) {
+    /**
+     * Attaches XSL parameters to the <code>transformer</code>.
+     * @param transformer
+     * @param parameters
+     */
+    private void _setParameters(Transformer transformer, Map<String, Object> parameters) {
         for (String name : parameters.keySet()) {
             transformer.setParameter(name, parameters.get(name));
         }
     }
     
-    /** Transform an XML source using XSLT based on a new template
-     *  for the source XSL document. The resulting transformed 
-     *  document is placed in the passed in <code>Result</code> 
-     *  object.
-     */
-    public void process(Source xml, Source xsl, Result result, Map<String, Object> parameters) throws TransformerException {
-        try {
-            Templates template = factory.newTemplates(xsl);
-            Transformer transformer = template.newTransformer();
-            setUnparsedTextResolver(transformer);
-            setParameters(transformer, parameters); 
-            transformer.transform(xml, result);
-        } catch (TransformerConfigurationException tce) {
-            throw new TransformerException(tce.getMessageAndLocation());
-        } catch (TransformerException te) {
-            throw new TransformerException(te.getMessageAndLocation());
-        }
-    }
-
-    /** Transform an XML source using XSLT based on a new template
-     *  for the source XSL document. The resulting transformed 
-     *  document is placed in the passed in <code>Result</code> 
-     *  object.
-     */
-    private void process(Source xml, Templates template, Result result, Map<String, Object> parameters) throws TransformerException {
-        try {
-            Transformer transformer = template.newTransformer();
-            setUnparsedTextResolver(transformer);
-            setParameters(transformer, parameters);
-            transformer.transform(xml, result);
-        } catch (TransformerConfigurationException tce) {
-            throw new TransformerException(tce.getMessageAndLocation());
-        } catch (TransformerException te) {
-            throw new TransformerException(te.getMessageAndLocation());
-        }
-    }
-
+    
     /**
-     * Check the cache for templates for the input file. if not found create 
-     * and cache new templates.
-     * 
-     * @param xslFile
-     * @return
+     * Runs the XSL transform against the <code>xmlFile</code>. Results are written to 
+     * <code>output</code>.
+     * @param xmlFile
+     * @param output
+     * @throws TransformerException
      */
-    private Templates getTemplatesForXslFile(File xslFile) throws IOException, TransformerConfigurationException {
+    public void process(Reader xmlFile, Writer output) throws TransformerException {
+        process(new StreamSource(xmlFile), new StreamResult(output));
+    }
 
-        Templates templates = null;
-
-        if (templateCache.containsKey(xslFile.getCanonicalPath())) {
-            templates = templateCache.get(xslFile.getCanonicalPath());
-        } else {
-            TransformerFactory tfactory = TransformerFactory.newInstance();
-            templates = tfactory.newTemplates(new StreamSource(xslFile));
-            templateCache.put(xslFile.getCanonicalPath(), templates);
+    
+    /**
+     * Runs the XSL transform against <code>xml</code>. Results are written to <code>result</code>.
+     * @param xml
+     * @param result
+     * @throws TransformerException
+     */
+    public void process(Source xml, Result result) throws TransformerException {
+        try {
+            _transformer.transform(xml, result);
+        } catch (TransformerConfigurationException tce) {
+            throw new TransformerException(tce.getMessageAndLocation());
+        } catch (TransformerException te) {
+            throw new TransformerException(te.getMessageAndLocation());
         }
-        return templates;
     }
 }

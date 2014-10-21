@@ -40,7 +40,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import org.apache.commons.cli.*;
-import org.mitre.stix.stix_to_html.XSLProcessor;
+import org.mitre.stix.stix_to_html.Transformer;
 
 
 /**
@@ -73,21 +73,33 @@ public class App {
      * @param out Output HTML filename
      * @throws Exception
      */
-    private static void transform(String in, String out, boolean printDebug) throws Exception {
-        InputStream xsl = App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl");
+    private static void _transform(String in, String out, boolean printDebug) throws Exception {
+        InputStreamReader xsl = new InputStreamReader(
+            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl")
+        );
         
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("debug", printDebug);
         
-        XSLProcessor processor = XSLProcessor.Instance();
-        processor.process(
-            new InputStreamReader(new FileInputStream(new File(in)), "UTF-8"), 
-            new InputStreamReader(xsl), 
-            new OutputStreamWriter(new FileOutputStream(new File(out)), "UTF-8"),
-            parameters
-        );
+        Transformer transformer = new Transformer(xsl, parameters);
+        transformer.transformFile(in, out);
     }
 
+    
+    
+    private static void _transformDirectory(String inDir, String outDir, boolean printDebug)
+        throws Exception {
+        
+        InputStreamReader xsl = new InputStreamReader(
+            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl")
+        );
+        
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("debug", printDebug);
+        
+        Transformer transformer = new Transformer(xsl, parameters);
+        transformer.transformDirectory(inDir, outDir);
+    }
 
     /**
      * Builds command line options.
@@ -103,12 +115,24 @@ public class App {
                                      .withDescription("input xml filename")
                                      .hasArg()
                                      .create("i");
+        
+        Option inDir = OptionBuilder.withLongOpt("indir")
+                                    .withArgName("DIR")
+                                    .withDescription("input directory (must be used with --outdir)")
+                                    .hasArg()
+                                    .create();
 
         Option outFile =  OptionBuilder.withLongOpt("outfile")
                                        .withArgName("FILE")
                                        .withDescription("output html filename")
                                        .hasArg()
                                        .create("o");
+        
+        Option outDir = OptionBuilder.withLongOpt("outdir")
+                                     .withArgName("DIR")
+                                     .withDescription("output directory (must be used with --indir)")
+                                     .hasArg()
+                                     .create();
         
         Option debug = OptionBuilder.withLongOpt("debug")
                                     .withDescription("print debug transform information")
@@ -119,12 +143,27 @@ public class App {
         options.addOption(help);
         options.addOption(inFile);
         options.addOption(outFile);
+        options.addOption(inDir);
+        options.addOption(outDir);
         options.addOption(debug);
 
         return options;
     }
 
 
+    private static boolean _isProcessFile(CommandLine line) {
+        boolean hasInputFile = line.hasOption('i') || line.hasOption("input");
+        boolean hasOutputFile = line.hasOption('o') || line.hasOption("output");
+        return (hasInputFile && hasOutputFile);
+    }
+    
+    private static boolean _isProcessDir(CommandLine line) {
+        boolean hasInputDir = line.hasOption("indir");
+        boolean hasOutputDir = line.hasOption("outdir");
+        return (hasInputDir && hasOutputDir);
+    }
+    
+   
     /**
      * Validates the arguments passed in via the command line.
      * <p>
@@ -135,17 +174,16 @@ public class App {
      * @param line The command line arguments.
      * @throws InvalidArgumentException
      */
-    private static void validateArgs(CommandLine line) throws InvalidArgumentException {
-        boolean hasInput = line.hasOption('i') || line.hasOption("input");
-        boolean hasOutput = line.hasOption('o') || line.hasOption("output");
-
-        if(false == (hasInput && hasOutput)){
-            throw new InvalidArgumentException("Must supply both an input and output filename");
+    private static void _validateArgs(CommandLine line) throws InvalidArgumentException {
+        boolean processFile = _isProcessFile(line);
+        boolean processDir = _isProcessDir(line);
+        
+        if(false == (processFile || processDir)){
+            throw new InvalidArgumentException("Must provide input and output options");  
         }
-
-        String inFile = getInputFilename(line);
-        if(false == inFile.toLowerCase().endsWith(".xml")) {
-            throw new InvalidArgumentException("Input must end with '.xml'");
+        
+        if(processFile && processDir){
+            throw new InvalidArgumentException("Cannot process both --infile and --indir");
         }
     }
 
@@ -155,7 +193,7 @@ public class App {
      * @param line The command line arguments
      * @return The input filename value
      */
-    private static String getInputFilename(CommandLine line) {
+    private static String _getInputFilename(CommandLine line) {
         String path =  line.hasOption('i') ? line.getOptionValue('i') : line.getOptionValue("input");
         path = path.replace("~", System.getProperty("user.home"));
         return path;
@@ -167,18 +205,33 @@ public class App {
      * @param line The command line arguments
      * @return The output filename.
      */
-    private static String getOutputFilename(CommandLine line) {
+    private static String _getOutputFilename(CommandLine line) {
         String path = line.hasOption('o') ? line.getOptionValue('o') : line.getOptionValue("output");
         path = path.replace("~", System.getProperty("user.home"));
         return path;
     }
 
+    
+    private static String _getOutputDirectory(CommandLine line) {
+        String path = line.getOptionValue("outdir");
+        path = path.replace("~", System.getProperty("user.home"));
+        return path;
+    }
+    
+    
+    private static String _getInputDirectory(CommandLine line) {
+        String path = line.getOptionValue("indir");
+        path = path.replace("~", System.getProperty("user.home"));
+        return path;
+    }
+    
+    
     /**
      * Returns true if the user passed in a -d or --debug flag.
      * @param line The command line arguments
      * @return True if the user passed in -d or --debug flag.
      */
-    private static boolean getDebug(CommandLine line) {
+    private static boolean _isDebug(CommandLine line) {
         return (line.hasOption('d') || line.hasOption("debug"));
     }
 
@@ -188,8 +241,8 @@ public class App {
      * @param options Command line options (used to print help message).
      * @param status The exit status.
      */
-    private static void showHelpAndExit(Options options, int status) {
-        String version = getVersion();
+    private static void _showHelpAndExit(Options options, int status) {
+        String version = _getVersion();
         String appName = APPNAME + " v" + version;
         HelpFormatter formatter = new HelpFormatter();
         
@@ -203,7 +256,7 @@ public class App {
      * Maven. Returns the value of the 'version' key.
      * @return The version of this application.
      */
-    private static String getVersion(){
+    private static String _getVersion(){
         String version = null;
         InputStream versionInfo = App.class.getClassLoader().getResourceAsStream("version.info.props");
         Properties props = new Properties();
@@ -219,6 +272,22 @@ public class App {
     }
     
 
+    private static void _doTransform(CommandLine line) throws Exception {
+        boolean isDebug = _isDebug(line);
+        
+        if(_isProcessFile(line)){
+            String inFile = _getInputFilename(line);
+            String outFile = _getOutputFilename(line);
+            _transform(inFile, outFile, isDebug);
+        }
+        
+        if(_isProcessDir(line)){
+            String inDir = _getInputDirectory(line);
+            String outDir = _getOutputDirectory(line);
+            _transformDirectory(inDir, outDir, isDebug);
+        }
+    }
+    
     /**
      * Entry point for application.
      * @param args
@@ -231,22 +300,18 @@ public class App {
             CommandLine line = parser.parse(options, args);
 
             if(line.hasOption('h') || line.hasOption("help")){
-                showHelpAndExit(options, EXIT_SUCCESS);
+                _showHelpAndExit(options, EXIT_SUCCESS);
             }
 
-            validateArgs(line);
-
-            String inFile = getInputFilename(line);
-            String outFile = getOutputFilename(line);
-            boolean printDebug = getDebug(line);
-            transform(inFile, outFile, printDebug);
+            _validateArgs(line);
+            _doTransform(line);
             
         } catch(ParseException ex) {
             System.err.println("[!] Invalid arguments: " + ex.getMessage() + "\n");
-            showHelpAndExit(options, EXIT_FAILURE);
+            _showHelpAndExit(options, EXIT_FAILURE);
         } catch(InvalidArgumentException ex) {
             System.err.println("[!] Invalid arguments: " + ex.getMessage() + "\n");
-            showHelpAndExit(options, EXIT_FAILURE);
+            _showHelpAndExit(options, EXIT_FAILURE);
         } catch (Exception ex ){
             System.err.println("[!] Fatal error: " + ex.getMessage());
         }
