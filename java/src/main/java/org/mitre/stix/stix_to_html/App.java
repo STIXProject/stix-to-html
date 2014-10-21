@@ -75,7 +75,7 @@ public class App {
      */
     private static void _transformFile(String in, String out, boolean printDebug) throws Exception {
         InputStreamReader xsl = new InputStreamReader(
-            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl")
+            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl"), "UTF-8"
         );
         
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -91,7 +91,7 @@ public class App {
         throws Exception {
         
         InputStreamReader xsl = new InputStreamReader(
-            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl")
+            App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl"), "UTF-8"
         );
         
         Map<String, Object> parameters = new HashMap<String, Object>();
