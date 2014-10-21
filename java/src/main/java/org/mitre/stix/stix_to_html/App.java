@@ -27,6 +27,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.mitre.stix.stix_to_html;
 
 import java.lang.Exception;
+import java.util.Map;
+import java.util.HashMap;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -71,14 +73,18 @@ public class App {
      * @param out Output HTML filename
      * @throws Exception
      */
-    private static void transform(String in, String out) throws Exception {
+    private static void transform(String in, String out, boolean printDebug) throws Exception {
         InputStream xsl = App.class.getClassLoader().getResourceAsStream("stix_to_html.xsl");
+        
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("debug", printDebug);
+        
         XSLProcessor processor = XSLProcessor.Instance();
-
         processor.process(
             new InputStreamReader(new FileInputStream(new File(in)), "UTF-8"), 
             new InputStreamReader(xsl), 
-            new OutputStreamWriter(new FileOutputStream(new File(out)), "UTF-8")
+            new OutputStreamWriter(new FileOutputStream(new File(out)), "UTF-8"),
+            parameters
         );
     }
 
@@ -103,11 +109,17 @@ public class App {
                                        .withDescription("output html filename")
                                        .hasArg()
                                        .create("o");
-
+        
+        Option debug = OptionBuilder.withLongOpt("debug")
+                                    .withDescription("print debug transform information")
+                                    .hasArg(false)
+                                    .create("d");
+        
         Options options = new Options();
         options.addOption(help);
         options.addOption(inFile);
         options.addOption(outFile);
+        options.addOption(debug);
 
         return options;
     }
@@ -161,7 +173,16 @@ public class App {
         return path;
     }
 
+    /**
+     * Returns true if the user passed in a -d or --debug flag.
+     * @param line The command line arguments
+     * @return True if the user passed in -d or --debug flag.
+     */
+    private static boolean getDebug(CommandLine line) {
+        return (line.hasOption('d') || line.hasOption("debug"));
+    }
 
+    
     /**
      * Displays command line help and exits with the provided exit status.
      * @param options Command line options (used to print help message).
@@ -217,7 +238,9 @@ public class App {
 
             String inFile = getInputFilename(line);
             String outFile = getOutputFilename(line);
-            transform(inFile, outFile);
+            boolean printDebug = getDebug(line);
+            transform(inFile, outFile, printDebug);
+            
         } catch(ParseException ex) {
             System.err.println("[!] Invalid arguments: " + ex.getMessage() + "\n");
             showHelpAndExit(options, EXIT_FAILURE);

@@ -127,10 +127,15 @@ public class XSLProcessor {
      *  <code>JSPWriter</code> in a JavaServer page.
      */
     public void process(Reader xmlFile, Reader xslFile, Writer output) throws TransformerException {
-
-        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output));
+        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output), new HashMap<String, Object>());
     }
 
+    
+    public void process(Reader xmlFile, Reader xslFile, Writer output, Map<String, Object> parameters) throws TransformerException {
+        process(new StreamSource(xmlFile), new StreamSource(xslFile), new StreamResult(output), parameters);
+    }
+    
+    
     /** Transform an XML and XSL document as <code>File</code>s,
      *  placing the resulting transformed document in a 
      *  <code>Writer</code>. The output document could easily 
@@ -173,17 +178,29 @@ public class XSLProcessor {
         controller.setUnparsedTextURIResolver(new ClasspathResourceUnparsedTextURIResolver());
     }
     
+    
+    public void process(Source xml, Source xsl, Result result) throws TransformerException {
+        process(xml, xsl, result, new HashMap<String, Object>());
+    }
+    
+    
+    private void setParameters(Transformer transformer, Map<String, Object> parameters) {
+        for (String name : parameters.keySet()) {
+            transformer.setParameter(name, parameters.get(name));
+        }
+    }
+    
     /** Transform an XML source using XSLT based on a new template
      *  for the source XSL document. The resulting transformed 
      *  document is placed in the passed in <code>Result</code> 
      *  object.
      */
-    public void process(Source xml, Source xsl, Result result) throws TransformerException {
+    public void process(Source xml, Source xsl, Result result, Map<String, Object> parameters) throws TransformerException {
         try {
             Templates template = factory.newTemplates(xsl);
             Transformer transformer = template.newTransformer();
-            this.setUnparsedTextResolver(transformer);
-            
+            setUnparsedTextResolver(transformer);
+            setParameters(transformer, parameters); 
             transformer.transform(xml, result);
         } catch (TransformerConfigurationException tce) {
             throw new TransformerException(tce.getMessageAndLocation());
@@ -200,11 +217,8 @@ public class XSLProcessor {
     private void process(Source xml, Templates template, Result result, Map<String, Object> parameters) throws TransformerException {
         try {
             Transformer transformer = template.newTransformer();
-            this.setUnparsedTextResolver(transformer);
-            
-            for (String name : parameters.keySet()) {
-                transformer.setParameter(name, parameters.get(name));
-            }
+            setUnparsedTextResolver(transformer);
+            setParameters(transformer, parameters);
             transformer.transform(xml, result);
         } catch (TransformerConfigurationException tce) {
             throw new TransformerException(tce.getMessageAndLocation());
