@@ -63,16 +63,19 @@ The following commands can be used to run the Java stix-to-html application.
 **Windows**
 ```
 > stix-to-html -i INPUT.xml -o OUTPUT.html
+> stix-to-html --indir C:\path\to\stix\files\ --outdir C:\path\to\output\
 ```
 
 **Linux/OSX**
 ```
 $ ./stix-to-html.sh -i INPUT.xml -o OUTPUT.html
+$ ./stix-to-html.sh --indir /path/to/stix/files --outdir /path/to/output/
 ```
 
 **Java**
 ```
 $ java -jar stix-to-html.jar -i INPUT.xml -o OUTPUT.html
+$ java -jar stix-to-html.jar --indir /path/to/stix/files --outdir /path/to/output/
 ```
 
 
