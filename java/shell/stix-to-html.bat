@@ -11,6 +11,7 @@ rem
 rem Arguments: 
 rem     -i, --infile            input STIX xml document filename
 rem     -o, --outfile           output HTML document filename
+rem     -d, --debug             print debug information
 rem
 rem Example:
 rem     stix-to-html -i C:\path\to\stix.xml -o C:\path\to\stix.out.html

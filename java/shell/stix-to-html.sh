@@ -10,6 +10,7 @@
 # Arguments: 
 #     -i, --infile            input STIX xml document filename
 #     -o, --outfile           output HTML document filename
+#     -d, --debug             print debug information
 #
 # Example:
 #     stix-to-html.sh -i C:\path\to\stix.xml -o C:\path\to\stix.out.html
