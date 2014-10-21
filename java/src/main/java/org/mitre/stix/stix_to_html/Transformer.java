@@ -184,9 +184,9 @@ public class Transformer {
         throws Exception {
         
         File outFolder = new File(outDir);
-        _checkIsDir(outFolder);
-        
         List<File> files = _getXmlFiles(inDir);
+        
+        _checkIsDir(outFolder);
         _transformFiles(files, outFolder, suffix);
     }
     
@@ -200,8 +200,8 @@ public class Transformer {
     private List<File> _getXmlFiles(String dir) throws Exception {
         List<File> files = new LinkedList<File>();            
         File folder = new File(dir);
-        _checkIsDir(folder);
         
+        _checkIsDir(folder);
         
         for (File file : folder.listFiles()) {
             if (file.isFile() && file.getName().toLowerCase().endsWith(".xml")) {
