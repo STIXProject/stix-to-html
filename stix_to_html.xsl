@@ -232,23 +232,30 @@ mdunn@mitre.org
 
     <xsl:variable name="root" select="/" />
     
-    <xsl:message>cleaning up input...</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>cleaning up input...</xsl:message>
+    </xsl:if>
     <xsl:variable name="cleanedInput">
       <xsl:apply-templates select="$root" mode="cleanup" />
     </xsl:variable>
-    <xsl:message>DONE cleaning up input.</xsl:message>
     
-    <xsl:message>identifying input...</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>DONE cleaning up input.</xsl:message>
+      <xsl:message>identifying input...</xsl:message>
+    </xsl:if>
     <xsl:variable name="identifiedInput">
       <xsl:apply-templates select="$cleanedInput" mode="identifyAnonymousItems" />
     </xsl:variable>
-    <xsl:message>DONE identifying input.</xsl:message>
-
-    <xsl:message>normalizing input...</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>DONE identifying input.</xsl:message>
+      <xsl:message>normalizing input...</xsl:message>
+    </xsl:if>
     <xsl:variable name="normalized">
       <xsl:apply-templates select="$identifiedInput/(stix:STIX_Package/*|cybox:Observables|maecBundle:MAEC_Bundle/*|maecPackage:MAEC_Package/*)" mode="createNormalized"/>
     </xsl:variable>
-    <xsl:message>DONE normalizing input.</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>DONE normalizing input.</xsl:message>
+    </xsl:if>
     
     <xsl:if test="$debug">
       <xsl:variable name="identifiedChildrenList" select="fn:string-join((for $n in $identifiedInput/* return local-name($n)), '###')" />
@@ -266,7 +273,9 @@ mdunn@mitre.org
       <xsl:message>normalized greatgrandchildren: <xsl:value-of select="$normalizedGreatGrandChildrenList" /></xsl:message>
     </xsl:if>
     
-    <xsl:message>creating reference...</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>creating reference...</xsl:message>
+    </xsl:if>
     <xsl:variable name="reference">
       <xsl:apply-templates
         select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or ./self::cybox:Object or ./self::cybox:Event 
@@ -276,16 +285,17 @@ mdunn@mitre.org
         <xsl:with-param name="isRoot" select="fn:true()"/>
       </xsl:apply-templates>
     </xsl:variable>
-    <xsl:message>DONE creating reference.</xsl:message>
-
+    <xsl:if test="$debug">
+      <xsl:message>DONE creating reference.</xsl:message>
+    </xsl:if>
     <xsl:if test="$debug">
       <xsl:variable name="referenceChildrenList" select="fn:string-join((for $n in $reference/* return local-name($n)), '###')" />
       <xsl:message>reference children: <xsl:value-of select="$referenceChildrenList" /></xsl:message>
     </xsl:if>
     
-    
-    <xsl:message>processing main...</xsl:message>
-    
+    <xsl:if test="$debug">
+      <xsl:message>processing main...</xsl:message>
+    </xsl:if>
     <xsl:variable name="genericTitle" as="xs:string">
       <xsl:choose>
         <xsl:when test="$isRootStix">STIX Report Output</xsl:when>
@@ -594,9 +604,10 @@ mdunn@mitre.org
         </html>
       </xsl:otherwise>
     </xsl:choose>
-    
-    <xsl:message>DONE processing main.</xsl:message>
-    <xsl:message>##########</xsl:message>
+    <xsl:if test="$debug">
+      <xsl:message>DONE processing main.</xsl:message>
+      <xsl:message>##########</xsl:message>
+    </xsl:if>
   </xsl:template>
   
   <!--
