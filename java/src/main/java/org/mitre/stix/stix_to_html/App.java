@@ -86,7 +86,14 @@ public class App {
     }
 
     
-    
+    /**
+     * Applies the stix-to-html XSL to each XML file within the input directory.
+     * Resulting files are written to the output directory.
+     * @param inDir
+     * @param outDir
+     * @param printDebug
+     * @throws Exception
+     */
     private static void _transformDirectory(String inDir, String outDir, boolean printDebug)
         throws Exception {
         
@@ -105,7 +112,7 @@ public class App {
      * Builds command line options.
      * @return Instance of Options containing command-line options.
      */
-    private static Options buildOptions(){
+    private static Options _buildOptions(){
         Option help = OptionBuilder.withLongOpt("help")
                                    .withDescription("print this message")
                                    .create("h");
@@ -150,13 +157,25 @@ public class App {
         return options;
     }
 
-
+    /**
+     * Returns True if the command line arguments specify single-file
+     * processing options.
+     * @param line
+     * @return
+     */
     private static boolean _isProcessFile(CommandLine line) {
         boolean hasInputFile = line.hasOption('i') || line.hasOption("input");
         boolean hasOutputFile = line.hasOption('o') || line.hasOption("output");
         return (hasInputFile && hasOutputFile);
     }
     
+    
+    /**
+     * Returns True if the command line arguments specify directory processing
+     * options.
+     * @param line
+     * @return
+     */
     private static boolean _isProcessDir(CommandLine line) {
         boolean hasInputDir = line.hasOption("indir");
         boolean hasOutputDir = line.hasOption("outdir");
@@ -212,6 +231,11 @@ public class App {
     }
 
     
+    /**
+     * Returns the output directory argument value
+     * @param line
+     * @return
+     */
     private static String _getOutputDirectory(CommandLine line) {
         String path = line.getOptionValue("outdir");
         path = path.replace("~", System.getProperty("user.home"));
@@ -219,6 +243,11 @@ public class App {
     }
     
     
+    /**
+     * Returns the input directory argument value
+     * @param line
+     * @return
+     */
     private static String _getInputDirectory(CommandLine line) {
         String path = line.getOptionValue("indir");
         path = path.replace("~", System.getProperty("user.home"));
@@ -271,7 +300,12 @@ public class App {
         return version;
     }
     
-
+    /**
+     * Calls _transformDirectory() if the command line arguments specify directory
+     * processing or _transformFile() otherwise.
+     * @param line
+     * @throws Exception
+     */
     private static void _doTransform(CommandLine line) throws Exception {
         boolean isDebug = _isDebug(line);
         
@@ -294,7 +328,7 @@ public class App {
      */
     public static void main( String[] args ) {	
         CommandLineParser parser = new GnuParser();
-        Options options = buildOptions();
+        Options options = _buildOptions();
 
         try {            
             CommandLine line = parser.parse(options, args);
