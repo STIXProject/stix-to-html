@@ -51,7 +51,7 @@ mdunn@mitre.org
   xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
-  xmlns:maecInstance="http://stix.mitre.org/extensions/Malware#MAEC4.0-1"
+  xmlns:stix-maec="http://stix.mitre.org/extensions/Malware#MAEC4.1-1"
   
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
@@ -684,7 +684,7 @@ mdunn@mitre.org
   </xsl:template>
 
   <xsl:template
-    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Injected_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|maecInstance:MAEC|maecBundle:AV_Classification"
+    match="maecBundle:Action|maecBundle:Object|maecBundle:Behavior|maecBundle:Capability|maecBundle:Strategic_Objective|maecBundle:Tactical_Objective|maecPackage:Malware_Subject|maecPackage:Malware_Instance_Object_Attributes|maecPackage:Analysis|maecPackage:Tool|maecPackage:Finding_Bundles|maecPackage:Bundle|maecPackage:Action_Equivalence|maecBundle:Root_Process|maecBundle:Spawned_Process|maecBundle:Injected_Process|maecBundle:Action_Collection|maecBundle:Object_Collection|stix-maec:MAEC|maecBundle:AV_Classification"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -842,7 +842,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::maecInstance:MAEC">
+              <xsl:when test="self::stix-maec:MAEC">
                 <div class="containerMaecPackage">
                   <xsl:call-template name="processMaecPackageContents"/>
                 </div>
@@ -932,7 +932,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processMaecProcessContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::maecInstance:MAEC">
+              <xsl:when test="self::stix-maec:MAEC">
                 <div class="containerMaecInstanceInsideStix">
                   <xsl:call-template name="processMaecInstanceInsideStixContents"/>
                 </div>
