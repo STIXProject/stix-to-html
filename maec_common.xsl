@@ -12,7 +12,7 @@
   
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
-  xmlns:maecInstance="http://stix.mitre.org/extensions/Malware#MAEC4.0-1"
+  xmlns:stix-maec="http://stix.mitre.org/extensions/Malware#MAEC4.1-1"
   
 >
   
@@ -103,7 +103,7 @@
     <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
   
-  <xsl:template match="maecInstance:MAEC">
+  <xsl:template match="stix-maec:MAEC">
     <xsl:apply-templates mode="cyboxProperties" />
   </xsl:template>
   
