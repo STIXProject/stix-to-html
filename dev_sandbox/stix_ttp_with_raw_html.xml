@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-  sample of a stix ttp with raw (escaped) html content in a description
--->
+<!--
+  Copyright (c) 2015 – The MITRE Corporation
+  All rights reserved. See LICENSE.txt for complete terms.
 
+  Description:
+  Sample of a stix ttp with raw (escaped) html content in a description
+-->
 <stix:STIX_Package id="mandiant:package-e33ffe07-2f4c-48d8-b0af-ee2619d765cf" version="1.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:example="http://example.com/"

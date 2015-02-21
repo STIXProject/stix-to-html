@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2015 – The MITRE Corporation
+  All rights reserved. See LICENSE.txt for complete terms.
+ -->
 <xsl:stylesheet
   version="2.0"
   xmlns:cybox="http://cybox.mitre.org/cybox-2"

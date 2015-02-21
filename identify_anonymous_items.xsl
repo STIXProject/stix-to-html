@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2015 – The MITRE Corporation
+  All rights reserved. See LICENSE.txt for complete terms.
+ -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:incident="http://stix.mitre.org/Incident-1"
