@@ -18,7 +18,7 @@ The XSLT stylesheets in **STIX to HTML** use functions defined by the XSLT 2.0 a
 
 The following commands demonstrate the use of **STIX to HTML**.
 
-**A Single STIX XML File:**  
+**A Single STIX XML File (Saxon):**  
 ```
 java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:output.html
 ```
