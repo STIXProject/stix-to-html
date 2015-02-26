@@ -58,11 +58,20 @@ function embedCompositions() {
     return false;
 }
 
+
+function escapeQuerySelector(id){
+    // escapes colons and periods in IDs to enable use in querySelector()
+    new_id = id.split(":").join("\\:");
+    new_id = new_id.split(".").join("\\.");
+    return new_id;
+}
+
 <!-- copy object from clean src copy to dst destination and then toggle visibility -->
 function embedObject(container, targetId, expandedContentContainerId) {
 
     //var copy = pristineCopies[targetId].cloneNode(true);
-    var template = document.querySelector(".reference #" + targetId.replace(":", "\\:"));
+    var escaped_tid = escapeQuerySelector(targetId);
+    var template = document.querySelector(".reference #" + escaped_tid);
     
     if (template == null)
     {
@@ -70,8 +79,9 @@ function embedObject(container, targetId, expandedContentContainerId) {
       return;
     }
     //var copy = template.cloneNode(true);
-    
-    var target = container.querySelector("#" + expandedContentContainerId.replace(":", "\\:"));
+   
+    var escaped_cid = escapeQuerySelector(expandedContentContainerId);
+    var target = container.querySelector("#" + escaped_cid);
     
     while(target.lastChild)
     {
