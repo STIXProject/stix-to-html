@@ -1,8 +1,6 @@
 # STIX to HTML
 
-A package of XSLTs, CSS, and JavaScript which enables the rendering of a STIX XML document into a human-readable HTML form. 
-In addition to [STIX](http://stix.mitre.org) documents, [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) 
-documents are also supported.
+A collection of XSLTs, CSS, and JavaScript which enables the rendering of a STIX XML document into a human-readable HTML form. In addition to [STIX](http://stix.mitre.org) documents, [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) documents are also supported.
 
 This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
 
@@ -27,7 +25,7 @@ java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
 ```
 
 **STIX to HTML Java Binary:**  
-**STIX to HTML** releases are bundled with a self-contained Java binary. For information about how to use the Java binary, 
+Releases are bundled with a self-contained Java binary which enables simple transformations of STIX XML content. For information about how to use the Java binary, 
 see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
 # Rendering: Supported Components
@@ -269,13 +267,13 @@ such information what type of matching is performed (equals or string match).
 
 ### List of Objects With Object-specific Templates
 
- * cybox
+ * CybOX
    * EmailMessageObjectType (commented-out example in cybox_objects.xsl)
    * Hash (cybox_objects.xsl)
    * HTTP_Request_Response (cybox_objects.xsl)
    * [not really object-specific] any cybox:Properties text node with ##comma## delimited range or list (cybox_objects.xsl)
- * indicator
-   * sighting (stix_objects.xsl)
+ * Indicator
+   * Sighting (stix_objects.xsl)
    * any description element in any namespace (stix_objects.xsl)
 
 
