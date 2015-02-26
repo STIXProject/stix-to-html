@@ -1,36 +1,42 @@
-# STIX XML -> HTML Transform v1.0
+# STIX to HTML
+
+A package of XSLTs, CSS, and JavaScript which enables the rendering of a STIX XML document into a human-readable HTML form. 
+In addition to [STIX](http://stix.mitre.org) documents, [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) 
+documents are also supported.
+
+This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
+
+# Requirements
+
+* XSLT 2.0 engine
+  * STIX to HTML has been tested with [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
+* A STIX 1.0/1.0.1/1.1/1.1.1 XML document.
+
+# Usage
+
+The following commands demonstrate the use of **STIX to HTML**.
+
+## Single STIX Document (Saxon)
 
 ~~~
-Copyright (c) 2015 - The MITRE Corporation
-All rights reserved. See LICENSE.txt for complete terms.
+  java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:output.html
 ~~~
 
-~~~
-BY USING THE STIX XML to HTML TRANSFORM, YOU SIGNIFY YOUR ACCEPTANCE OF THE 
-TERMS AND CONDITIONS OF USE.  IF YOU DO NOT AGREE TO THESE TERMS, DO NOT USE 
-THE STIX XML to HTML TRANSFORM.
+## Directory of STIX Documents (Saxon)
 
-For more information, please refer to the terms.txt file.
+~~~
+  java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
 ~~~
 
-## STIX XML to HTML transform v1.0
-Compatible with STIX v1.1
+## STIX to HTML Java Binary
 
-This is an xslt to transform a stix 1.0/1.0.1/1.1 document containing metadata and
-different categories of top level items into html for easy viewing.
+**STIX to HTML** releases are bundled with a self-contained Java binary. For information about how to use the Java binary, 
+see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
-In addition to stix documents, cybox and maec documents are also supported.
+# Rendering: Supported Components
 
-The first two tables on the output html page are 1) a metadata table
-showing information about the input document and when the content was
-converted, and 2) information obtained from the stix header element.
+The following entities are rendered by **STIX to HTML**:
 
-Regarding the stix header, we only include very simple support for
-the handling instructions for this release.  It will include the text contents
-of the simpleMarking:Statement.  The marking:Controlled_Structure with its
-xpath is not used yet. 
-
-Currently we support the following top level entities and sub-entities:
 - **Observables**
   - All (except no support for MAEC objects yet)
 - **Indicators**
@@ -149,6 +155,8 @@ Currently we support the following top level entities and sub-entities:
 - **MAEC General Support**
   - Process Tree
 
+## Entity Rendering
+
 Each category of top level "items" is turned into a main table on the page.
 The item itself is expandable and other nested content pointing to other
 "items" and objects are also expandable.
@@ -158,43 +166,24 @@ id attribute or when it references content in another part of the document with
 an idref attribute.  (Content "item" without an id or idref is displayed
 inline.)
 
-Indicator and observable composition is supported.
+Indicator and Observable compositions are supported.
 
-The contents of description elements are treated as text.  This release does
-not handle embedded html documents; they will be displayed as escaped text.
+**NOTE:** HTML that is embedded in `StructuredTextType` fields (such as `Description`) will be rendered as **text** and not rendered as HTML.
 
-This is a work in progress.  Feedback is most welcome!
+## Data Marking Support
 
-requirements:
- - XSLT 2.0 engine (this has been tested with Saxon 9.5)
- - a STIX 1.0/1.0.1/1.1 input xml document
+In STIX, [data markings](http://stixproject.github.io/documentation/concepts/data-markings/) are used to mark specific pieces of the STIX 
+document with some sort of information. The scope of these markings is determined by a `Controlled_Structure` field, typically found in 
+the `Handling` section of a `STIX_Header` or core STIX component (e.g., `Indicator`, `Incident`, etc.).
 
-## Releases
-### current release
- * v1.0
-   2014-09-30  
-   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=4&page=1&sort=updated&state=closed
+The **STIX to HTML** transform suite currently supports the rendering of marking information in a limited capacity:  
 
-### previous releases
- * v1.0b5 alpha
-   2014-08-11  
-   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=3&page=1&sort=updated&state=closed
- * v1.0beta4
-   2014-05-15  
-   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=2&page=1&sort=updated&state=closed
- * v1.0beta3
-   2014-01-15  
-   https://github.com/STIXProject/stix-to-html/issues?direction=desc&milestone=1&page=1&sort=updated&state=closed
- * v1.0beta2  
-   2013-10-24  
-   https://github.com/STIXProject/Tools/issues?milestone=1&state=open
- * v1.0beta1  
-   2013-08-28
+* The `Controlled_Structure` XPath is not evaluated.
+* Only instances of the [Simple Marking](http://stixproject.github.io/documentation/concepts/data-markings/#simple-marking) extension are
+currently rendered.
+* Entities marked  using the [Simple Marking](http://stixproject.github.io/documentation/concepts/data-markings/#simple-marking) extension 
+will display the `Statement` text of the marking structure.
 
-
-## More information on STIX
-
-STIX - http://stix.mitre.org
 
 ## Included Files
 
@@ -218,24 +207,6 @@ STIX - http://stix.mitre.org
  - **theme_default.css**: css styles used for main item type background colors (observables, ttps, indicators, etc)
  - **wgxpath.install.js**: xpath support in javascript for browsers that don't support it (IE)  [source: http://code.google.com/p/wicked-good-xpath/]
 
-## Usage Notes
-
-Use with your favorite XML Editor or XSLT 2.0 interpreter (e.g. Saxon).
-
-Here are commands to run a single document or multiple documents through the
-stylesheet with Saxon. 
-
-Single file:
-
-~~~
-  java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:output.html
-~~~
-
-Directory of files ("inputdir" and "outputdir" are directories):
-
-~~~
-  java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
-~~~
 
 
 ## Customization
@@ -309,3 +280,18 @@ such information what type of matching is performed (equals or string match).
  * indicator
    * sighting (stix_objects.xsl)
    * any description element in any namespace (stix_objects.xsl)
+
+
+# Further Reading
+
+* STIX: http://stix.mitre.org
+* CybOX: http://cybox.mitre.org
+* MAEC: http://maec.mitre.org
+
+## Terms
+
+BY USING THE STIX XML to HTML TRANSFORM, YOU SIGNIFY YOUR ACCEPTANCE OF THE 
+TERMS AND CONDITIONS OF USE.  IF YOU DO NOT AGREE TO THESE TERMS, DO NOT USE 
+THE STIX XML to HTML TRANSFORM.
+
+For more information, please refer to the LICENSE.txt file.
