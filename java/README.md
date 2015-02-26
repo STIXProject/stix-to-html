@@ -1,4 +1,4 @@
-# STIX-to-HTML + Java
+# STIX to HTML + Java
 
 A Java application for running stix-to-html transformations against
 STIX input documents. More information about STIX can be found at
