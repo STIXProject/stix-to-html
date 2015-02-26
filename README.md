@@ -8,7 +8,7 @@ This is a work in progress, so please feel free to provide feedback or let us kn
 
 # Requirements
 
-* XSLT 2.0 engine
+* An XSLT 2.0 processor.
   * STIX to HTML has been tested with [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
 * A STIX 1.0/1.0.1/1.1/1.1.1 XML document.
 
@@ -16,20 +16,17 @@ This is a work in progress, so please feel free to provide feedback or let us kn
 
 The following commands demonstrate the use of **STIX to HTML**.
 
-## Single STIX Document (Saxon)
+**A Single STIX XML File:**  
+```
+java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:output.html
+```
 
-~~~
-  java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:output.html
-~~~
+**A Directory of STIX Documents (Saxon):**  
+```
+java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
+```
 
-## Directory of STIX Documents (Saxon)
-
-~~~
-  java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
-~~~
-
-## STIX to HTML Java Binary
-
+**STIX to HTML Java Binary:**  
 **STIX to HTML** releases are bundled with a self-contained Java binary. For information about how to use the Java binary, 
 see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
