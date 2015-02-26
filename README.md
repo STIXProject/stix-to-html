@@ -6,15 +6,13 @@ A library of XSLT stylesheets, CSS, and JavaScript which enables the rendering o
 
 **STIX to HTML** is a library of  XSLT stylesheets, CSS, and JavaScript that can transform a STIX XML document into a human-readable HTML view. It was designed to be leveraged by developers, either as a mechanism for batch rendering STIX document or to be embedded as a visualization component within a STIX-capable application.
 
-**STIX to HTML** renders more than just STIX! It also supports the rendering of [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) documents.
+**STIX to HTML** renders more than just STIX documents! It also supports the rendering of [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) documents.
 
 This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
 
 ## Requirements
 
-* An XSLT 2.0 processor.
-  * STIX to HTML has been tested with [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
-* A STIX 1.0/1.0.1/1.1/1.1.1 XML document.
+The XSLT stylesheets in **STIX to HTML** use functions defined by the XSLT 2.0 and XPath 2.0 languages. As such, users must run **STIX to HTML** via an XSLT 2.0 processing engine. **STIX to HTML** has been tested using [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
 
 ## Usage
 
