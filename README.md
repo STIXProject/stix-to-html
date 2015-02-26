@@ -4,13 +4,13 @@ A collection of XSLTs, CSS, and JavaScript which enables the rendering of a STIX
 
 This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
 
-# Requirements
+## Requirements
 
 * An XSLT 2.0 processor.
   * STIX to HTML has been tested with [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
 * A STIX 1.0/1.0.1/1.1/1.1.1 XML document.
 
-# Usage
+## Usage
 
 The following commands demonstrate the use of **STIX to HTML**.
 
@@ -28,7 +28,7 @@ java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
 Releases are bundled with a self-contained Java binary which enables simple transformations of STIX XML content. For information about how to use the Java binary, 
 see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
-# Rendering: Supported Components
+## Rendering: Supported Components
 
 The following entities are rendered by **STIX to HTML**:
 
@@ -150,22 +150,20 @@ The following entities are rendered by **STIX to HTML**:
 - **MAEC General Support**
   - Process Tree
 
-## Entity Rendering
+### Entity Rendering
 
-Each category of top level "items" is turned into a main table on the page.
+Each category of top-level entities is turned into a main table on the page.
 The item itself is expandable and other nested content pointing to other
-"items" and objects are also expandable.
+entities and objects are also expandable.
 
-At the moment, "items" are expandable when they have inline content with an
-id attribute or when it references content in another part of the document with
-an idref attribute.  (Content "item" without an id or idref is displayed
-inline.)
-
-Indicator and Observable compositions are supported.
+At the moment, entities are expandable when they have inline content with an
+`@id` attribute or when it references content in another part of the document with
+an `@idref` attribute. Entities without an `@id` or `@idref` are displayed
+inline.
 
 **NOTE:** HTML that is embedded in `StructuredTextType` fields (such as `Description`) will be rendered as **text** and not rendered as HTML.
 
-## Data Marking Support
+### Data Marking Support
 
 In STIX, [data markings](http://stixproject.github.io/documentation/concepts/data-markings/) are used to mark specific pieces of the STIX 
 document with some sort of information. The scope of these markings is determined by a `Controlled_Structure` field, typically found in 
@@ -201,8 +199,6 @@ will display the `Statement` text of the marking structure.
  - **stix_objects__customized.xsl**: recommended place for end users to add custom stix templates without modifying core css files.
  - **theme_default.css**: css styles used for main item type background colors (observables, ttps, indicators, etc)
  - **wgxpath.install.js**: xpath support in javascript for browsers that don't support it (IE)  [source: http://code.google.com/p/wicked-good-xpath/]
-
-
 
 ## Customization
 
@@ -277,7 +273,7 @@ such information what type of matching is performed (equals or string match).
    * any description element in any namespace (stix_objects.xsl)
 
 
-# Further Reading
+## Further Reading
 
 * STIX: http://stix.mitre.org
 * CybOX: http://cybox.mitre.org
