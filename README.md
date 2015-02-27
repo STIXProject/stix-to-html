@@ -4,19 +4,23 @@ A library of XSLT stylesheets, CSS, and JavaScript which enables the rendering o
 
 ## Overview
 
-**STIX to HTML** is a library of  XSLT stylesheets, CSS, and JavaScript that can transform a STIX XML document into a human-readable HTML view. It was designed to be leveraged by developers, either as a mechanism for batch rendering STIX documents or to be embedded as a visualization component within a STIX-capable application.
+The [Structued Threat Information eXpression](http://stix.mitre.org) (STIX) is a collaborative, community-driven effort to define and develop a standardized language for the representation and characterization of structured cyber threat information and is currently implemented in XML Schema.
 
-**STIX to HTML** renders more than just STIX documents! It also supports the rendering of [CybOX](http://cybox.mitre.org) and [MAEC](http://maec.mitre.org) documents.
+The **STIX to HTML** projects defines a library of  XSLT stylesheets, CSS, and JavaScript that transforms STIX XML documents into a human-readable HTML view. It was designed to be leveraged by developers, either as a mechanism for batch rendering STIX documents or to be embedded as a visualization component within a STIX-capable application.
+
+**STIX to HTML** also supports the rendering of [Cyber Observable eXpression](http://cybox.mitre.org) (CybOX) documents and [Malware Attribute Enumeration and Characterization](http://maec.mitre.org) (MAEC) documents.
 
 This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
 
 ## Requirements
 
-The XSLT stylesheets in **STIX to HTML** use functions defined by the XSLT 2.0 and XPath 2.0 languages. As such, users must run **STIX to HTML** via an XSLT 2.0 processing engine. **STIX to HTML** has been tested using [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
+This project makes heavy use of XSLT 2.0 and XPath 2.0 functions and capabilities and as such, requires an XSLT 2.0 processing engine when transforming input documents. **STIX to HTML** has been tested using [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
 
 ## Usage
 
-The following commands demonstrate the use of **STIX to HTML**.
+**STIX to HTML Java Binary:**  
+Releases are bundled with a self-contained Java binary which enables simple transformations of STIX XML content. For information about how to use the Java binary, 
+see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
 **A Single STIX XML File (Saxon):**  
 ```
@@ -27,10 +31,6 @@ java -jar /opt/saxon/saxon9he.jar -xsl:xslt/stix_to_html.xsl -s:input.xml -o:out
 ```
 java -jar /opt/saxon/saxon9he.jar -xsl:stix_to_html.xsl -s:inputdir -o:outputdir
 ```
-
-**STIX to HTML Java Binary:**  
-Releases are bundled with a self-contained Java binary which enables simple transformations of STIX XML content. For information about how to use the Java binary, 
-see the [README](https://github.com/STIXProject/stix-to-html/blob/master/java/README.md#usage).
 
 ## Rendering: Supported Components
 
@@ -275,13 +275,6 @@ such information what type of matching is performed (equals or string match).
  * Indicator
    * Sighting (stix_objects.xsl)
    * any description element in any namespace (stix_objects.xsl)
-
-
-## Further Reading
-
-* STIX: http://stix.mitre.org
-* CybOX: http://cybox.mitre.org
-* MAEC: http://maec.mitre.org
 
 ## Terms
 
