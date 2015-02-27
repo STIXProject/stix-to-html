@@ -1,6 +1,6 @@
 #!/bin/sh
 # 
-#  Copyright (c) 2014, The MITRE Corporation. All rights reserved.
+#  Copyright (c) 2015, The MITRE Corporation. All rights reserved.
 #  See LICENSE.txt for complete terms.
 #
 # Linux/OSX launcher script.  Shortcut to calling `java -jar stix-to-html.jar -i INPUT.XML -o OUTPUT.HTML`
