@@ -14,7 +14,7 @@ This is a work in progress, so please feel free to provide feedback or let us kn
 
 ## Requirements
 
-This project makes heavy use of XSLT 2.0 and XPath 2.0 functions and capabilities and as such, requires an XSLT 2.0 processing engine when transforming input documents. **STIX to HTML** has been tested using [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
+This project makes heavy use of XSLT 2.0 and XPath 2.0 functions and capabilities and requires an XSLT 2.0 processing engine when transforming input documents. **STIX to HTML** has been tested using [Saxon](http://www.saxonica.com/) 9.5 and 9.6.
 
 ## Usage
 
