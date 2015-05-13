@@ -16,6 +16,10 @@
   </xsl:template>
   
   <xsl:template name="customTitle">
+    <xsl:param name="genericTitle" />
+    <xsl:param name="documentTitle" />
+    <xsl:param name="completeTitle" />
+    
     <div class="customTitle">
       <h1>STIX report produced by ACME GmbH</h1>
     </div>
