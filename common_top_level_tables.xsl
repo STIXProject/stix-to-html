@@ -33,7 +33,9 @@
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
   
-  exclude-result-prefixes="cybox cyboxCommon xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et"
+  xmlns:report="http://stix.mitre.org/Report-1"
+  
+  exclude-result-prefixes="cybox cyboxCommon xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et report"
   >
 
   <xsl:template name="processAllTopLevelTables">
@@ -44,6 +46,19 @@
       MAIN TOP LEVEL CATEGORY TABLES
     -->
     <div class="topLevelCategoryTables">
+      <xsl:message>
+        <xsl:text>what's in $normalized/stix:Report ???</xsl:text>
+        <xsl:copy-of select="$normalized/stix:Report" />
+      </xsl:message>
+      <xsl:call-template name="processTopLevelCategory">
+        <xsl:with-param name="reference" select="$reference" tunnel="yes"/>
+        <xsl:with-param name="normalized" select="$normalized" tunnel="yes"/>
+        <xsl:with-param name="categoryGroupingElement" select="$normalized/stix:Reports"/>
+        <xsl:with-param name="headingLabels" select="('Title', 'Type', 'ID')"/>
+        <xsl:with-param name="headingColumnStyles" select="('titleColumn', 'typeColumn', 'idColumn')"/>
+        <xsl:with-param name="categoryLabel" select="'Reports'"/>
+        <xsl:with-param name="categoryIdentifier" select="'reports'"/>
+      </xsl:call-template>
       
       <xsl:call-template name="processTopLevelCategory">
         <xsl:with-param name="reference" select="$reference" tunnel="yes"/>

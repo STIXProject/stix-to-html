@@ -51,7 +51,7 @@
       metadata table).
     -->
     <xsl:template name="processHeader">
-      <xsl:for-each select="//stix:STIX_Package/stix:STIX_Header|/maecBundle:MAEC_Bundle/maecBundle:Malware_Instance_Object_Attributes">        
+      <xsl:for-each select="//(stix:STIX_Package|stix:Report)/stix:STIX_Header|/maecBundle:MAEC_Bundle/maecBundle:Malware_Instance_Object_Attributes">        
             <div class="stixHeader">
               <table class="grid topLevelCategory tablesorter" cellspacing="0">
                     <colgroup>

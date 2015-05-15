@@ -117,7 +117,7 @@ mdunn@mitre.org
   <!-- do not modify this, this is used inside icons.xsl to pass in the value of the iconReferenceStyle parameter -->
   <xsl:variable name="iconReferenceStyleVariable" select="$iconReferenceStyle" />
   
-  <xsl:variable name="isRootStix" select="fn:exists(/stix:STIX_Package)" />
+  <xsl:variable name="isRootStix" select="fn:exists(/(stix:STIX_Package|stix:Report))" />
   <xsl:variable name="isRootCybox" select="fn:exists(/cybox:Observables)" />
   <xsl:variable name="isRootMaec" select="fn:exists(/(maecBundle:MAEC_Bundle|maecPackage:MAEC_Package))" />
   
@@ -278,7 +278,7 @@ mdunn@mitre.org
     </xsl:if>
     <xsl:variable name="reference">
       <xsl:apply-templates
-        select="$identifiedInput/(cybox:Observables//*|stix:STIX_Package//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or ./self::cybox:Object or ./self::cybox:Event 
+        select="$identifiedInput/(cybox:Observables//*|(stix:STIX_Package|stix:Report)//*|maecBundle:MAEC_Bundle//*|maecPackage:MAEC_Package//*)[@id or @phase_id[../../self::stixCommon:Kill_Chain] or ./self::cybox:Object or ./self::cybox:Event 
             or ./self::cybox:Related_Object or ./self::cybox:Associated_Object or ./self::cybox:Action_Reference or ./self::cybox:Action]"
         mode="createReference">
         <xsl:with-param name="isTopLevel" select="fn:true()"/>
@@ -306,7 +306,7 @@ mdunn@mitre.org
     </xsl:variable>
     <xsl:variable name="documentTitle" as="xs:string">
       <xsl:choose>
-        <xsl:when test="$isRootStix"><xsl:value-of select="/stix:STIX_Package/stix:STIX_Header/stix:Title" /></xsl:when>
+        <xsl:when test="$isRootStix"><xsl:value-of select="/(stix:STIX_Package|stix:Report)/stix:STIX_Header/stix:Title" /></xsl:when>
         <xsl:when test="$isRootCybox"><xsl:value-of select="''" /></xsl:when>
         <xsl:when test="$isRootMaec"><xsl:value-of select="''" /></xsl:when>
         <xsl:otherwise><xsl:text></xsl:text></xsl:otherwise>
@@ -406,7 +406,7 @@ mdunn@mitre.org
                             <xsl:value-of select="fn:string-join(($cyboxRoot/@cybox_major_version, $cyboxRoot/@cybox_minor_version, $cyboxRoot/@cybox_update_version), '.')" />
                           </xsl:when>
                           <xsl:when test="$isRootStix">
-                            <xsl:value-of select="//stix:STIX_Package/@version"/>
+                            <xsl:value-of select="//(stix:STIX_Package|stix:Report)/@version"/>
                           </xsl:when>
                           <xsl:when test="$isRootMaec">
                             <xsl:value-of select="//(maecPackage:MAEC_Package|maecBundle:MAEC_Bundle)/@schema_version"/>
@@ -652,7 +652,7 @@ mdunn@mitre.org
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern"
+    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -761,6 +761,11 @@ mdunn@mitre.org
               <xsl:when test="self::cybox:Observable|self::stixCommon:Observable|self::indicator:Observable">
                 <div class="containerObservable">
                   <xsl:call-template name="processObservableContents"/>
+                </div>
+              </xsl:when>
+              <xsl:when test="self::stix:Report">
+                <div class="containerReport">
+                  <xsl:call-template name="processReportContents"/>
                 </div>
               </xsl:when>
               <xsl:when test="self::cybox:Event">

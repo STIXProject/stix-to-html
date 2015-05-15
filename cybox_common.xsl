@@ -62,7 +62,8 @@ ikirillov@mitre.org
     xmlns:URIObject='http://cybox.mitre.org/objects#URIObject-2'
     xmlns:EmailMessageObj="http://cybox.mitre.org/objects#EmailMessageObject-2"
     xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
-    exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et">
+    xmlns:report="http://stix.mitre.org/Report-1"
+    exclude-result-prefixes="cybox Common xsi fn EmailMessageObj AddressObject URIObject coa ttp ta et report">
 
 
     <xsl:output method="html" omit-xml-declaration="yes" indent="yes" media-type="text/html" version="4.0" />
@@ -249,29 +250,44 @@ ikirillov@mitre.org
         </div>
     </xsl:template>
   
-  
-  <xsl:template name="processObservableContents">
-    <xsl:if test="cybox:Description">
-      <xsl:variable name="contents">
-        <xsl:apply-templates select="cybox:Description" />
-      </xsl:variable>
-      <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
-    </xsl:if>  
-    <xsl:if test="cybox:Object|cybox:Event">
-      <xsl:variable name="contents">
-        <xsl:apply-templates select="cybox:Object|cybox:Event" />
-      </xsl:variable>
-      <xsl:copy-of select="stix:printNameValueTable('', $contents)" />
-    </xsl:if>  
-    <xsl:if test="cybox:Observable_Composition">
-      <xsl:variable name="contents">
-        <xsl:for-each select="cybox:Observable_Composition">
-          <xsl:call-template name="processObservableCompositionSimple" />
-        </xsl:for-each>
-      </xsl:variable>
-      <xsl:copy-of select="stix:printNameValueTable('Observable Composition', $contents)" />
-    </xsl:if>  
-  </xsl:template>
+    
+    <xsl:template name="processReportContents">
+      <xsl:if test="report:Header">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Header" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Header', $contents)" />
+      </xsl:if>  
+      <xsl:if test="report:Observables/report:Observable">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Observables/report:Observable" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('', $contents)" />
+      </xsl:if>  
+    </xsl:template>
+    
+    <xsl:template name="processObservableContents">
+        <xsl:if test="cybox:Description">
+            <xsl:variable name="contents">
+                <xsl:apply-templates select="cybox:Description" />
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+        </xsl:if>  
+        <xsl:if test="cybox:Object|cybox:Event">
+            <xsl:variable name="contents">
+                <xsl:apply-templates select="cybox:Object|cybox:Event" />
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('', $contents)" />
+        </xsl:if>  
+        <xsl:if test="cybox:Observable_Composition">
+            <xsl:variable name="contents">
+                <xsl:for-each select="cybox:Observable_Composition">
+                    <xsl:call-template name="processObservableCompositionSimple" />
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('Observable Composition', $contents)" />
+        </xsl:if>  
+    </xsl:template>
     
     <!--
       Produce the details for an observable composition.
