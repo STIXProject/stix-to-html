@@ -249,6 +249,22 @@ ikirillov@mitre.org
             
         </div>
     </xsl:template>
+    
+    <!--
+    <xsl:template match="*:Description" priority="5000">
+        !!!DESCRIPTION2!!!
+    </xsl:template>
+    -->
+    
+    <xsl:template match="*:Description[following-sibling::*[self::*:Description]][count(((preceding-sibling::*)[last()])/self::*:Description) = 0]">
+        <div>[FIRST Description with following description] }}} <xsl:value-of select="."/> {{{ [<xsl:value-of select="count(((preceding-sibling::*)[last()])/self::*:Description)" />]</div>
+    </xsl:template>
+    
+    <!--
+    <xsl:template match="*:Description[following-sibling::*[self::*:Description]]">
+        <div>[Description with following description] }}} <xsl:value-of select="."/> {{{</div>
+    </xsl:template>
+    -->
   
     
     <xsl:template name="processReportContents">

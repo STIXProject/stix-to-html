@@ -60,11 +60,13 @@
     hint: this is used to enable the option to turn on css styles to preserve
     line breaks for preformatted description that show up in some documents.
   -->
+  <!--
   <xsl:template match="*:Description">
     <div class="description">
       <xsl:apply-templates select="text()" />
     </div>
   </xsl:template>
+  -->
   
   <!--
     purpose: make stixCommon:Reference elements into clickable links in the
