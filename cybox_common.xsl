@@ -258,11 +258,11 @@ ikirillov@mitre.org
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Header', $contents)" />
       </xsl:if>  
-      <xsl:if test="report:Observables/report:Observable">
+      <xsl:if test="report:Observables/cybox:Observable">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Observables/report:Observable" />
+          <xsl:apply-templates select="report:Observables/cybox:Observable" mode="cyboxProperties" />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('', $contents)" />
+        <xsl:copy-of select="stix:printNameValueTable('Observables', $contents)" />
       </xsl:if>  
     </xsl:template>
     
