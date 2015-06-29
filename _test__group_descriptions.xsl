@@ -33,8 +33,14 @@
 
     <xsl:template match="*:Description[(following-sibling::*[1])[self::*:Description]][count(((preceding-sibling::*)[last()])/self::*:Description) = 0]">
         <xsl:variable name="n" select="name()" />
+        <xsl:variable name="siblingsUnsorted" select=".|following-sibling::*[name() = $n]" />
+        <xsl:variable name="siblingsSorted">
+            <xsl:perform-sort select="$siblingsUnsorted">
+                <xsl:sort select="xs:integer(./@ordinality)" />
+            </xsl:perform-sort>
+        </xsl:variable>
         <element-list>
-            <xsl:for-each select=".|following-sibling::*[name() = $n]">
+            <xsl:for-each select="$siblingsSorted/*" >
                 <list-item>
                     <position><xsl:value-of select="position()" /></position>
                     <copy><xsl:copy-of select="."/></copy>
