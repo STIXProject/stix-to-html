@@ -15,12 +15,6 @@
         <xsl:value-of select="fn:substring(fn:string(), 1, 50)" />
     </xsl:template>
     
-    <xsl:template match="*:Description">
-        <xsl:element name="{name()}" namespace="{namespace-uri()}">
-            <xsl:comment>(any description)</xsl:comment>
-            <xsl:value-of select="fn:string()"/>
-        </xsl:element>
-    </xsl:template>
     
     <xsl:function name="stix:following-siblings-with-same-name">
         <xsl:param name="currentName" as="xs:QName" />
@@ -39,26 +33,11 @@
                 <xsl:sort select="xs:integer(./@ordinality)" />
             </xsl:perform-sort>
         </xsl:variable>
-        <element-list>
+        <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}">
             <xsl:for-each select="$siblingsSorted/*" >
-                <list-item>
-                    <position><xsl:value-of select="position()" /></position>
-                    <copy><xsl:copy-of select="."/></copy>
-                </list-item>
+                <xsl:copy-of select="."/>
             </xsl:for-each>
-        </element-list>
-        <!--
-        <xsl:element name="{name()}" namespace="{namespace-uri()}">
-            <xsl:comment>(first description sibling of or than one)</xsl:comment>
-            <xsl:value-of select="fn:string()"/>
         </xsl:element>
-        -->
     </xsl:template>
     
-    <!--
-    <xsl:template match="*:Raw_Artifact">
-        <xsl:variable name="n" select="node-name()" />
-        <xsl:element name="{$n}"><xsl:value-of select="fn:substring(fn:string(), 1, 50)"/></xsl:element>
-    </xsl:template>
-    -->
 </xsl:stylesheet>
