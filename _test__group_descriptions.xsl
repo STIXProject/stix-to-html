@@ -28,16 +28,25 @@
         
         
     </xsl:function>
+    
+    <xsl:template match="*:Description" />
 
     <xsl:template match="*:Description[(following-sibling::*[1])[self::*:Description]][count(((preceding-sibling::*)[last()])/self::*:Description) = 0]">
         <xsl:variable name="n" select="name()" />
-        <xsl:for-each select=".|following-sibling::*[name() = $n]">
-            
-        </xsl:for-each>
+        <element-list>
+            <xsl:for-each select=".|following-sibling::*[name() = $n]">
+                <list-item>
+                    <position><xsl:value-of select="position()" /></position>
+                    <copy><xsl:copy-of select="."/></copy>
+                </list-item>
+            </xsl:for-each>
+        </element-list>
+        <!--
         <xsl:element name="{name()}" namespace="{namespace-uri()}">
             <xsl:comment>(first description sibling of or than one)</xsl:comment>
             <xsl:value-of select="fn:string()"/>
         </xsl:element>
+        -->
     </xsl:template>
     
     <!--
