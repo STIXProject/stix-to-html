@@ -23,9 +23,24 @@
         
     </xsl:function>
     
-    <xsl:template match="*:Description" />
+    <xsl:template match="*:Description|*:Short_Description" />
 
     <xsl:template match="*:Description[(following-sibling::*[1])[self::*:Description]][count(((preceding-sibling::*)[last()])/self::*:Description) = 0]">
+        <xsl:variable name="n" select="name()" />
+        <xsl:variable name="siblingsUnsorted" select=".|following-sibling::*[name() = $n]" />
+        <xsl:variable name="siblingsSorted">
+            <xsl:perform-sort select="$siblingsUnsorted">
+                <xsl:sort select="xs:integer(./@ordinality)" />
+            </xsl:perform-sort>
+        </xsl:variable>
+        <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}">
+            <xsl:for-each select="$siblingsSorted/*" >
+                <xsl:copy-of select="."/>
+            </xsl:for-each>
+        </xsl:element>
+    </xsl:template>
+    
+    <xsl:template match="*:Short_Description[(following-sibling::*[1])[self::*:Short_Description]][count(((preceding-sibling::*)[last()])/self::*:Short_Description) = 0]">
         <xsl:variable name="n" select="name()" />
         <xsl:variable name="siblingsUnsorted" select=".|following-sibling::*[name() = $n]" />
         <xsl:variable name="siblingsSorted">
