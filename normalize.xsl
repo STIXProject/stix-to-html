@@ -326,7 +326,7 @@
     
   <!--  -->
     
-    <xsl:template match="*:Description|*:Short_Description" mode="cleanup" />
+    <xsl:template match="*:Description|*:Short_Description|*:Business_Function_Or_Role|*:Description_Of_Effect" mode="cleanup" />
     
     <xsl:template match="*:Description[(following-sibling::*[1])[self::*:Description]][count(((preceding-sibling::*)[last()])/self::*:Description) = 0]" mode="cleanup">
         <xsl:variable name="n" select="name()" />
@@ -355,6 +355,36 @@
             <xsl:for-each select="$siblingsSorted/*" >
                 <xsl:copy-of select="."/>
             </xsl:for-each>
+        <!-- </xsl:element> -->
+    </xsl:template>
+    
+    <xsl:template match="*:Business_Function_Or_Role[(following-sibling::*[1])[self::*:Business_Function_Or_Role]][count(((preceding-sibling::*)[last()])/self::*:Business_Function_Or_Role) = 0]" mode="cleanup">
+        <xsl:variable name="n" select="name()" />
+        <xsl:variable name="siblingsUnsorted" select=".|following-sibling::*[name() = $n]" />
+        <xsl:variable name="siblingsSorted">
+            <xsl:perform-sort select="$siblingsUnsorted">
+                <xsl:sort select="xs:integer(./@ordinality)" />
+            </xsl:perform-sort>
+        </xsl:variable>
+        <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
+        <xsl:for-each select="$siblingsSorted/*" >
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
+        <!-- </xsl:element> -->
+    </xsl:template>
+    
+    <xsl:template match="*:Description_Of_Effect[(following-sibling::*[1])[self::*:Description_Of_Effect]][count(((preceding-sibling::*)[last()])/self::*:Description_Of_Effect) = 0]" mode="cleanup">
+        <xsl:variable name="n" select="name()" />
+        <xsl:variable name="siblingsUnsorted" select=".|following-sibling::*[name() = $n]" />
+        <xsl:variable name="siblingsSorted">
+            <xsl:perform-sort select="$siblingsUnsorted">
+                <xsl:sort select="xs:integer(./@ordinality)" />
+            </xsl:perform-sort>
+        </xsl:variable>
+        <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
+        <xsl:for-each select="$siblingsSorted/*" >
+            <xsl:copy-of select="."/>
+        </xsl:for-each>
         <!-- </xsl:element> -->
     </xsl:template>
     
