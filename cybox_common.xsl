@@ -293,7 +293,7 @@ ikirillov@mitre.org
         <xsl:variable name="contents">
             <xsl:apply-templates select="." />
         </xsl:variable>
-        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+        <xsl:copy-of select="$contents" />
     </xsl:template>
     
     <xsl:template name="processObservableContents">
