@@ -289,6 +289,13 @@ ikirillov@mitre.org
       </xsl:if>  
     </xsl:template>
     
+    <xsl:template name="processDescriptionContents">
+        <xsl:variable name="contents">
+            <xsl:apply-templates select="." />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+    </xsl:template>
+    
     <xsl:template name="processObservableContents">
         <xsl:if test="cybox:Description">
             <xsl:variable name="contents">

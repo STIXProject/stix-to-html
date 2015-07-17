@@ -652,7 +652,7 @@ mdunn@mitre.org
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern"
+    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -758,6 +758,11 @@ mdunn@mitre.org
           <div id="{$expandedContentId}" class="expandableContents">
             <!-- <div>THIS ONE</div> -->
             <xsl:choose>
+              <xsl:when test="self::*:Description|self::*:Short_Description">
+                <div class="description">
+                  <xsl:call-template name="processDescriptionContents" />
+                </div>
+              </xsl:when>
               <xsl:when test="self::cybox:Observable|self::stixCommon:Observable|self::indicator:Observable">
                 <div class="containerObservable">
                   <xsl:call-template name="processObservableContents"/>
