@@ -703,6 +703,12 @@
           </xsl:variable>
           <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
         </xsl:if>              
+        <xsl:if test="indicator:Short_Description">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="indicator:Short_Description" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+        </xsl:if>              
         <xsl:if test="indicator:Valid_Time_Position">
           <xsl:copy-of select="stix:printNameValueTable('Valid Time Position', fn:concat('(', indicator:Valid_Time_Position/indicator:Start_Time/text(), ' to ', indicator:Valid_Time_Position/indicator:End_Time/text(), ')'))" />
         </xsl:if>
