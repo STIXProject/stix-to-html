@@ -300,9 +300,9 @@ ikirillov@mitre.org
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Observables', $contents)" />
       </xsl:if>  
-      <xsl:if test="report:Indicators/stix:Indicator">
+      <xsl:if test="report:Indicators/report:Indicator">
         <xsl:variable name="contents">
-            <xsl:apply-templates select="report:Indicators/stix:Indicator" mode="cyboxProperties" />
+            <xsl:apply-templates select="report:Indicators/report:Indicator" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Indicators', $contents)" />
       </xsl:if>  
