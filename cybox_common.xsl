@@ -274,6 +274,19 @@ ikirillov@mitre.org
     
   
     
+    <!--
+        need to process these in reports:
+          Header
+             Observables
+             Indicators
+             TTPs
+             Exploit_Targets
+             Incidents
+             Courses_Of_Action
+             Campaigns
+             Threat_Actors
+             Related_Reports
+    -->
     <xsl:template name="processReportContents">
       <xsl:if test="report:Header">
         <xsl:variable name="contents">
@@ -286,6 +299,12 @@ ikirillov@mitre.org
           <xsl:apply-templates select="report:Observables/cybox:Observable" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Observables', $contents)" />
+      </xsl:if>  
+      <xsl:if test="report:Indicators/stix:Indicator">
+        <xsl:variable name="contents">
+            <xsl:apply-templates select="report:Indicators/stix:Indicator" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Indicators', $contents)" />
       </xsl:if>  
     </xsl:template>
     
