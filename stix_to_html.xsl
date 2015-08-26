@@ -52,6 +52,7 @@ mdunn@mitre.org
   xmlns:maecBundle="http://maec.mitre.org/XMLSchema/maec-bundle-4"
   xmlns:maecPackage="http://maec.mitre.org/XMLSchema/maec-package-2"
   xmlns:stix-maec="http://stix.mitre.org/extensions/Malware#MAEC4.1-1"
+  xmlns:report="http://stix.mitre.org/Report-1"
   
   exclude-result-prefixes="cybox xsi fn EmailMessageObj">
 
@@ -652,7 +653,7 @@ mdunn@mitre.org
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
+    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|report:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -787,7 +788,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processIndicatorContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:TTP|self::stixCommon:TTP">
+              <xsl:when test="self::stix:TTP|self::stixCommon:TTP|self::report:TTP">
                 <div class="containerTtp">
                   <xsl:call-template name="processTTPContents"/>
                 </div>

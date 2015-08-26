@@ -306,6 +306,14 @@ ikirillov@mitre.org
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Indicators', $contents)" />
       </xsl:if>  
+    
+      <xsl:if test="report:TTPs/report:TTP">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:TTPs/report:TTP" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('TTPs', $contents)" />
+      </xsl:if>  
+        
     </xsl:template>
     
     <xsl:template name="processDescriptionContents">
