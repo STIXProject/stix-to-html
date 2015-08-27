@@ -312,8 +312,22 @@ ikirillov@mitre.org
           <xsl:apply-templates select="report:TTPs/report:TTP" mode="cyboxProperties" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('TTPs', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="report:Exploit_Targets/report:Exploit_Target">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Exploit_Targets/report:Exploit_Target" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Exploit Targets', $contents)" />
+      </xsl:if>
+      
+      <xsl:if test="report:Incidents/report:Incident">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Incidents/report:Incident" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Incidents', $contents)" />
       </xsl:if>  
-        
+      
     </xsl:template>
     
     <xsl:template name="processDescriptionContents">
