@@ -653,7 +653,7 @@ mdunn@mitre.org
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|stix:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|report:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|ET:Exploit_Target|report:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
+    match="cybox:Observable|stixCommon:Observable|stix:Report|report:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|stix:TTP|stixCommon:TTP|report:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|report:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|report:Threat_Actor|ET:Exploit_Target|report:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|report:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -769,7 +769,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processObservableContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Report">
+              <xsl:when test="self::stix:Report|self::report:Report">
                 <div class="containerReport">
                   <xsl:call-template name="processReportContents"/>
                 </div>
@@ -803,7 +803,7 @@ mdunn@mitre.org
                   <xsl:apply-templates select="."/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Campaign|self::stixCommon:Campaign">
+              <xsl:when test="self::stix:Campaign|self::stixCommon:Campaign|self::report:Campaign">
                 <div class="containerCampaign">
                   <xsl:call-template name="processCampaignContents"/>
                 </div>
@@ -813,7 +813,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Threat_Actor|self::stixCommon:Threat_Actor">
+              <xsl:when test="self::stix:Threat_Actor|self::stixCommon:Threat_Actor|self::report:Threat_Actor">
                 <div class="containerThreatActor">
                   <xsl:call-template name="processThreatActorContents"/>
                 </div>
@@ -823,7 +823,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processExploitTargetContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Course_Of_Action|self::stixCommon:Course_Of_Action">
+              <xsl:when test="self::stix:Course_Of_Action|self::stixCommon:Course_Of_Action|self::report:Course_Of_Action">
                 <div class="containerCourseOfAction">
                   <xsl:call-template name="processCOAContents"/>
                 </div>

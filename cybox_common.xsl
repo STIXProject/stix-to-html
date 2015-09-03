@@ -328,6 +328,35 @@ ikirillov@mitre.org
         <xsl:copy-of select="stix:printNameValueTable('Incidents', $contents)" />
       </xsl:if>  
       
+      <xsl:if test="report:Courses_Of_Action/report:Course_Of_Action">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Courses_Of_Action/report:Course_Of_Action" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Courses of Action', $contents)" />
+      </xsl:if>  
+
+      <xsl:if test="report:Campaigns/report:Campaign">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Campaigns/report:Campaign" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Campaigns', $contents)" />
+      </xsl:if>  
+      
+      <xsl:if test="report:Threat_Actors/report:Threat_Actor">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Threat_Actors/report:Threat_Actor" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Threat Actors', $contents)" />
+      </xsl:if>  
+      
+      <xsl:if test="report:Related_Reports/report:Related_Report">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="report:Related_Reports/report:Related_Report" mode="cyboxProperties" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Related Reports', $contents)" />
+      </xsl:if>  
+      
+      
     </xsl:template>
     
     <xsl:template name="processDescriptionContents">
