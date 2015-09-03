@@ -388,6 +388,9 @@
     
     <xsl:variable name="allColumns" as="xs:string*">
       <xsl:choose>
+        <xsl:when test="$actualItem[self::*:Report]">
+          <xsl:sequence select="cybox:calculateAllColumnsReport($actualItem, $reference)" />
+        </xsl:when>
         <xsl:when test="$actualItem[self::*:Observable]">
           <xsl:sequence select="cybox:calculateAllColumnsObservable($actualItem, $reference)" />
         </xsl:when>
@@ -483,6 +486,27 @@
     <xsl:sequence select="$column1,$column2,$column3" />
     
   </xsl:function>
+
+  <xsl:function name="cybox:calculateAllColumnsReport">
+    <xsl:param name="actualItem" />
+    <xsl:param name="reference" />
+    
+    <xsl:variable name="column1">
+      <xsl:value-of select="if ($actualItem/(report:Header/report:Title)) then (($actualItem/(report:Header/report:Title))[1]) else '[no title]'" />
+    </xsl:variable>
+    <xsl:variable name="column2">
+      <xsl:if test="$actualItem/*:Type">
+        <xsl:value-of select="$actualItem/*:Type" />
+      </xsl:if>
+    </xsl:variable>
+    <xsl:variable name="column3">
+      <xsl:value-of select="fn:data($actualItem/@id)" />
+    </xsl:variable>
+    
+    <xsl:sequence select="$column1,$column2,$column3" />
+    
+  </xsl:function>
+  
   
   <xsl:function name="cybox:calculateAllColumnsObservable">
     <xsl:param name="actualItem" />
