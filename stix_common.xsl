@@ -219,6 +219,20 @@
         <xsl:if test="@id">container baseobj</xsl:if>
       </xsl:attribute>
       -->
+      <xsl:if test="campaign:Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+      </xsl:if>              
+      
+      <xsl:if test="campaign:Short_Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="campaign:Short_Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+      </xsl:if>              
+      
       
       <xsl:if test="campaign:Names">
         <xsl:variable name="contents">
@@ -371,6 +385,12 @@
           <xsl:apply-templates select="incident:Description" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+      </xsl:if>              
+      <xsl:if test="incident:Short_Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="incident:Short_Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
       </xsl:if>              
       <xsl:if test="incident:Categories/incident:Category">
         <xsl:variable name="label" select="if (count(incident:Categories/incident:Category) ge 2) then ('Categories') else ('Category')" />
@@ -538,6 +558,21 @@
         <xsl:if test="@id">container baseobj</xsl:if>
       </xsl:attribute>
       -->
+      
+      <xsl:if test="ta:Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="ta:Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+      </xsl:if>              
+      
+      <xsl:if test="ta:Short_Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="ta:Short_Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+      </xsl:if>              
+      
       
       <xsl:if test="ta:Identity">
         <xsl:variable name="contents">
@@ -956,6 +991,13 @@
             <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
           </xsl:if>  
 
+          <xsl:if test="ttp:Short_Description">
+            <xsl:variable name="contents">
+              <xsl:apply-templates select="ttp:Short_Description" />
+            </xsl:variable>
+            <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+          </xsl:if>  
+          
           <xsl:if test="ttp:Behavior">
             <xsl:variable name="contents">
               <xsl:apply-templates select="ttp:Behavior/*" mode="cyboxProperties" />
@@ -1030,6 +1072,21 @@
         <!-- set empty class for non-composition observables -->
         
         <!-- <span style="color: red; background-color: yellow;">INDICATOR CONTENTS HERE</span> -->
+        
+        <xsl:if test="COA:Description">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Description" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+        </xsl:if>              
+        
+        <xsl:if test="COA:Short_Description">
+          <xsl:variable name="contents">
+            <xsl:apply-templates select="COA:Short_Description" />
+          </xsl:variable>
+          <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+        </xsl:if>              
+        
         
         <xsl:if test="COA:Stage">
           <xsl:variable name="contents">
