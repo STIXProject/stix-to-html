@@ -1243,6 +1243,23 @@ ikirillov@mitre.org
   
   
   <!--
+    <report:Related_Reports>
+      <report:Related_Report>
+        <stixCommon:Report idref="example:Report-1234-second-report" />
+      </report:Related_Report>
+      <report:Related_Report>
+        <stixCommon:Report idref="example:Report-5678-third-report" />
+      </report:Related_Report>
+    </report:Related_Reports>
+
+  -->
+  <xsl:template match="report:Related_Reports" mode="cyboxProperties">
+    <xsl:apply-templates select="report:Related_Report/stixCommon:Report" mode="cyboxProperties" />
+  </xsl:template>
+    
+  
+  
+  <!--
     Simple function used all over the place to add a name/value table to the output content.
     
     This is used largely in the top level category tables to indicate which

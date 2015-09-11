@@ -630,6 +630,20 @@
       </xsl:attribute>
       -->
       
+      <xsl:if test="et:Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Description', $contents)" />
+      </xsl:if>              
+      
+      <xsl:if test="et:Short_Description">
+        <xsl:variable name="contents">
+          <xsl:apply-templates select="et:Short_Description" />
+        </xsl:variable>
+        <xsl:copy-of select="stix:printNameValueTable('Short Description', $contents)" />
+      </xsl:if>              
+      
       <xsl:if test="et:Vulnerability">
         <xsl:variable name="contents">
           <xsl:apply-templates select="et:Vulnerability" />
