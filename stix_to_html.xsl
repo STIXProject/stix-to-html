@@ -429,6 +429,13 @@ mdunn@mitre.org
                     <a name="docContents">Document Contents</a>
                   </h2>
                   <div class="documentContentsList">
+                    <a href="#reportTopLevelCategoryContainer">
+                      <div class="documentContentsItem">
+                        <xsl:if test="//stix:Reports/stix:Report">
+                          <xsl:call-template name="iconObservables"/>
+                        </xsl:if>
+                      </div>
+                    </a>
                     <a href="#observablesTopLevelCategoryContainer">
                       <div class="documentContentsItem">
                         <xsl:if test="//stix:Observables|//cybox:Observables">

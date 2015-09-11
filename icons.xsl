@@ -91,6 +91,10 @@
       <xsl:copy-of select="stix:generateIconGeneric('iconObservables', 'observable')" />
     </xsl:template>
   
+    <xsl:template name="iconReports">
+      <xsl:copy-of select="stix:generateIconGeneric('iconReports', 'report')" />
+    </xsl:template>
+  
     <xsl:template name="iconThreatActors">
       <xsl:copy-of select="stix:generateIconGeneric('iconThreatActors', 'threat_actor')" />
     </xsl:template>
