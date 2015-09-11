@@ -653,7 +653,7 @@ mdunn@mitre.org
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_1D -->
   <xsl:template
-    match="cybox:Observable|stixCommon:Observable|stix:Report|report:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|report:Indicator|stix:TTP|stixCommon:TTP|report:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|report:Campaign|stix:Incident|stixCommon:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|report:Threat_Actor|ET:Exploit_Target|report:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|report:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
+    match="cybox:Observable|stixCommon:Observable|stix:Report|report:Report|indicator:Observable|stix:Indicator|stixCommon:Indicator|indicator:Indicator|report:Indicator|stix:TTP|stixCommon:TTP|report:TTP|stixCommon:Kill_Chain_Phase|stix:Campaign|stixCommon:Campaign|report:Campaign|stix:Incident|stixCommon:Incident|report:Incident|stix:Threat_Actor|stixCommon:Threat_Actor|report:Threat_Actor|ET:Exploit_Target|report:Exploit_Target|stixCommon:Exploit_Target|stixCommon:Course_Of_Action|stix:Course_Of_Action|report:Course_Of_Action|TTP:Identity|marking:Marking|stixCommon:Identity|ta:Identity|incident:Victim|ttp:Attack_Pattern|*:Description|*:Short_Description"
     mode="printReference">
     <xsl:param name="reference" select="()"/>
     <xsl:param name="normalized" select="()"/>
@@ -808,7 +808,7 @@ mdunn@mitre.org
                   <xsl:call-template name="processCampaignContents"/>
                 </div>
               </xsl:when>
-              <xsl:when test="self::stix:Incident|self::stixCommon:Incident">
+              <xsl:when test="self::stix:Incident|self::stixCommon:Incident|self::report:Incident">
                 <div class="containerIncident">
                   <xsl:call-template name="processIncidentContents"/>
                 </div>
