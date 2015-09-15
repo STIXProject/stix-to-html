@@ -802,7 +802,7 @@ ikirillov@mitre.org
     
     See also the similar template in cybox_common.xsl.
   -->
-  <!-- REFERENCE: HELP_UPDATE_STEP_3 -->
+  <!-- REFERENCE: HELP_UPDATE_STEP_3 (a) -->
   <xsl:template match="cybox:Observable[@idref]|cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|report:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|stix:Campaign[@idref]|report:Campaign[@idref]|et:Exploit_Target[@idref]|report:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]|stix:Threat_Actor[@idref]|report:Threat_Actor[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     

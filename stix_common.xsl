@@ -1638,6 +1638,7 @@
     
     See also the similar template in cybox_common.xsl.
   -->
+  <!-- REFERENCE: HELP_UPDATE_STEP_3 (b) -->
   <xsl:template match="stixCommon:Kill_Chain_Phase[@idref]|stixCommon:TTP[@idref]|report:TTP[@idref]|stixCommon:Incident[@idref]|report:Incident[@idref]|stixCommon:Indicator[@idref]|report:Indicator[@idref]|maecPackage:Malware_Instance_Object_Attributes[@idref]|maecPackage:Malware_Subject_Reference[@idref]|maecPackage:Bundle[@idref]|maecBundle:Capability[@idref]|maecBundle:Strategic_Objective[@idref]|maecBundle:Tactical_Objective[@idref]|maecPackage:Analysis[@idref]|maecPackage:Tool[@idref]|maecPackage:Finding_Bundle[@idref]|maecPackage:Bundle[@idref]|maecPackage:Action_Equivalence[@idref]|maecBundle:AV_Classification[@idref]|maecBundle:Behavior[@idref]|maecBundle:Action[@idref]|maecPackage:Findings_Bundle_Reference[@idref]|maecBundle:Object[@idref]|maecBundle:Root_Process[@idref]|maecBundle_Spawned_Process[@idref]|maecBundle:Injected_Process[@idref]|maecBundle:Action_Collection[@idref]|maecBundle:Object_Collection[@idref]|maecBundle:Behavior_Collection[@idref]|maecPackage:Malware_Subject[@idref]|maecPackage:Action_Reference[@idref]|*:Description[@idref]|*:Short_Description[@idref]|stixCommon:Report[@idref]">
     <div class="debug">DEBUG kill chain phase w/ idref</div>
     <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
