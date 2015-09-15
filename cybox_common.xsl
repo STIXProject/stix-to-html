@@ -296,62 +296,62 @@ ikirillov@mitre.org
       </xsl:if>  
       <xsl:if test="report:Observables/cybox:Observable">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Observables/cybox:Observable" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Observables/cybox:Observable" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Observables', $contents)" />
       </xsl:if>  
       <xsl:if test="report:Indicators/report:Indicator">
         <xsl:variable name="contents">
-            <xsl:apply-templates select="report:Indicators/report:Indicator" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Indicators/report:Indicator" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Indicators', $contents)" />
       </xsl:if>  
     
       <xsl:if test="report:TTPs/report:TTP">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:TTPs/report:TTP" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:TTPs/report:TTP" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('TTPs', $contents)" />
       </xsl:if>
       
       <xsl:if test="report:Exploit_Targets/report:Exploit_Target">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Exploit_Targets/report:Exploit_Target" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Exploit_Targets/report:Exploit_Target" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Exploit Targets', $contents)" />
       </xsl:if>
       
       <xsl:if test="report:Incidents/report:Incident">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Incidents/report:Incident" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Incidents/report:Incident" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Incidents', $contents)" />
       </xsl:if>  
       
       <xsl:if test="report:Courses_Of_Action/report:Course_Of_Action">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Courses_Of_Action/report:Course_Of_Action" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Courses_Of_Action/report:Course_Of_Action" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Courses of Action', $contents)" />
       </xsl:if>  
 
       <xsl:if test="report:Campaigns/report:Campaign">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Campaigns/report:Campaign" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Campaigns/report:Campaign" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Campaigns', $contents)" />
       </xsl:if>  
       
       <xsl:if test="report:Threat_Actors/report:Threat_Actor">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Threat_Actors/report:Threat_Actor" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Threat_Actors/report:Threat_Actor" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Threat Actors', $contents)" />
       </xsl:if>  
       
       <xsl:if test="report:Related_Reports/report:Related_Report">
         <xsl:variable name="contents">
-          <xsl:apply-templates select="report:Related_Reports/report:Related_Report" mode="cyboxProperties" />
+          <xsl:apply-templates select="report:Related_Reports/report:Related_Report" />
         </xsl:variable>
         <xsl:copy-of select="stix:printNameValueTable('Related Reports', $contents)" />
       </xsl:if>  
@@ -803,7 +803,7 @@ ikirillov@mitre.org
     See also the similar template in cybox_common.xsl.
   -->
   <!-- REFERENCE: HELP_UPDATE_STEP_3 -->
-  <xsl:template match="cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|et:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]">
+  <xsl:template match="cybox:Observable[@idref]|cybox:Object[@idref]|cybox:Event[@idref]|cybox:Related_Object[@idref]|cybox:Associated_Object[@idref]|stixCommon:Course_Of_Action[@idref]|report:Course_Of_Action[@idref]|stix:Course_Of_Action[@idref]|cybox:Action[@idref]|cybox:Action_Reference[@idref]|indicator:Related_Campaign[@idref]|stix:Campaign[@idref]|report:Campaign[@idref]|et:Exploit_Target[@idref]|report:Exploit_Target[@idref]|stixCommon:Exploit_Target[@idref]|stix:Threat_Actor[@idref]|report:Threat_Actor[@idref]">
       <!-- [object link here - - <xsl:value-of select="fn:data(@idref)" />] -->
     
       <xsl:choose>
