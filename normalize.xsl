@@ -338,7 +338,8 @@
         </xsl:variable>
         <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
             <xsl:for-each select="$siblingsSorted/*" >
-                <xsl:copy-of select="."/>
+                <!-- <xsl:copy-of select="."/> -->
+                <xsl:apply-templates mode="verbatim" select="." />
             </xsl:for-each>
         <!-- </xsl:element> -->
     </xsl:template>
@@ -353,7 +354,8 @@
         </xsl:variable>
         <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
             <xsl:for-each select="$siblingsSorted/*" >
-                <xsl:copy-of select="."/>
+              <!-- <xsl:copy-of select="."/> -->
+              <xsl:apply-templates mode="verbatim" select="." />
             </xsl:for-each>
         <!-- </xsl:element> -->
     </xsl:template>
@@ -368,7 +370,8 @@
         </xsl:variable>
         <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
         <xsl:for-each select="$siblingsSorted/*" >
-            <xsl:copy-of select="."/>
+          <!-- <xsl:copy-of select="."/> -->
+          <xsl:apply-templates mode="verbatim" select="." />
         </xsl:for-each>
         <!-- </xsl:element> -->
     </xsl:template>
@@ -383,12 +386,16 @@
         </xsl:variable>
         <!-- <xsl:element name="{concat(prefix-from-QName(node-name()), ':', local-name(), '-list')}" namespace="{namespace-uri()}"> -->
         <xsl:for-each select="$siblingsSorted/*" >
-            <xsl:copy-of select="."/>
+          <!-- <xsl:copy-of select="."/> -->
+          <xsl:apply-templates mode="verbatim" select="." />
         </xsl:for-each>
         <!-- </xsl:element> -->
     </xsl:template>
+  
+    <xsl:template match="*:Description/@id|*:Short_Description/@id|*:Business_Function_Or_Role/@id|*:Description_Of_Effect/@id" mode="verbatim">
+    </xsl:template>
     
-    
+  
   <!-- -->
   
 
