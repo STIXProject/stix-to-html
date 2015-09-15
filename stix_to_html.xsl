@@ -432,7 +432,7 @@ mdunn@mitre.org
                     <a href="#reportTopLevelCategoryContainer">
                       <div class="documentContentsItem">
                         <xsl:if test="//stix:Reports/stix:Report">
-                          <xsl:call-template name="iconObservables"/>
+                          <xsl:call-template name="iconReports"/>
                         </xsl:if>
                       </div>
                     </a>
