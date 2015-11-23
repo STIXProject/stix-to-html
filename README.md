@@ -4,13 +4,13 @@ A library of XSLT stylesheets, CSS, and JavaScript which enables the rendering o
 
 ## Overview
 
-The [Structued Threat Information eXpression](http://stix.mitre.org) (STIX) is a collaborative, community-driven effort to define and develop a standardized language for the representation and characterization of structured cyber threat information and is currently implemented in XML Schema.
+The [Structued Threat Information eXpression](https://stixproject.github.io/) (STIX) is a collaborative, community-driven effort to define and develop a standardized language for the representation and characterization of structured cyber threat information and is currently implemented in XML Schema.
 
 The **STIX to HTML** project defines a library of  XSLT stylesheets, CSS, and JavaScript that transforms STIX XML documents into a human-readable HTML view. It was designed to be leveraged by developers, either as a mechanism for batch rendering STIX documents or to be embedded as a visualization component within a STIX-capable application.
 
-**STIX to HTML** also supports the rendering of [Cyber Observable eXpression](http://cybox.mitre.org) (CybOX) documents and [Malware Attribute Enumeration and Characterization](http://maec.mitre.org) (MAEC) documents.
+**STIX to HTML** also supports the rendering of [Cyber Observable eXpression](https://cyboxproject.github.io/) (CybOX) documents and [Malware Attribute Enumeration and Characterization](https://maecproject.github.io/) (MAEC) documents.
 
-This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly!
+This is a work in progress, so please feel free to provide feedback or let us know if something isn't working properly at [stix@mitre.org](mailto:stix@mitre.org)!
 
 ## Requirements
 
